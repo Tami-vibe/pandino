@@ -26,17 +26,21 @@ describe("generateSite", () => {
     expect(site.business.certifications).toEqual([]);
     const json = JSON.stringify(site);
     expect(json).toContain("da € …");
-    expect(json).toContain("WhatsApp us");
+    expect(json).toContain("\"Call\"");
+    expect(json).not.toContain("WhatsApp");
     expect(json).toContain("Via Esempio 12, 20100 Milano MI (sample)");
     expect(json).toContain("+39 02 0000 0000 (sample)");
-    expect(json).toContain("Sample photo of a mechanic at work");
+    expect(json).toContain("Sample photo of a person with a car");
     expect(json).not.toMatch(/€\s*\d|\$\s*\d|\bASE\b|I-CAR|★/);
     expect(Object.values(site.assets).every((asset) => asset.source === "sample")).toBe(true);
     expect(site.pages.map((page) => page.slug)).toEqual(["/", "services", "process", "gallery", "contact", "estimate", "privacy", "cookie", "note-legali"]);
     expect(site.theme.stickyHeader).toBe(true);
     const hero = site.pages[0]?.sections[0];
     expect(hero?.recipe).toBe("hero.split-photo");
-    expect(hero?.fields.primaryCta).toMatchObject({ action: { type: "whatsapp" } });
+    expect(hero?.fields.primaryCta).toMatchObject({ action: { type: "tel" } });
+    expect(site.pages[0]?.sections.map((section) => section.variant)).toEqual([
+      "fullscreen", "brands", "grid", "facility", "filters", "photos", "tabs", "row", "cards", "split", "split", "banner", "visit", "band",
+    ]);
   });
 
   it("keeps a US sample with call and text", async () => {
@@ -50,7 +54,9 @@ describe("generateSite", () => {
     expect(site.pages.map((page) => page.slug)).toContain("accessibility");
     expect(JSON.stringify(site)).toContain("Your California rights");
     expect(site.pages[0]?.sections[0]?.fields.primaryCta).toMatchObject({ action: { type: "tel" } });
-    expect(json).toContain("Text us");
+    expect(json).toContain("Get an estimate");
+    expect(json).not.toContain("Text us");
+    expect(json).not.toContain("WhatsApp");
   });
 
   it("lets the user override the detected market", async () => {
@@ -59,7 +65,7 @@ describe("generateSite", () => {
     expect(site.business.market).toBe("IT");
     expect(site.business.address.city).toBe("Chicago");
     expect(JSON.stringify(site)).toContain("da € …");
-    expect(site.pages[0]?.sections[0]?.fields.primaryCta).toMatchObject({ action: { type: "whatsapp" } });
+    expect(site.pages[0]?.sections[0]?.fields.primaryCta).toMatchObject({ action: { type: "tel" } });
   });
 
   it("ignores invented prices from the model", async () => {

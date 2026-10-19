@@ -6,14 +6,15 @@ export function Icon({ name, fill = false }: { name: string; fill?: boolean }) {
   return <span className={fill ? "ms fill" : "ms"} aria-hidden="true">{name}</span>;
 }
 
-export function Rail({ site, group, theme, onPick, onTheme }: {
+export function Rail({ site, slug, group, theme, onPick, onTheme }: {
   site: Site;
+  slug: string;
   group: RailId;
   theme: "light" | "dark";
   onPick: (id: RailId) => void;
   onTheme: () => void;
 }) {
-  const sections = site.pages[0]?.sections ?? [];
+  const sections = site.pages.find((page) => page.slug === slug)?.sections ?? [];
   return (
     <nav className="rail" aria-label="Builder sections">
       <Link className="rail-logo" href="/" aria-label="Pandino home">🐼</Link>

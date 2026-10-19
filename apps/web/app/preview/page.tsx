@@ -13,13 +13,15 @@ export default function PreviewPage() {
   const [spot, setSpot] = useState({ id: "", tick: 0 });
   useEffect(() => {
     setSite(loadSite());
+    applyTone();
+    window.addEventListener("storage", applyTone);
     const saved = localStorage.getItem("pandino-cookie");
     if (saved) document.documentElement.dataset.cookie = saved;
-    if (window.parent === window) return undefined;
+    if (window.parent === window) return () => window.removeEventListener("storage", applyTone);
     function onMessage(event: MessageEvent) { applyMessage(event, setSite, setSlug, setSpot); }
     window.addEventListener("message", onMessage);
     window.parent.postMessage("pandino-preview-ready", location.origin);
-    return () => window.removeEventListener("message", onMessage);
+    return () => { window.removeEventListener("message", onMessage); window.removeEventListener("storage", applyTone); };
   }, []);
   useEffect(() => {
     const node = root.current;
@@ -40,6 +42,11 @@ export default function PreviewPage() {
       <SitePage site={site} slug={page} links="file" />
     </div>
   );
+}
+
+function applyTone() {
+  const saved = localStorage.getItem("pandino-theme");
+  document.documentElement.dataset.tone = saved === "dark" ? "dark" : "light";
 }
 
 function applyMessage(event: MessageEvent, setSite: (site: Site) => void, setSlug: (slug: string) => void, setSpot: (value: (prev: { id: string; tick: number }) => { id: string; tick: number }) => void) {

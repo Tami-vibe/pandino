@@ -1,15 +1,13 @@
 import { z } from "zod";
 import { businessSchema } from "./business";
 import { checkSite } from "./check";
+import { RECIPES } from "./recipes";
+import { reviewsSchema } from "./reviews";
 
 const locale = z.string().regex(/^[a-z]{2}-[A-Z]{2}$/);
 const hex = z.string().regex(/^#[0-9A-Fa-f]{6}$/);
 const id = z.string().min(1);
 const text = z.record(locale, z.string().min(1));
-const recipes = [
-  "hero.split-photo", "pains.cards", "services.menu-from-prices", "services.process-insurance",
-  "trust.reviews-certs", "trust.before-after", "convert.quote-booking", "footer.contact-map", "legal.template",
-] as const;
 
 const asset = z.strictObject({
   type: z.literal("image"),
@@ -29,7 +27,7 @@ const form = z.strictObject({
 const section = z.strictObject({
   id,
   group: z.enum(["hero", "pains", "services", "trust", "convert", "footer", "legal"]),
-  recipe: z.enum(recipes),
+  recipe: z.enum(RECIPES),
   recipeVersion: z.number().int().positive(),
   variant: id,
   fields: z.record(z.string(), z.json()),
@@ -58,6 +56,7 @@ export const siteSchema = z
     pages: z.array(page).min(1),
     assets: z.record(id, asset),
     forms: z.record(id, form),
+    reviews: reviewsSchema,
   })
   .superRefine(checkSite);
 

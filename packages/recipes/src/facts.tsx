@@ -1,6 +1,6 @@
 import type { Site } from "@pandino/schema";
 import { Mark } from "./media";
-import { actionHref, liveAction } from "./parts";
+import { actionHref, liveAction, pageHref } from "./parts";
 
 export function placeLine(site: Site) {
   const { street, city, region, country } = site.business.address;
@@ -24,11 +24,14 @@ export function phoneLabel(site: Site) {
   return site.business.phone;
 }
 
-export function GoogleBadge({ site }: { site: Site }) {
-  const { googleReviewsUrl: url, googleRating: rating, googleReviewCount: count } = site.business;
-  const ready = url.startsWith("https://") && rating != null && count != null;
-  const label = ready ? `${rating} · ${count} Google reviews` : "Add your Google rating and review link";
-  return <a className="chip google-badge" href={ready ? url : "#reviews"}>{label}</a>;
+export function ReviewBadge({ site }: { site: Site }) {
+  const reviews = site.reviews ?? [];
+  const count = reviews.length;
+  const sample = reviews.every((item) => item.source === "sample");
+  const score = count ? Math.round(reviews.reduce((sum, item) => sum + item.rating, 0) / count) : 0;
+  const label = count ? `${sample ? "Sample · " : ""}${score} · ${count} reviews` : "Sample · add your reviews";
+  const id = site.pages.flatMap((page) => page.sections).find((section) => section.recipe === "trust.reviews-certs")?.id ?? "reviews";
+  return <a className="chip review-badge" href={`#${id}`}>{label}</a>;
 }
 
 export function MapboxMap({ query }: { query: string }) {
@@ -43,11 +46,10 @@ export function MapboxMap({ query }: { query: string }) {
 
 export function StickyBar({ site }: { site: Site }) {
   const call = actionHref(liveAction(site, { type: "tel", value: site.business.phone }));
-  const chat = actionHref(liveAction(site, { type: "whatsapp", value: site.business.whatsapp || site.business.phone }));
   return (
-    <nav className="tap-bar" aria-label="Call or WhatsApp">
+    <nav className="tap-bar" aria-label="Call or get an estimate">
       <a href={call}><Mark name="call" />Call</a>
-      <a href={chat}><Mark name="chat" />WhatsApp</a>
+      <a href={pageHref("estimate", "file")}><Mark name="request_quote" />Get an estimate</a>
     </nav>
   );
 }

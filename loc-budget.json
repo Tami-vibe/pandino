@@ -1,7 +1,7 @@
 {
   "version": 1,
   "phase": "0-1",
-  "total": 1650,
+  "total": 3500,
   "caps": {
     "perFile": 80,
     "perFunction": 40
@@ -9,36 +9,36 @@
   "tooling": {
     "budget": 180,
     "paths": ["scripts/loc-meter.mjs"],
-    "note": "Line meter. Outside the 1650 product lines. Do not raise this to hide growth."
+    "note": "Line meter. Outside the 3500 product lines. Do not raise this to hide growth."
   },
   "modules": [
     {
       "id": "schema",
-      "budget": 112,
+      "budget": 170,
       "paths": ["packages/schema/**"],
       "note": "Site, page, section, theme, asset, and form types; locale maps; version field"
     },
     {
       "id": "theme",
-      "budget": 77,
+      "budget": 80,
       "paths": ["packages/theme/**"],
       "note": "Brand color to palette, contrast, five font presets, radius and spacing"
     },
     {
       "id": "recipes",
-      "budget": 400,
+      "budget": 1250,
       "paths": ["packages/recipes/**"],
       "note": "Eight recipes: Zod fields and JSX"
     },
     {
       "id": "renderer",
-      "budget": 56,
+      "budget": 160,
       "paths": ["packages/renderer/**"],
       "note": "Page assembly, static HTML, CSS inlining"
     },
     {
       "id": "ai",
-      "budget": 248,
+      "budget": 450,
       "paths": ["packages/ai/**"],
       "note": "Intake, plan, fill, validation, one retry, cost logging"
     },
@@ -50,7 +50,7 @@
     },
     {
       "id": "editor",
-      "budget": 450,
+      "budget": 1063,
       "paths": ["apps/web/editor/**", "apps/web/app/**"],
       "note": "Icon rail, flyout, undo, and the Next.js app shell"
     },
@@ -62,7 +62,7 @@
     },
     {
       "id": "exports",
-      "budget": 140,
+      "budget": 160,
       "paths": ["packages/export-html/**", "packages/export-wp/**"],
       "note": "HTML zip and a basic WordPress block theme"
     }

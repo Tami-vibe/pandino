@@ -44,7 +44,7 @@
             "headline": { "en-US": "{{heroHeadline}}" },
             "subhead": { "en-US": "{{heroSubhead}}" },
             "primaryCta": { "label": { "en-US": "{{contactLabel}}" }, "action": { "type": "{{contactType}}", "value": "{{phone}}" } },
-            "secondaryCta": { "label": { "en-US": "Get a quote" }, "action": { "type": "open_form", "formId": "frm_quote" } },
+            "secondaryCta": { "label": { "en-US": "Get an estimate" }, "action": { "type": "open_form", "formId": "frm_quote" } },
             "image": { "assetId": "ast_hero" }
           },
           "style": { "background": "surface", "overlay": 0 }
@@ -167,7 +167,7 @@
             "mapLabel": { "en-US": "Map — add your address" },
             "mapUrl": "{{mapUrl}}",
             "contact": { "label": { "en-US": "{{contactLabel}}" }, "action": { "type": "{{contactType}}", "value": "{{phone}}" } },
-            "altContact": { "label": { "en-US": "{{altLabel}}" }, "action": { "type": "{{altType}}", "value": "{{phone}}" } },
+            "altContact": { "label": { "en-US": "{{altLabel}}" }, "action": { "type": "{{altType}}", "formId": "frm_quote", "value": "{{phone}}" } },
             "share": { "label": { "en-US": "Share and reward" }, "action": { "type": "url", "value": "#share" } }
           },
           "style": { "background": "surface", "overlay": 0 }
@@ -201,6 +201,7 @@
       "height": 1067
     }
   },
+  "reviews": [],
   "forms": {
     "frm_quote": { "kind": "quote", "photoUpload": true, "consent": ["contact", "marketing_optional"] }
   }

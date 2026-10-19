@@ -1,4 +1,4 @@
-import { GoogleBadge } from "./facts";
+import { ReviewBadge } from "./facts";
 import { recipeFields } from "./fields";
 import { anyPhoto, Mark, photo } from "./media";
 import { Band, Cta, readFields, tx, type Block } from "./parts";
@@ -11,9 +11,9 @@ export function Hero({ site, section }: Block) {
   if (!fields) return null;
   const shot = photo(site, fields.image.assetId);
   return (
-    <Band id={section.id} group={section.group} label="Hero" icon="minor_crash" className="hero block hero-screen" wrap="wrap hero-copy" style={section.style} image={shot?.src}>
+    <Band id={section.id} group={section.group} label="Hero" variant={section.variant} icon="minor_crash" className="hero block hero-screen" wrap="wrap hero-copy" style={section.style} image={shot?.src}>
       <p className="eyebrow"><Mark name="minor_crash" />{tx(site, fields.eyebrow)}</p>
-      <GoogleBadge site={site} />
+      <ReviewBadge site={site} />
       <h1 className="display">{tx(site, fields.headline)}</h1>
       <p className="lede">{tx(site, fields.subhead)}</p>
       <div className="cta-row">
@@ -29,7 +29,7 @@ export function Pains({ site, section }: Block) {
   const fields = readFields(recipeFields["pains.cards"], section.fields);
   if (!fields) return null;
   return (
-    <Band id={section.id} group={section.group} label="Pains" className="block band strip" wrap="wrap" title={tx(site, fields.headline)} body={tx(site, fields.subhead)} icon="sentiment_dissatisfied" style={section.style} image={anyPhoto(site)}>
+    <Band id={section.id} group={section.group} label="Pains" variant={section.variant} className="block band strip" wrap="wrap" title={tx(site, fields.headline)} body={tx(site, fields.subhead)} icon="sentiment_dissatisfied" style={section.style} image={anyPhoto(site)}>
       <div className="cards">
         {fields.items.map((item, index) => (
           <article key={tx(site, item.title)} className="card icon-card">
@@ -47,7 +47,7 @@ export function Menu({ site, section }: Block) {
   const fields = readFields(recipeFields["services.menu-from-prices"], section.fields);
   if (!fields) return null;
   return (
-    <Band id={section.id} group={section.group} label={fields.items.length === 1 ? tx(site, fields.items[0]?.name ?? {}) || "Services" : "Services"} className="block" wrap="wrap" title={tx(site, fields.headline)} body={tx(site, fields.subhead)} icon="construction" style={section.style} image={anyPhoto(site)}>
+    <Band id={section.id} group={section.group} label={fields.items.length === 1 ? tx(site, fields.items[0]?.name ?? {}) || "Services" : "Services"} variant={section.variant} className="block" wrap="wrap" title={tx(site, fields.headline)} body={tx(site, fields.subhead)} icon="construction" style={section.style} image={anyPhoto(site)}>
       <ul className="menu">
         {fields.items.map((item, index) => (
           <li key={tx(site, item.name)}>

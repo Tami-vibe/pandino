@@ -9,7 +9,7 @@ export function Legal({ site, section }: Block) {
   if (!fields) return null;
   const title = tx(site, fields.headline);
   return (
-    <Band id={section.id} group={section.group} label={title} className="block legal" wrap="wrap" title={title} icon="description" style={section.style}>
+    <Band id={section.id} group={section.group} label={title} variant={section.variant} className="block legal" wrap="wrap" title={title} icon="description" style={section.style}>
       <article className="prose">
         {tx(site, fields.body).split("\n\n").map((paragraph) => <p key={paragraph.slice(0, 48)}>{paragraph}</p>)}
       </article>

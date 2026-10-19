@@ -15,7 +15,7 @@ export function Studio({ initial }: { initial: Site }) {
   const model = useStudio(initial);
   return (
     <div className="studio" data-theme={model.theme}>
-      <Rail site={model.site} group={model.group} theme={model.theme} onPick={model.openGroup} onTheme={model.chooseTheme} />
+      <Rail site={model.site} slug={model.slug} group={model.group} theme={model.theme} onPick={model.openGroup} onTheme={model.chooseTheme} />
       <Panel
         site={model.site} group={model.group} slug={model.slug} note={model.note} hot={model.hot}
         onFields={model.onFields} onBrand={model.onBrand} onStyle={model.onStyle} onTheme={model.onTheme}
@@ -44,7 +44,7 @@ function useStudio(initial: Site) {
   const focus = (id: string) => focusSection(site, id, setHot, setSlug);
   return {
     site, group, theme, note, hot, jump, slug,
-    openGroup(id: RailId) { setGroup(id); focus(sectionId(site, id)); setJump((n) => n + 1); },
+    openGroup(id: RailId) { setGroup(id); focus(sectionId(site, id, slug)); setJump((n) => n + 1); },
     openSection(id: string, next: string) { if (isGroup(next)) setGroup(next); focus(id); },
     openPage(next: string) { openStudioPage(site, next, setSlug, setGroup, setHot, setJump); },
     chooseTheme() {
@@ -65,6 +65,7 @@ function useStudio(initial: Site) {
 
 function rememberTheme(setTheme: (theme: "light" | "dark") => void) {
   const saved = localStorage.getItem("pandino-theme");
-  if (saved === "light" || saved === "dark") setTheme(saved);
-  else if (matchMedia("(prefers-color-scheme: dark)").matches) setTheme("dark");
+  const next = saved === "light" || saved === "dark" ? saved : matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+  setTheme(next);
+  localStorage.setItem("pandino-theme", next);
 }

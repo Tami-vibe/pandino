@@ -2,10 +2,10 @@ import { useState, type ChangeEvent } from "react";
 import type { Site } from "@pandino/schema";
 
 type Business = Site["business"];
-type Key = "name" | "phone" | "whatsapp" | "email" | "hours" | "googleReviewsUrl";
+type Key = "name" | "phone" | "email" | "hours" | "googleReviewsUrl";
 
 const LINES: [Key, string][] = [
-  ["name", "Name"], ["phone", "Phone"], ["whatsapp", "WhatsApp"], ["email", "Email"],
+  ["name", "Name"], ["phone", "Phone"], ["email", "Email"],
   ["hours", "Opening hours"], ["googleReviewsUrl", "Google reviews URL"],
 ];
 
@@ -30,7 +30,7 @@ export function BusinessInfo({ site, onBusiness, onTitle }: {
       <p className="hint">Leave the rating blank until it is the real one. We do not invent a number.</p>
       <Field label="Warranty" value={business.warranty} rows={3} onChange={(warranty) => set("warranty", warranty)} />
       <Field label="Payment options" value={business.payments.join("\n")} rows={4} onChange={(value) => set("payments", value.split("\n"))} />
-      <p className="hint">One payment or financing option per line. Phone and WhatsApp use +39… or +1….</p>
+      <p className="hint">One payment or financing option per line. Phone uses +39… or +1….</p>
     </div>
   );
 }
