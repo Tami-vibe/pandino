@@ -1,0 +1,32 @@
+{
+  "IT": [
+    ["milano", "Milano", "MI"],
+    ["milan", "Milano", "MI"],
+    ["roma", "Roma", "RM"],
+    ["rome", "Roma", "RM"],
+    ["torino", "Torino", "TO"],
+    ["turin", "Torino", "TO"],
+    ["napoli", "Napoli", "NA"],
+    ["naples", "Napoli", "NA"],
+    ["firenze", "Firenze", "FI"],
+    ["florence", "Firenze", "FI"],
+    ["bologna", "Bologna", "BO"],
+    ["genova", "Genova", "GE"],
+    ["genoa", "Genova", "GE"],
+    ["venezia", "Venezia", "VE"],
+    ["venice", "Venezia", "VE"],
+    ["palermo", "Palermo", "PA"],
+    ["verona", "Verona", "VR"],
+    ["bari", "Bari", "BA"]
+  ],
+  "US": [
+    ["chicago", "Chicago", "IL"],
+    ["columbus", "Columbus", "OH"],
+    ["new york", "New York", "NY"],
+    ["los angeles", "Los Angeles", "CA"],
+    ["houston", "Houston", "TX"],
+    ["miami", "Miami", "FL"],
+    ["dallas", "Dallas", "TX"],
+    ["seattle", "Seattle", "WA"]
+  ]
+}

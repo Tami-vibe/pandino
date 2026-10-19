@@ -1,0 +1,20 @@
+{
+  "name": "@pandino/theme",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/theme.ts"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "eslint": "^10.13.0",
+    "typescript": "~5.9.3",
+    "typescript-eslint": "^8.71.2",
+    "vitest": "^4.1.12"
+  }
+}

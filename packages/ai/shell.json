@@ -1,0 +1,199 @@
+{
+  "schemaVersion": 1,
+  "siteId": "site_draft",
+  "workspaceId": "ws_draft",
+  "locales": { "default": "en-US", "enabled": ["en-US"] },
+  "business": {
+    "name": "{{name}}",
+    "vertical": "{{vertical}}",
+    "market": "{{market}}",
+    "phone": "{{phone}}",
+    "address": { "city": "{{city}}", "region": "{{region}}", "country": "{{country}}" },
+    "certifications": []
+  },
+  "theme": {
+    "brandColor": "#000000",
+    "vibe": "bold-trustworthy",
+    "palette": { "primary": "#000000", "onPrimary": "#FFFFFF", "surface": "#FAFAF9", "text": "#1C1917" },
+    "fonts": { "heading": "Inter", "body": "Inter" },
+    "radius": "md",
+    "spacing": "comfortable"
+  },
+  "pages": [
+    {
+      "id": "pg_home",
+      "slug": "/",
+      "title": { "en-US": "{{name}}" },
+      "sections": [
+        {
+          "id": "sec_hero",
+          "group": "hero",
+          "recipe": "hero.split-photo",
+          "recipeVersion": 1,
+          "variant": "image-right",
+          "fields": {
+            "eyebrow": { "en-US": "{{label}} · {{city}}" },
+            "headline": { "en-US": "{{heroHeadline}}" },
+            "subhead": { "en-US": "{{heroSubhead}}" },
+            "primaryCta": { "label": { "en-US": "{{contactLabel}}" }, "action": { "type": "{{contactType}}", "value": "{{phone}}" } },
+            "secondaryCta": { "label": { "en-US": "Get a quote" }, "action": { "type": "open_form", "formId": "frm_quote" } },
+            "image": { "assetId": "ast_hero" }
+          },
+          "style": { "background": "surface", "overlay": 0 }
+        },
+        {
+          "id": "sec_pains",
+          "group": "pains",
+          "recipe": "pains.cards",
+          "recipeVersion": 1,
+          "variant": "three",
+          "fields": {
+            "headline": { "en-US": "{{painsHeadline}}" },
+            "subhead": { "en-US": "{{painsSubhead}}" },
+            "items": [
+              { "title": { "en-US": "{{pains.0.0}}" }, "body": { "en-US": "{{pains.0.1}}" } },
+              { "title": { "en-US": "{{pains.1.0}}" }, "body": { "en-US": "{{pains.1.1}}" } },
+              { "title": { "en-US": "{{pains.2.0}}" }, "body": { "en-US": "{{pains.2.1}}" } }
+            ]
+          },
+          "style": { "background": "surface", "overlay": 0 }
+        },
+        {
+          "id": "sec_menu",
+          "group": "services",
+          "recipe": "services.menu-from-prices",
+          "recipeVersion": 1,
+          "variant": "menu",
+          "fields": {
+            "headline": { "en-US": "{{servicesHeadline}}" },
+            "subhead": { "en-US": "{{servicesSubhead}}" },
+            "items": [
+              { "name": { "en-US": "{{services.0.0}}" }, "detail": { "en-US": "{{services.0.1}}" }, "priceLabel": { "en-US": "{{price}}" }, "duration": { "en-US": "Add a typical duration" } },
+              { "name": { "en-US": "{{services.1.0}}" }, "detail": { "en-US": "{{services.1.1}}" }, "priceLabel": { "en-US": "{{price}}" }, "duration": { "en-US": "Add a typical duration" } },
+              { "name": { "en-US": "{{services.2.0}}" }, "detail": { "en-US": "{{services.2.1}}" }, "priceLabel": { "en-US": "{{price}}" }, "duration": { "en-US": "Add a typical duration" } },
+              { "name": { "en-US": "{{services.3.0}}" }, "detail": { "en-US": "{{services.3.1}}" }, "priceLabel": { "en-US": "{{price}}" }, "duration": { "en-US": "Add a typical duration" } }
+            ]
+          },
+          "style": { "background": "surface", "overlay": 0 }
+        },
+        {
+          "id": "sec_process",
+          "group": "services",
+          "recipe": "services.process-insurance",
+          "recipeVersion": 1,
+          "variant": "steps",
+          "fields": {
+            "headline": { "en-US": "{{processHeadline}}" },
+            "subhead": { "en-US": "{{processSubhead}}" },
+            "steps": [
+              { "title": { "en-US": "{{steps.0.0}}" }, "body": { "en-US": "{{steps.0.1}}" } },
+              { "title": { "en-US": "{{steps.1.0}}" }, "body": { "en-US": "{{steps.1.1}}" } },
+              { "title": { "en-US": "{{steps.2.0}}" }, "body": { "en-US": "{{steps.2.1}}" } },
+              { "title": { "en-US": "{{steps.3.0}}" }, "body": { "en-US": "{{steps.3.1}}" } }
+            ],
+            "note": { "en-US": "If an insurer is involved, ask us to help with the paperwork. We only name insurers you confirm." }
+          },
+          "style": { "background": "surface", "overlay": 0 }
+        },
+        {
+          "id": "sec_reviews",
+          "group": "trust",
+          "recipe": "trust.reviews-certs",
+          "recipeVersion": 1,
+          "variant": "cards",
+          "fields": {
+            "headline": { "en-US": "Reviews" },
+            "subhead": { "en-US": "Nothing here is a real review yet." },
+            "reviews": [
+              {
+                "quote": { "en-US": "Replace this with a review from a real customer before you publish." },
+                "author": { "en-US": "Customer name" },
+                "placeholder": true
+              }
+            ],
+            "certificationsNote": { "en-US": "Add the certifications you actually hold. None are listed until you confirm them." }
+          },
+          "style": { "background": "surface", "overlay": 0 }
+        },
+        {
+          "id": "sec_gallery",
+          "group": "trust",
+          "recipe": "trust.before-after",
+          "recipeVersion": 1,
+          "variant": "pair",
+          "fields": {
+            "headline": { "en-US": "Before and after" },
+            "subhead": { "en-US": "Real photos only. These frames are empty on purpose." },
+            "before": { "assetId": "ast_before" },
+            "after": { "assetId": "ast_after" },
+            "caption": { "en-US": "Replace these frames with real before and after photos of your work." }
+          },
+          "style": { "background": "surface", "overlay": 0 }
+        },
+        {
+          "id": "frm_quote",
+          "group": "convert",
+          "recipe": "convert.quote-booking",
+          "recipeVersion": 1,
+          "variant": "form",
+          "fields": {
+            "headline": { "en-US": "Request a quote" },
+            "subhead": { "en-US": "This preview does not send the form." },
+            "formId": "frm_quote",
+            "submitLabel": { "en-US": "Request a quote" },
+            "photoNote": { "en-US": "Photo upload is a preview. Files are not stored." }
+          },
+          "style": { "background": "surface", "overlay": 0 }
+        },
+        {
+          "id": "contact",
+          "group": "footer",
+          "recipe": "footer.contact-map",
+          "recipeVersion": 1,
+          "variant": "columns",
+          "fields": {
+            "hours": { "en-US": "Add your opening hours" },
+            "address": { "en-US": "{{address}}" },
+            "phoneDisplay": { "en-US": "{{phoneDisplay}}" },
+            "phoneNote": { "en-US": "Add your number before you publish." },
+            "mapLabel": { "en-US": "Map — add your address" },
+            "mapUrl": "{{mapUrl}}",
+            "contact": { "label": { "en-US": "{{contactLabel}}" }, "action": { "type": "{{contactType}}", "value": "{{phone}}" } },
+            "altContact": { "label": { "en-US": "{{altLabel}}" }, "action": { "type": "{{altType}}", "value": "{{phone}}" } },
+            "share": { "label": { "en-US": "Share and reward" }, "action": { "type": "url", "value": "#share" } }
+          },
+          "style": { "background": "surface", "overlay": 0 }
+        }
+      ]
+    }
+  ],
+  "assets": {
+    "ast_hero": {
+      "type": "image",
+      "src": "https://placeholder.pandino.invalid/neutral.svg",
+      "alt": { "en-US": "Photo placeholder for {{name}}. Replace with a real photo of the shop." },
+      "source": "placeholder",
+      "width": 1600,
+      "height": 1067
+    },
+    "ast_before": {
+      "type": "image",
+      "src": "https://placeholder.pandino.invalid/neutral.svg",
+      "alt": { "en-US": "Before photo placeholder. Replace with a real photo of your work." },
+      "source": "placeholder",
+      "width": 1600,
+      "height": 1067
+    },
+    "ast_after": {
+      "type": "image",
+      "src": "https://placeholder.pandino.invalid/neutral.svg",
+      "alt": { "en-US": "After photo placeholder. Replace with a real photo of your work." },
+      "source": "placeholder",
+      "width": 1600,
+      "height": 1067
+    }
+  },
+  "forms": {
+    "frm_quote": { "kind": "quote", "photoUpload": true, "consent": ["contact", "marketing_optional"] }
+  }
+}

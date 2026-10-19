@@ -1,0 +1,7 @@
+[
+  { "vibe": "modern", "heading": "Syne", "body": "Manrope", "radius": "md" },
+  { "vibe": "premium", "heading": "DM Serif Display", "body": "Manrope", "radius": "md" },
+  { "vibe": "bold-trustworthy", "heading": "Montserrat", "body": "Inter", "radius": "md" },
+  { "vibe": "elegant", "heading": "Playfair Display", "body": "Inter", "radius": "sm" },
+  { "vibe": "friendly", "heading": "Poppins", "body": "Poppins", "radius": "lg" }
+]

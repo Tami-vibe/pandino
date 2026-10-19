@@ -1,7 +1,17 @@
 @import "tailwindcss";
+@import "./site.css";
 
 @media (min-width: 64rem) {
-  html {
-    font-size: 18px;
-  }
+  html { font-size: 18px; }
 }
+
+body {
+  margin: 0;
+  background: #f7f7f5;
+  color: #1f1f22;
+  font-family: var(--font-inter), Inter, sans-serif;
+}
+
+button, input, textarea, select { font: inherit; color: inherit; }
+
+a { color: inherit; }
