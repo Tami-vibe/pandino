@@ -1,5 +1,5 @@
 export const GROUPS = [
-  { id: "pages", icon: "storefront", label: "Info", title: "Business info" },
+  { id: "pages", icon: "storefront", label: "Pages", title: "Pages" },
   { id: "style", icon: "palette", label: "Style", title: "Brand & Styling" },
   { id: "hero", icon: "auto_stories", label: "Hero", title: "Hook & Story" },
   { id: "pains", icon: "sentiment_dissatisfied", label: "Pains", title: "Pains & Problems" },

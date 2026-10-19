@@ -47,7 +47,7 @@ export function Menu({ site, section }: Block) {
   const fields = readFields(recipeFields["services.menu-from-prices"], section.fields);
   if (!fields) return null;
   return (
-    <Band id={section.id} group={section.group} label="Services" className="block" wrap="wrap" title={tx(site, fields.headline)} body={tx(site, fields.subhead)} icon="construction" style={section.style} image={anyPhoto(site)}>
+    <Band id={section.id} group={section.group} label={fields.items.length === 1 ? tx(site, fields.items[0]?.name ?? {}) || "Services" : "Services"} className="block" wrap="wrap" title={tx(site, fields.headline)} body={tx(site, fields.subhead)} icon="construction" style={section.style} image={anyPhoto(site)}>
       <ul className="menu">
         {fields.items.map((item, index) => (
           <li key={tx(site, item.name)}>

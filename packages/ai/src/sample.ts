@@ -30,6 +30,14 @@ export function dressSample(site: Site): Site {
   next.business.email = "info@futura-example.it";
   next.business.address = { ...next.business.address, street: "Via Esempio 12" };
   next.business.hours = "Mon–Fri 8:00–18:00 (sample)";
+  next.business.vat = "IT00000000000 (sample)";
+  next.business.socials = {
+    facebook: "https://example.com/futura",
+    instagram: "https://example.com/futura",
+    tiktok: "https://example.com/futura",
+    youtube: "https://example.com/futura",
+    google: "https://example.com/futura",
+  };
   paint(next);
   const parsed = validateSite(next);
   if (!parsed.success) throw new Error("Sample site failed validation");

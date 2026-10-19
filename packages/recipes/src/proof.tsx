@@ -11,7 +11,7 @@ export function Reviews({ site, section }: Block) {
       <div>
         {fields.reviews.map((review) => (
           <blockquote key={tx(site, review.quote)} className="card review">
-            <span className="chip">Placeholder</span>
+            <span className="chip">Sample</span>
             <p>{tx(site, review.quote)}</p>
             <footer>{tx(site, review.author)}</footer>
           </blockquote>

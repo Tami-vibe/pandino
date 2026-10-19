@@ -111,7 +111,7 @@
   background: var(--surface);
   color: var(--text);
   font-family: var(--body), var(--font-inter), sans-serif;
-  font-size: calc(1rem * var(--type-scale));
+  font-size: calc(clamp(1rem, 0.9511rem + 0.2174vw, 1.125rem) * var(--type-scale));
   min-height: 100vh;
   max-width: 100%;
   overflow-x: clip;
@@ -119,6 +119,7 @@
 .site img, .site svg, .site video { max-width: 100%; height: auto; }
 .site[data-radius="sm"] { --radius: 10px; }
 .site[data-radius="lg"] { --radius: 22px; }
+.site[data-heading="Barlow Condensed"] { --heading: var(--font-barlow), "Barlow Condensed", sans-serif; }
 .site[data-heading="Syne"] { --heading: var(--font-syne); }
 .site[data-heading="DM Serif Display"] { --heading: var(--font-dm); }
 .site[data-heading="Montserrat"] { --heading: var(--font-montserrat); }
@@ -167,7 +168,7 @@
 .hero-grid, .split, .quote, .pair, .footer-grid { display: grid; gap: 2rem; }
 .split > .heading { grid-column: 1 / -1; }
 .eyebrow { margin: 0; font-weight: 650; color: var(--primary); }
-.site .eyebrow { display: flex; align-items: center; gap: 0.4rem; font-size: 0.75em; letter-spacing: 0.08em; text-transform: uppercase; }
+.site .eyebrow { display: flex; align-items: center; gap: 0.4rem; font-size: calc(clamp(0.8333rem, 0.8072rem + 0.1159vw, 0.9rem) * var(--type-scale)); letter-spacing: 0.08em; text-transform: uppercase; }
 .display, .heading h2, .footer h2 {
   font-family: var(--heading-family);
   font-weight: 800;
@@ -175,10 +176,13 @@
   line-height: 1.05;
   margin: 0.6rem 0 0;
 }
-.site .display { font-size: clamp(2.35em, 5.6vw, 4.4em); font-weight: 900; letter-spacing: -0.045em; line-height: 0.96; }
-.site .heading h2, .site .footer h2 { font-size: 2em; }
-.site .lede, .site .heading p { font-size: 1.15em; }
-.site .note, .site .price span, .site .review footer { font-size: 0.88em; }
+.site h1 { font-size: calc(clamp(2.4883rem, 2.1186rem + 1.6433vw, 3.4332rem) * var(--type-scale)); }
+.site h2, .site .heading h2, .site .footer h2, .site .site-footer h2 { font-size: calc(clamp(2.0736rem, 1.8103rem + 1.1704vw, 2.7466rem) * var(--type-scale)); }
+.site h3 { font-size: calc(clamp(1.728rem, 1.5444rem + 0.8161vw, 2.1973rem) * var(--type-scale)); }
+.site h4 { font-size: calc(clamp(1.44rem, 1.3156rem + 0.5527vw, 1.7578rem) * var(--type-scale)); }
+.site .display { font-size: calc(clamp(2.986rem, 2.475rem + 2.2705vw, 4.2915rem) * var(--type-scale)); font-weight: 700; letter-spacing: -0.03em; line-height: 0.96; }
+.site .lede, .site .heading p { font-size: calc(clamp(1.2rem, 1.1193rem + 0.3587vw, 1.4062rem) * var(--type-scale)); }
+.site .note, .site .price span, .site .review footer { font-size: calc(clamp(0.8333rem, 0.8072rem + 0.1159vw, 0.9rem) * var(--type-scale)); }
 .lede, .heading p, .card p, .menu p, .steps p, .note { color: var(--muted); line-height: 1.5; }
 .cta-row { display: flex; flex-wrap: wrap; gap: 0.7rem; margin-top: 1.5rem; }
 .cards, .steps { display: grid; gap: 0.7rem; margin-top: 1rem; }
@@ -248,7 +252,7 @@
 .phone { font-size: clamp(1.2rem, 4vw, 1.6rem); font-weight: 700; letter-spacing: 0.02em; margin: 0; overflow-wrap: anywhere; }
 .footer { border-top: 1px solid color-mix(in srgb, var(--text) 10%, transparent); }
 .strip { padding-top: 0.35rem; padding-bottom: 1rem; }
-.strip .heading h2 { font-size: 1.15rem; }
+.strip .heading h2 { font-size: calc(clamp(1.44rem, 1.3156rem + 0.5527vw, 1.7578rem) * var(--type-scale)); }
 .strip .heading p, .strip .card p { display: none; }
 .strip .cards { margin-top: 0.4rem; }
 .strip .card { padding: 0.6rem 0.75rem; }
@@ -292,7 +296,7 @@
 }
 
 @media (max-width: 63.99rem) {
-  .topnav nav { display: none; }
+  .topnav nav { display: flex; flex-wrap: wrap; gap: 0.35rem 0.7rem; }
   .tools button { margin-left: 0; width: 100%; }
   .tap-bar {
     display: grid;
@@ -384,3 +388,30 @@ html { scroll-behavior: smooth; }
 .builder section[data-label].is-hot > .section-tag { display: inline-flex; }
 .builder section[data-label]:hover,
 .builder section[data-label].is-hot { outline: 2px solid var(--primary, #111); outline-offset: -2px; }
+
+/* Header, footer, and cookie bar follow HyperUI section patterns (MIT). */
+.nav-cta { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-left: auto; }
+.site-footer { padding: 2.6rem 1.1rem 5rem; border-top: 1px solid color-mix(in srgb, var(--text) 10%, transparent); background: color-mix(in srgb, var(--text) 4%, var(--surface)); }
+.foot-grid { display: grid; gap: 1.5rem; }
+.site-footer h2 { margin: 0 0 0.6rem; }
+.site-footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.35rem; }
+.site-footer a { text-decoration: none; }
+.socials { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-top: 0.8rem; }
+.socials a { display: inline-flex; align-items: center; gap: 0.25rem; min-height: 2.4rem; padding: 0 0.55rem; border: 1px solid color-mix(in srgb, var(--text) 16%, transparent); border-radius: 999px; }
+.socials small { font-size: 0.75rem; letter-spacing: 0.04em; text-transform: uppercase; }
+.legal .prose { max-width: 68ch; color: var(--text); }
+.legal .prose p { white-space: pre-wrap; }
+.cookie-bar {
+  position: sticky; bottom: 0; z-index: 6; display: flex; flex-wrap: wrap; gap: 0.8rem; align-items: center; justify-content: space-between;
+  margin: 0; padding: 0.9rem 1.1rem; background: var(--surface); color: var(--text);
+  border-top: 1px solid color-mix(in srgb, var(--text) 16%, transparent);
+}
+.cookie-actions { display: flex; gap: 0.5rem; }
+.cookie-bar button {
+  min-height: 2.6rem; padding: 0.4rem 0.95rem; border-radius: 999px; border: 1px solid var(--text);
+  background: var(--surface); color: var(--text); font-weight: 700; cursor: pointer;
+}
+html[data-cookie] .cookie-bar { display: none; }
+@media (min-width: 64rem) {
+  .foot-grid { grid-template-columns: 1.4fr 1fr 0.8fr 1fr; }
+}

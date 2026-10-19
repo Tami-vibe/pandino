@@ -30,6 +30,7 @@ export function Quote({ site, section }: Block) {
         <label>Name<input className="field" name="name" autoComplete="name" /></label>
         <label>Phone<input className="field" name="phone" autoComplete="tel" /></label>
         <label className="check"><input type="checkbox" name="contact" /> I agree to be contacted about this quote.</label>
+        {site.business.market === "US" ? <label className="check"><input type="checkbox" name="sms" /> I agree to receive SMS about this request. Consent is not required to get an estimate. Message and data rates may apply. Reply STOP to cancel.</label> : null}
         <label className="check"><input type="checkbox" name="marketing" /> Marketing messages are optional and stay unticked.</label>
         <button className="btn btn-fill" type="button">{tx(site, fields.submitLabel)}</button>
       </form>

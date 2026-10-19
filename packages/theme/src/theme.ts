@@ -79,7 +79,7 @@ export function themeFromBrand(brandColor: string) {
     brandColor: brandColor.toUpperCase(),
     vibe: preset.vibe,
     palette: { ...readablePrimary(brandColor), surface: SURFACE, text: TEXT },
-    fonts: { heading: preset.heading, body: preset.body },
+    fonts: { heading: "Barlow Condensed", body: "Inter" },
     radius: preset.radius,
     spacing: "comfortable" as const,
     stickyHeader: true,

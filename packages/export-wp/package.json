@@ -4,7 +4,8 @@
   "private": true,
   "type": "module",
   "exports": {
-    ".": "./src/theme.tsx"
+    ".": "./src/theme.tsx",
+    "./zip": "./src/zip.ts"
   },
   "scripts": {
     "lint": "eslint .",

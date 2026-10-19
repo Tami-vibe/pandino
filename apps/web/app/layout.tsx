@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
-import { DM_Serif_Display, Inter, Manrope, Montserrat, Playfair_Display, Poppins, Syne } from "next/font/google";
+import { Barlow_Condensed, DM_Serif_Display, Inter, Manrope, Montserrat, Playfair_Display, Poppins, Syne } from "next/font/google";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"], weight: ["400", "500", "600", "700"], variable: "--font-inter" });
+const barlow = Barlow_Condensed({ subsets: ["latin"], weight: ["600", "700"], variable: "--font-barlow" });
 const manrope = Manrope({ subsets: ["latin"], weight: ["500", "700"], variable: "--font-manrope" });
 const syne = Syne({ subsets: ["latin"], weight: ["700", "800"], variable: "--font-syne" });
 const montserrat = Montserrat({ subsets: ["latin"], weight: ["700", "800"], variable: "--font-montserrat" });
@@ -17,13 +18,13 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
-  const fonts = [inter.className, inter.variable, manrope.variable, syne.variable, montserrat.variable, poppins.variable, dm.variable, playfair.variable];
+  const fonts = [inter.className, inter.variable, barlow.variable, manrope.variable, syne.variable, montserrat.variable, poppins.variable, dm.variable, playfair.variable];
   return (
     <html lang="en">
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0..1,0&icon_names=ads_click,auto_stories,call,call_to_action,car_repair,chat,check_circle,construction,dark_mode,deployed_code,description,desktop_windows,directions_car,format_paint,groups,html,light_mode,location_on,lock,mail,minor_crash,open_in_new,palette,payments,photo_camera,request_quote,save,schedule,search,sentiment_dissatisfied,smartphone,storefront,tablet_mac,verified&display=block" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0..1,0&icon_names=ads_click,auto_stories,call,call_to_action,car_repair,chat,check_circle,construction,dark_mode,deployed_code,description,desktop_windows,directions_car,format_paint,groups,html,light_mode,location_on,lock,mail,minor_crash,movie,open_in_new,palette,payments,photo_camera,play_circle,public,request_quote,save,schedule,search,sentiment_dissatisfied,smartphone,storefront,tablet_mac,verified&display=block" />
       </head>
       <body className={fonts.join(" ")}>{children}</body>
     </html>

@@ -1,0 +1,41 @@
+{
+  "IT": [
+    {
+      "slug": "privacy",
+      "title": "Informativa privacy",
+      "body": "Template, not legal advice. Replace every bracket before you publish.\n\nThis notice follows GDPR article 13. The controller is [controller name], [registered office], email [privacy email], phone [phone].\n\nWe use the details you send (name, phone, email, and photos of the car) to answer a quote request and to book work you approve. The legal basis is steps toward a contract, and a legal duty when an invoice or claim requires it.\n\nRecipients are the people in this shop who handle the job, and a processor only when you name one here: [processor, or none]. We do not sell the list.\n\nWe keep quote requests for [retention period] and invoices for the period the law requires. You can ask for access, correction, deletion, or a limit on use, and you can complain to the Garante per la protezione dei dati personali.\n\nThe European online dispute platform closed on 20 July 2025. This page does not link to it."
+    },
+    {
+      "slug": "cookie",
+      "title": "Cookie policy",
+      "body": "Template, not legal advice. Replace every bracket before you publish.\n\nThis site does not set non-essential cookies before you choose. The banner offers Accept and Reject with equal prominence. Scrolling the page is not consent. Closing the banner is not consent.\n\nEssential storage is only the choice you make in that banner, kept in this browser under the name pandino-cookie. Analytics, advertising, and embedded media stay off until you accept, and this template ships with none of them.\n\nThe rule follows the Garante cookie guidelines of 10 June 2021. Contact [controller name] at [privacy email] to ask what is stored."
+    },
+    {
+      "slug": "note-legali",
+      "title": "Note legali",
+      "body": "Template, not legal advice. Replace every bracket before you publish.\n\n[Company name] publishes this site. P.IVA [P.IVA]. The P.IVA also appears on the home page, as DPR 633/72 article 35 requires.\n\nFor an Srl or SpA, article 2250 of the civil code also asks for the registered office, the REA number, and the share capital. Registered office [registered office]. REA [REA]. Share capital [share capital].\n\nThe pages are a draft until the owner replaces the brackets. Photos and reviews marked sample are not this shop."
+    }
+  ],
+  "US": [
+    {
+      "slug": "privacy",
+      "title": "Privacy Policy",
+      "body": "Template, not legal advice. Replace every bracket before you publish. Effective [date].\n\n[Business name], [address], [email], [phone], is the business that collects information on this site. We collect the name, phone, email, and vehicle photos you type into a form, and the cookie choice stored in this browser.\n\nWe use that information to reply to a quote and to do work you approve. We do not sell personal information. We share it with [service providers, or none].\n\nYour California rights. If you are a California resident you can ask what we hold, ask us to delete it, and ask for a copy. Send the request to [email]. We will not discriminate against you for asking. CalOPPA: this policy says what we collect, who we share it with, and how to reach us. We honor a browser do-not-track signal by not adding tracking, and this template includes none.\n\nSMS is optional and is covered by the checkbox on the estimate form."
+    },
+    {
+      "slug": "terms",
+      "title": "Terms of Use",
+      "body": "Template, not legal advice. Replace every bracket before you publish.\n\nUse this site to read about [business name] and to request an estimate. A form submission is a request, not a contract, until the shop confirms the work in writing.\n\nPrices, times, and photos marked as placeholders or sample are not offers. Do not rely on them. The shop may change the pages.\n\nThese terms are governed by the laws of [state]. Contact [email] with questions."
+    },
+    {
+      "slug": "accessibility",
+      "title": "Accessibility",
+      "body": "Template, not legal advice. Replace every bracket before you publish.\n\n[Business name] wants this site to conform to WCAG 2.1 level AA. That covers text contrast, keyboard use, labels on form fields, and text that can resize.\n\nIf a page blocks you, email [email] or call [phone] and name the page and the problem. We will reply with a way to get the same information."
+    },
+    {
+      "slug": "cookies",
+      "title": "Cookie notice",
+      "body": "Template, not legal advice. Replace every bracket before you publish.\n\nThis site stores one item in this browser: your cookie choice, under the name pandino-cookie. It does not set analytics or advertising cookies.\n\nNon-essential cookies are not used. To ask a question, contact [business name] at [email]."
+    }
+  ]
+}

@@ -10,21 +10,23 @@ const DEVICES: [Device, string, string][] = [
   ["mobile", "smartphone", "Mobile"],
 ];
 
-export function Canvas({ site, hot, jump, onSelect, onDownload }: {
+export function Canvas({ site, hot, jump, slug, onSelect, onPage, onDownload }: {
   site: Site;
   hot: string;
   jump: number;
+  slug: string;
   onSelect: (id: string, group: string) => void;
+  onPage: (slug: string) => void;
   onDownload: (kind: "html" | "wordpress") => void;
 }) {
   const [device, setDevice] = useState<Device>("desktop");
   const { stage, scale } = useScale(device);
-  const frame = useFrame(site, hot, jump, onSelect);
+  const frame = useFrame(site, hot, jump, slug, onSelect, onPage);
   const inner = WIDTH[device];
-  const slug = site.business.name.toLowerCase().replace(/[^a-z0-9]+/g, "").slice(0, 28) || "shop";
+  const host = site.business.name.toLowerCase().replace(/[^a-z0-9]+/g, "").slice(0, 28) || "shop";
   return (
     <main className="canvas" style={{ "--glow": site.theme.palette.primary } as CSSProperties}>
-      <Toolbar slug={slug} site={site} device={device} onDevice={setDevice} onDownload={onDownload} />
+      <Toolbar slug={host} site={site} device={device} onDevice={setDevice} onDownload={onDownload} />
       <p className="draft-bar">Draft preview. Sample photos and contact details are marked. Replace placeholder reviews, prices, and certifications before publishing.</p>
       <div className="viewport" ref={stage}>
         <div className="stage-fit" style={{ width: inner * scale }}>

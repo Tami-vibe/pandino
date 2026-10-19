@@ -364,6 +364,14 @@ textarea.studio-input { resize: vertical; min-height: 72px; line-height: 1.4; }
 
 .save-btn, .save-note { font-size: 13px; }
 
+.page-list, .section-pills { display: flex; flex-direction: column; gap: 0.25rem; margin: 0 0 0.8rem; padding: 0; list-style: none; }
+.section-pills { flex-direction: row; flex-wrap: wrap; }
+.page-list button, .section-pills button {
+  font-size: 13px; text-align: left; border: 0; background: transparent; color: var(--text2);
+  padding: 0.35rem 0.5rem; border-radius: 8px; cursor: pointer;
+}
+.page-list button.on, .section-pills button.on { background: var(--accent-soft); color: var(--text); font-weight: 700; }
+
 @media (max-width: 860px) {
   .studio { flex-direction: column; height: auto; min-height: 100vh; overflow: visible; }
   .rail { width: 100%; min-width: 0; max-width: none; flex: none; flex-direction: row; overflow-x: auto; border-right: 0; border-bottom: 1px solid var(--line); }

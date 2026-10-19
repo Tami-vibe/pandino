@@ -5,15 +5,21 @@ import type { Site } from "@pandino/schema";
 import { zipStore } from "./zip";
 
 const SERIF = new Set(["DM Serif Display", "Playfair Display"]);
-const FONTS = `:root{--font-inter:"Inter",sans-serif;--font-manrope:"Manrope",sans-serif;--font-syne:"Syne",sans-serif;--font-montserrat:"Montserrat",sans-serif;--font-poppins:"Poppins",sans-serif;--font-dm:"DM Serif Display",serif;--font-playfair:"Playfair Display",serif}`;
+const FONTS = `:root{--font-inter:"Inter",sans-serif;--font-barlow:"Barlow Condensed",sans-serif;--font-manrope:"Manrope",sans-serif;--font-syne:"Syne",sans-serif;--font-montserrat:"Montserrat",sans-serif;--font-poppins:"Poppins",sans-serif;--font-dm:"DM Serif Display",serif;--font-playfair:"Playfair Display",serif}`;
 
 export function wordpressTheme(site: Site) {
-  const page = renderToStaticMarkup(<SitePage site={site} />).replace(/<form[\s\S]*?<\/form>/, "<p>This theme has no form. Add one with a plugin.</p>");
-  return zipStore([
+  const files: [string, string][] = [
     ["pandino-site/style.css", `${header(site)}\n@import url("${iconFontLink}");\n${FONTS}\n${loadSiteCss()}\n`],
     ["pandino-site/theme.json", `${JSON.stringify(tokens(site), null, 2)}\n`],
-    ["pandino-site/templates/index.html", `<!-- wp:html -->\n${page}\n<!-- /wp:html -->\n`],
-  ]);
+  ];
+  for (const page of site.pages) files.push(template(site, page.slug));
+  return zipStore(files);
+}
+
+function template(site: Site, slug: string): [string, string] {
+  const name = slug === "/" ? "templates/index.html" : `templates/page-${slug}.html`;
+  const html = renderToStaticMarkup(<SitePage site={site} slug={slug} links="pretty" />).replace(/<form[\s\S]*?<\/form>/g, "<p>This theme has no form. Add one with a plugin.</p>");
+  return [`pandino-site/${name}`, `<!-- wp:html -->\n${html}\n<!-- /wp:html -->\n`];
 }
 
 function header(site: Site) {
