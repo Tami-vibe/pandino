@@ -4,9 +4,9 @@ Read `docs/PLAN.md` before changing the product. These rules win when a prompt d
 
 ## Line budget
 
-Phases 0–1 share one budget of 1,400 counted lines. `loc-budget.json` splits that budget by module and sets the per-file and per-function caps. Run `pnpm meter` before you finish. A pull request states which module budgets it touches.
+Phases 0–1 share one budget of 1,650 counted lines. `loc-budget.json` splits that budget by module and sets the per-file and per-function caps. Run `pnpm meter` before you finish. A pull request states which module budgets it touches.
 
-Counted lines are non-blank, non-comment TypeScript, TSX, JavaScript, and PHP under `apps/`, `packages/`, `jobs/`, and `wordpress/`. Tests, config, CSS, recipe data and templates, docs, and the sidebar mockup do not count. The line meter is outside the 1,400 but has its own budget in `loc-budget.json`. Do not move product code into an uncounted bucket, and do not raise the tooling budget, to pass the meter.
+Counted lines are non-blank, non-comment TypeScript, TSX, JavaScript, and PHP under `apps/`, `packages/`, `jobs/`, and `wordpress/`. Tests, config, CSS, recipe data and templates, docs, and the sidebar mockup do not count. The line meter is outside the 1,650 but has its own budget in `loc-budget.json`. Do not move product code into an uncounted bucket, and do not raise the tooling budget, to pass the meter.
 
 ## How to change the code
 

@@ -16,7 +16,10 @@ describe("generateSite", () => {
     vi.stubEnv("AI_API_KEY", "");
     const site = await generateSite(futura);
     expect(site.business).toMatchObject({ name: "Futura Auto Body Shop", vertical: "body_shop", market: "IT", phone: "+390000000000" });
-    expect(site.business.address).toEqual({ city: "Milano", region: "MI", country: "IT" });
+    expect(site.business.address).toEqual({ street: "", city: "Milano", region: "MI", country: "IT" });
+    expect(site.business.warranty).toBe("");
+    expect(site.business.googleRating).toBeNull();
+    expect(site.business.payments).toEqual([]);
     expect(site.business.certifications).toEqual([]);
     const json = JSON.stringify(site);
     expect(json).toContain("da € …");
@@ -34,7 +37,7 @@ describe("generateSite", () => {
     vi.stubEnv("AI_API_KEY", "");
     const site = await generateSite(rossi);
     expect(site.business).toMatchObject({ name: "Rossi Auto Body", market: "US", phone: "+10000000000" });
-    expect(site.business.address).toEqual({ city: "Chicago", region: "IL", country: "US" });
+    expect(site.business.address).toEqual({ street: "", city: "Chicago", region: "IL", country: "US" });
     const json = JSON.stringify(site);
     expect(json).toContain("from $…");
     expect(json).toContain("Chicago, IL");

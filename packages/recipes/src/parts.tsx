@@ -27,13 +27,19 @@ export function actionHref(action: Action) {
   return `tel:${action.value ?? ""}`;
 }
 
+export function liveAction(site: Site, action: Action): Action {
+  if (action.type === "whatsapp") return { ...action, value: site.business.whatsapp || site.business.phone };
+  if (action.type === "tel" || action.type === "sms") return { ...action, value: site.business.phone };
+  return action;
+}
+
 export function Cta({ site, label, action, className }: {
   site: Site;
   label: Record<string, string>;
   action: Action;
   className: string;
 }) {
-  return <a className={className} href={actionHref(action)}>{tx(site, label)}</a>;
+  return <a className={className} href={actionHref(liveAction(site, action))}>{tx(site, label)}</a>;
 }
 
 export function Frame({ label }: { label: string }) {

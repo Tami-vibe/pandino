@@ -145,7 +145,7 @@
 .btn-line { background: transparent; color: var(--text); border: 1px solid color-mix(in srgb, var(--text) 16%, transparent); }
 .text-link { font-weight: 650; }
 
-.block { padding: 4.5rem 1.25rem; }
+.block { padding: 2.2rem 1.1rem; }
 .wrap { width: min(72rem, 100%); margin: 0 auto; }
 .band { background: color-mix(in srgb, var(--text) 3%, var(--surface)); }
 .hero-grid, .split, .quote, .pair, .footer-grid { display: grid; gap: 2rem; }
@@ -162,7 +162,8 @@
 .heading h2, .footer h2 { font-size: clamp(2rem, 4vw, 3.2rem); }
 .lede, .heading p, .card p, .menu p, .steps p, .note { color: var(--muted); line-height: 1.5; }
 .cta-row { display: flex; flex-wrap: wrap; gap: 0.7rem; margin-top: 1.5rem; }
-.cards, .steps { display: grid; gap: 0.9rem; margin-top: 1.75rem; }
+.cards, .steps { display: grid; gap: 0.7rem; margin-top: 1rem; }
+.steps { grid-template-columns: 1fr 1fr; }
 .card {
   background: #fff;
   border: 1px solid color-mix(in srgb, var(--text) 10%, transparent);
@@ -173,8 +174,8 @@
 .menu { list-style: none; margin: 1.75rem 0 0; padding: 0; border-top: 1px solid color-mix(in srgb, var(--text) 10%, transparent); }
 .menu li {
   display: grid;
-  gap: 0.4rem;
-  padding: 1.2rem 0;
+  gap: 0.35rem;
+  padding: 0.75rem 0;
   border-bottom: 1px solid color-mix(in srgb, var(--text) 10%, transparent);
 }
 .price { text-align: left; }
@@ -194,7 +195,7 @@
 .review footer { color: var(--muted); }
 .certs h3 { margin-top: 0; }
 .frame {
-  min-height: 18rem;
+  min-height: 9rem;
   display: grid;
   place-items: center;
   text-align: center;
@@ -224,19 +225,56 @@
 .area { min-height: 7rem; }
 .phone { font-size: 1.6rem; font-weight: 700; letter-spacing: 0.02em; margin: 0; }
 .footer { border-top: 1px solid color-mix(in srgb, var(--text) 10%, transparent); }
+.strip { padding-top: 0.35rem; padding-bottom: 1rem; }
+.strip .heading h2 { font-size: 1.15rem; }
+.strip .heading p, .strip .card p { display: none; }
+.strip .cards { margin-top: 0.4rem; }
+.strip .card { padding: 0.6rem 0.75rem; }
+.promise-line {
+  margin: 0.75rem 0 0;
+  padding: 0.7rem 0.9rem;
+  border-radius: var(--radius);
+  background: color-mix(in srgb, var(--primary) 12%, white);
+  font-weight: 650;
+}
+.pay { margin: 0.6rem 0 0; padding-left: 1.1rem; }
+.for-dent, .for-accident { display: none; }
+.form:has(input[value="dent"]:checked) .for-dent,
+.form:has(input[value="accident"]:checked) .for-accident { display: grid; gap: 0.85rem; }
+.job-pick { border: 0; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.4rem 0.9rem; }
+.job-pick legend { width: 100%; font-weight: 700; }
+.job-pick label { display: flex; gap: 0.4rem; align-items: center; }
+.mapbox-slot { min-height: 10rem; gap: 0.6rem; }
+.mapbox-slot a { font-weight: 700; }
+.tap-bar { display: none; }
 
 @media (min-width: 64rem) {
-  .hero-grid, .split, .quote, .footer-grid { grid-template-columns: 1.1fr 0.9fr; align-items: center; }
-  .cards, .steps { grid-template-columns: repeat(3, 1fr); }
+  .hero-grid, .split, .quote { grid-template-columns: 1.1fr 0.9fr; align-items: center; }
+  .footer-grid { grid-template-columns: 1fr 1fr 0.9fr; align-items: start; }
+  .cards { grid-template-columns: repeat(3, 1fr); }
   .steps { grid-template-columns: repeat(4, 1fr); }
+  .strip .heading p, .strip .card p { display: revert; }
+  .frame { min-height: 14rem; }
   .pair { grid-template-columns: 1fr 1fr; }
   .menu li { grid-template-columns: 1fr auto; align-items: baseline; }
   .price { text-align: right; }
   .topnav { padding-inline: 2rem; }
-  .block { padding: 6rem 2rem; }
+  .block { padding: 3.25rem 2rem; }
 }
 
 @media (max-width: 63.99rem) {
   .topnav nav { display: none; }
   .tools button { margin-left: 0; width: 100%; }
+  .tap-bar {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: fixed;
+    z-index: 5;
+    inset: auto 0 0;
+    background: var(--surface);
+    border-top: 1px solid color-mix(in srgb, var(--text) 12%, transparent);
+  }
+  .tap-bar a { min-height: 3.25rem; display: grid; place-items: center; font-weight: 700; text-decoration: none; }
+  .tap-bar a:first-child { background: var(--primary); color: var(--on-primary); }
+  .site { padding-bottom: 3.25rem; }
 }

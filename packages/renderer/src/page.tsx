@@ -1,6 +1,6 @@
 import type { CSSProperties } from "react";
 import type { Site } from "@pandino/schema";
-import { Recipe, actionHref, tx } from "@pandino/recipes";
+import { Recipe, StickyBar, actionHref, liveAction, tx } from "@pandino/recipes";
 import type { Action } from "@pandino/recipes/fields";
 
 const LINKS = [
@@ -49,9 +49,10 @@ export function SitePage({ site }: { site: Site }) {
             return section ? <a key={recipe} href={`#${section.id}`}>{label}</a> : null;
           })}
         </nav>
-        {contact?.action ? <a className="btn btn-fill" href={actionHref(contact.action)}>{tx(site, contact.label ?? {})}</a> : null}
+        {contact?.action ? <a className="btn btn-fill" href={actionHref(liveAction(site, contact.action))}>{tx(site, contact.label ?? {})}</a> : null}
       </header>
       {page.sections.map((section) => <Recipe key={section.id} site={site} section={section} />)}
+      <StickyBar site={site} />
     </article>
   );
 }

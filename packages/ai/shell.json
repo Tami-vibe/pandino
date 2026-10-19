@@ -8,7 +8,15 @@
     "vertical": "{{vertical}}",
     "market": "{{market}}",
     "phone": "{{phone}}",
-    "address": { "city": "{{city}}", "region": "{{region}}", "country": "{{country}}" },
+    "whatsapp": "{{phone}}",
+    "email": "",
+    "address": { "street": "", "city": "{{city}}", "region": "{{region}}", "country": "{{country}}" },
+    "hours": "Add your opening hours",
+    "googleReviewsUrl": "",
+    "googleRating": null,
+    "googleReviewCount": null,
+    "warranty": "",
+    "payments": [],
     "certifications": []
   },
   "theme": {

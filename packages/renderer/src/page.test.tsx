@@ -18,7 +18,17 @@ describe("SitePage", () => {
     expect(html).toContain("da € …");
     expect(html).toContain("Placeholder");
     expect(html).toContain("Add a photo of your shop");
+    expect(html).toContain("Photos and a written estimate before any work. No surprise charges.");
+    expect(html).toContain("Add your warranty or guarantee");
+    expect(html).toContain("Add your Google rating and review link");
+    expect(html).toContain("Get directions");
+    expect(html).toContain("data-slot=\"mapbox\"");
+    expect(html).toContain("Dent / body only");
+    expect(html).toContain("Photos are usually enough for a body-only estimate.");
+    expect(html).toContain("damage inside the car often doesn&#x27;t show in photos.");
+    expect(html).toContain("Add a photo of your team and shop");
     expect(html).not.toContain("I-CAR");
+    expect(html).not.toMatch(/4\.9|320 Google/);
     expect(html).not.toContain("placeholder.pandino.invalid");
   });
 });

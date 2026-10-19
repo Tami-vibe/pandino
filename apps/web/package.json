@@ -9,6 +9,8 @@
   },
   "dependencies": {
     "@pandino/ai": "workspace:*",
+    "@pandino/export-html": "workspace:*",
+    "@pandino/export-wp": "workspace:*",
     "@pandino/renderer": "workspace:*",
     "@pandino/schema": "workspace:*",
     "@pandino/theme": "workspace:*",

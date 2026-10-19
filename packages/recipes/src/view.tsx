@@ -1,8 +1,12 @@
-import { Gallery, Footer, Quote, Reviews } from "./proof";
-import { Hero, Menu, Pains, Process } from "./lead";
+import { StickyBar } from "./facts";
+import { Hero, Menu, Pains } from "./lead";
+import { Gallery, Reviews } from "./proof";
+import { Quote } from "./quote";
+import { Footer, Process } from "./shop";
 import type { Block } from "./parts";
 
-export { actionHref, tx } from "./parts";
+export { actionHref, liveAction, tx } from "./parts";
+export { StickyBar };
 
 const VIEWS = {
   "hero.split-photo": Hero,

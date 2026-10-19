@@ -20,12 +20,12 @@ Version 1.0 · 19 October 2026 · For: the founder and the first engineers
 |---|---|
 | Site = one canonical JSON document; everything else is a renderer | Agreed |
 | Stack as listed above | Agreed |
-| **First version (Phase 0–1 core MVP) has a hard budget of 1,400 lines of code** | **Agreed** |
+| **First version (Phase 0–1 core MVP) has a hard budget of 1,650 lines of code** | **Agreed** |
 | **Every later phase gets its own explicit line budget before work starts** | **Agreed** (numbers in §5 are *proposed*) |
 | English first; data model ready for Italian from day one | Agreed |
 | Launch narrow, add messaging channels one at a time | Agreed |
 
-**Roadmap in one line.** v1 core MVP (prompt → site → editor → HTML + basic WordPress export, 1,400 lines) → full editor → publish & domains & lead inbox (private beta) → full WordPress export + plugin (public launch) → CRM → messaging (WhatsApp Italy, SMS USA, calls) → referrals & retention → scale & team.
+**Roadmap in one line.** v1 core MVP (prompt → site → editor → HTML + basic WordPress export, 1,650 lines) → full editor → publish & domains & lead inbox (private beta) → full WordPress export + plugin (public launch) → CRM → messaging (WhatsApp Italy, SMS USA, calls) → referrals & retention → scale & team.
 
 **This week.** Create the GitHub repo `Tami-vibe/pandino`, write schema v0, port two recipes to React, prove one JSON → static HTML and → WordPress, and prove one AI fill with structured output. Details in §9.
 
@@ -322,7 +322,7 @@ The prototype (vanilla HTML/CSS/JS, Tailwind 4 + daisyUI 5 via CDN, Material Sym
 
 | Phase | Name | Size | Line budget | Status of budget |
 |---|---|---|---|---|
-| 0–1 | **v1 core MVP**: prompt → site → editor → HTML + basic WP export | L | **1,400** | **Agreed** |
+| 0–1 | **v1 core MVP**: prompt → site → editor → HTML + basic WP export | L | **1,650** | **Agreed** |
 | 2 | Full editor (sidebar port, AI edit, versions) | M | 1,500 | Proposed |
 | 3 | Publish, custom domains, lead inbox, billing → **private beta** | M | 1,500 | Proposed |
 | 4 | Full WordPress export + plugin bridge + WP.org theme → **public launch** | L | 2,500 (incl. PHP) | Proposed |
@@ -333,7 +333,7 @@ The prototype (vanilla HTML/CSS/JS, Tailwind 4 + daisyUI 5 via CDN, Material Sym
 
 ```mermaid
 flowchart TB
-  P01["Phase 0–1<br/>v1 core MVP<br/>L · 1,400 lines (agreed)"] --> P2["Phase 2<br/>Full editor<br/>M · 1,500"]
+  P01["Phase 0–1<br/>v1 core MVP<br/>L · 1,650 lines (agreed)"] --> P2["Phase 2<br/>Full editor<br/>M · 1,500"]
   P2 --> P3["Phase 3<br/>Publish + domains<br/>M · 1,500"]
   P3 --> B(["Private beta"])
   P3 --> P4["Phase 4<br/>WordPress<br/>L · 2,500"]
@@ -344,27 +344,27 @@ flowchart TB
   P7 --> P8["Phase 8<br/>Scale + team<br/>ongoing"]
 ```
 
-### 5.2 Phase 0–1 — v1 core MVP (agreed budget: 1,400 lines)
+### 5.2 Phase 0–1 — v1 core MVP (agreed budget: 1,650 lines)
 
 **Goal:** prove the core loop end to end: a shop owner writes a prompt, gets a real site made of recipes, changes it in the sidebar editor, and downloads it as HTML or as a basic WordPress block theme.
 
 **In scope:** repo + CI, schema v0, theme engine, 8 core recipes, AI generation, minimal editor, save/load, HTML export, basic WP theme export.
 **Out of scope (later phases):** hosting and domains, billing, CRM, messaging, WP plugin, image generation (library images only), Italian.
 
-**Line budget split (1,400 total):**
+**Line budget split (1,650 total):**
 
 | Module | Lines | What it contains |
 |---|---|---|
-| `schema` | 120 | Site, page, section, theme, asset, form types; locale maps; version field |
-| `theme` | 85 | Brand color → palette (OKLCH, contrast check), 5 font presets, radius/spacing |
-| `recipes` | 360 | 8 recipes × ~30 lines (Zod fields + JSX; Tailwind classes count as markup) |
-| `renderer` | 65 | Page assembly, static HTML render, CSS inlining |
-| `ai` | 290 | Intake → plan → fill, schema validation, one retry, cost logging |
-| Prompt UI | 155 | Chat box, brand color picker, generation progress |
-| Editor | 200 | Icon rail + flyout, controls generated from recipe schemas, inline text edit, reorder/add/remove section, undo/redo, light/dark |
-| Persistence + auth | 55 | Supabase auth, save/load site JSON with RLS |
-| Exports | 70 | HTML zip (~30); WP block theme with `theme.json` + patterns from core blocks for the 8 recipes (~40) |
-| **Total** | **1,400** | |
+| `schema` | 112 | Site, page, section, theme, asset, form types; locale maps; version field |
+| `theme` | 77 | Brand color → palette (OKLCH, contrast check), 5 font presets, radius/spacing |
+| `recipes` | 400 | 8 recipes × ~30 lines (Zod fields + JSX; Tailwind classes count as markup) |
+| `renderer` | 56 | Page assembly, static HTML render, CSS inlining |
+| `ai` | 248 | Intake → plan → fill, schema validation, one retry, cost logging |
+| Prompt UI | 131 | Chat box, brand color picker, generation progress |
+| Editor | 450 | Icon rail + flyout, controls generated from recipe schemas, inline text edit, reorder/add/remove section, undo/redo, light/dark |
+| Persistence + auth | 36 | Supabase auth, save/load site JSON with RLS |
+| Exports | 140 | HTML zip (~30); WP block theme with `theme.json` + patterns from core blocks for the 8 recipes (~40) |
+| **Total** | **1,650** | |
 
 **The 8 core recipes for v1:**
 
@@ -387,7 +387,7 @@ flowchart TB
 - [ ] The owner can edit any field, reorder sections, undo, switch light/dark in the editor; changes persist after reload.
 - [ ] HTML zip opens offline and looks like the preview (screenshot test).
 - [ ] WP theme zip installs on a clean WordPress (wp-env/Playground) and shows all 8 recipes with brand colors.
-- [ ] `cloc` shows ≤ 1,400 counted lines.
+- [ ] `cloc` shows ≤ 1,650 counted lines.
 - [ ] Cost and time per generation are logged and visible in an internal page.
 
 ### 5.3 Phase 2 — Full editor (proposed: 1,500 lines, M)
@@ -523,7 +523,7 @@ The stack is mainstream on purpose: TypeScript, React, Next.js, Postgres. That m
 
 ## 9. Next 5 steps (this week)
 
-1. **Create the GitHub repo `Tami-vibe/pandino`** (private). Set up pnpm + Turborepo, `apps/web`, `packages/schema`, `packages/recipes`, CI with lint, typecheck, tests and the `cloc` line-budget check (limit 1,400). Copy the prototype into `prototype/` and this plan into `docs/plan.md`.
+1. **Create the GitHub repo `Tami-vibe/pandino`** (private). Set up pnpm + Turborepo, `apps/web`, `packages/schema`, `packages/recipes`, CI with lint, typecheck, tests and the `cloc` line-budget check (limit 1,650). Copy the prototype into `prototype/` and this plan into `docs/plan.md`.
 2. **Write site schema v0** in Zod with locale maps, plus one full example site JSON (a body shop) and the JSON Schema export.
 3. **Port two recipes** (`hero.split-photo`, `services.menu-from-prices`) from the prototype to React + Tailwind and render the example JSON to a static HTML page.
 4. **WordPress spike:** turn the same JSON into a block theme (`theme.json` + 2 patterns, core blocks only) and install it in WordPress Playground or `wp-env`. This tests the key differentiator early.

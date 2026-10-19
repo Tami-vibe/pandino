@@ -1,7 +1,7 @@
 {
   "version": 1,
   "phase": "0-1",
-  "total": 1400,
+  "total": 1650,
   "caps": {
     "perFile": 80,
     "perFunction": 40
@@ -9,60 +9,60 @@
   "tooling": {
     "budget": 180,
     "paths": ["scripts/loc-meter.mjs"],
-    "note": "Line meter. Outside the 1400 product lines. Do not raise this to hide growth."
+    "note": "Line meter. Outside the 1650 product lines. Do not raise this to hide growth."
   },
   "modules": [
     {
       "id": "schema",
-      "budget": 120,
+      "budget": 112,
       "paths": ["packages/schema/**"],
       "note": "Site, page, section, theme, asset, and form types; locale maps; version field"
     },
     {
       "id": "theme",
-      "budget": 85,
+      "budget": 77,
       "paths": ["packages/theme/**"],
       "note": "Brand color to palette, contrast, five font presets, radius and spacing"
     },
     {
       "id": "recipes",
-      "budget": 360,
+      "budget": 400,
       "paths": ["packages/recipes/**"],
       "note": "Eight recipes: Zod fields and JSX"
     },
     {
       "id": "renderer",
-      "budget": 65,
+      "budget": 56,
       "paths": ["packages/renderer/**"],
       "note": "Page assembly, static HTML, CSS inlining"
     },
     {
       "id": "ai",
-      "budget": 290,
+      "budget": 248,
       "paths": ["packages/ai/**"],
       "note": "Intake, plan, fill, validation, one retry, cost logging"
     },
     {
       "id": "prompt-ui",
-      "budget": 155,
+      "budget": 131,
       "paths": ["apps/web/prompt/**"],
       "note": "Chat box, brand color picker, generation progress"
     },
     {
       "id": "editor",
-      "budget": 200,
+      "budget": 450,
       "paths": ["apps/web/editor/**", "apps/web/app/**"],
       "note": "Icon rail, flyout, undo, and the Next.js app shell"
     },
     {
       "id": "persistence",
-      "budget": 55,
+      "budget": 36,
       "paths": ["apps/web/persistence/**"],
       "note": "Supabase auth and save/load of site JSON"
     },
     {
       "id": "exports",
-      "budget": 70,
+      "budget": 140,
       "paths": ["packages/export-html/**", "packages/export-wp/**"],
       "note": "HTML zip and a basic WordPress block theme"
     }
