@@ -357,13 +357,16 @@ html { scroll-behavior: smooth; }
 .pay-mark { list-style: none; margin-left: -1.1rem; }
 .certs h3, .job-pick legend { display: flex; align-items: center; gap: 0.35rem; }
 .builder section[data-label] { position: relative; cursor: pointer; }
-.builder section[data-label]::before {
-  content: attr(data-label);
+.builder .heading > .icon { display: none; }
+.builder .section-tag {
   position: absolute;
   z-index: 4;
   top: 0.6rem;
   left: 0.6rem;
-  padding: 0.15rem 0.5rem;
+  display: none;
+  align-items: center;
+  gap: 0.2rem;
+  padding: 0.16rem 0.55rem 0.16rem 0.35rem;
   border-radius: 999px;
   background: var(--primary, #111);
   color: var(--on-primary, #fff);
@@ -372,11 +375,12 @@ html { scroll-behavior: smooth; }
   font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  opacity: 0;
+  line-height: 1;
   pointer-events: none;
 }
-.builder .hero-screen::before { top: 5rem; }
-.builder section[data-label]:hover::before,
-.builder section[data-label].is-hot::before { opacity: 1; }
+.builder .section-tag .icon { color: inherit; font-size: 14px; width: 14px; height: 14px; }
+.builder .hero-screen > .section-tag { top: 5rem; }
+.builder section[data-label]:hover > .section-tag,
+.builder section[data-label].is-hot > .section-tag { display: inline-flex; }
 .builder section[data-label]:hover,
 .builder section[data-label].is-hot { outline: 2px solid var(--primary, #111); outline-offset: -2px; }

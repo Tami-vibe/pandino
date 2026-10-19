@@ -35,7 +35,7 @@ export function Footer({ site, section }: Block) {
   const email = site.business.email.trim();
   const emailLine = email === "info@futura-example.it" ? `${email} (sample)` : email || "Add your email";
   return (
-    <Band id={section.id} group={section.group} label="Footer" className="block footer" wrap="wrap footer-grid" style={section.style} image={anyPhoto(site)}>
+    <Band id={section.id} group={section.group} label="Footer" icon="call_to_action" className="block footer" wrap="wrap footer-grid" style={section.style} image={anyPhoto(site)}>
       <div>
         <h2>{site.business.name}</h2>
         <p className="contact-line"><Mark name="location_on" />{placeLine(site)}</p>
