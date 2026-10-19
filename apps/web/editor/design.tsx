@@ -17,7 +17,7 @@ export function StyleFields({ site, onBrand, onTheme }: {
     if (/^#[0-9A-Fa-f]{6}$/.test(next)) onBrand(next);
   }
   return (
-    <div className="stack">
+    <div className="edits">
       <label className="edit">
         <span>Brand color</span>
         <span className="color-row">
@@ -41,7 +41,7 @@ export function StyleFields({ site, onBrand, onTheme }: {
 export function SectionLook({ style, onStyle }: { style: Style; onStyle: (style: Style) => void }) {
   const mode = style.background === "none" || style.background === "image" ? style.background : "tint";
   return (
-    <div className="stack look">
+    <div className="edits look">
       <label className="edit">
         <span>Background</span>
         <select className="studio-input" aria-label="Background" value={mode} onChange={(event) => onStyle({ ...style, background: event.target.value })}>

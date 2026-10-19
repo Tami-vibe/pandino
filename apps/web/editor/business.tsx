@@ -20,7 +20,7 @@ export function BusinessInfo({ site, onBusiness, onTitle }: {
     onBusiness({ ...business, [key]: value });
   }
   return (
-    <div className="stack">
+    <div className="edits">
       <Field label="Page title" value={title} onChange={onTitle} />
       {LINES.map(([key, label]) => <Field key={key} label={label} value={business[key]} onChange={(value) => set(key, value)} />)}
       <Field label="Street address" value={business.address.street} onChange={(street) => set("address", { ...business.address, street })} />
