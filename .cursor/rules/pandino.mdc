@@ -1,0 +1,17 @@
+---
+description: Pandino line budget and product rules for every change
+alwaysApply: true
+---
+
+# Pandino
+
+Phases 0–1 have a hard budget of 1,000 counted lines, split in `loc-budget.json`. Run `pnpm meter` before finishing. Say which module budgets the change touches.
+
+Counted lines are non-blank, non-comment TypeScript, TSX, JavaScript, and PHP in `apps/`, `packages/`, `jobs/`, and `wordpress/`. Tests, config, CSS, recipe data, docs, and the sidebar mockup do not count. The line meter is outside the 1,000 and has its own budget. Do not hide product code in an uncounted bucket or raise the tooling budget.
+
+- Small pull requests, one concern each.
+- Delete unused code before adding code.
+- No new dependency without the founder's approval.
+- No speculative abstraction.
+- No fake proof: never invent reviews, photos, certifications, or prices.
+- Do not raise a budget number yourself. If the cap is too small, stop and ask.

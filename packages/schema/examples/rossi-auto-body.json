@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "siteId": "site_01JB7Q4M2X",
+  "workspaceId": "ws_01JB7Q3ZK9",
+  "locales": { "default": "en-US", "enabled": ["en-US"] },
+  "business": {
+    "name": "Rossi Auto Body",
+    "vertical": "body_shop",
+    "market": "US",
+    "phone": "+15550100100",
+    "address": { "city": "Columbus", "region": "OH", "country": "US" },
+    "certifications": ["i-car-gold", "ase"]
+  },
+  "theme": {
+    "brandColor": "#E4572E",
+    "vibe": "bold-trustworthy",
+    "palette": { "primary": "#E4572E", "onPrimary": "#FFFFFF", "surface": "#FAFAF9", "text": "#1C1917" },
+    "fonts": { "heading": "Manrope", "body": "Inter" },
+    "radius": "md",
+    "spacing": "comfortable"
+  },
+  "pages": [
+    {
+      "id": "pg_home",
+      "slug": "/",
+      "title": { "en-US": "Home" },
+      "sections": [
+        {
+          "id": "sec_hero_1",
+          "group": "hero",
+          "recipe": "hero.split-photo",
+          "recipeVersion": 3,
+          "variant": "image-right",
+          "fields": {
+            "eyebrow": { "en-US": "I-CAR Gold Class certified" },
+            "headline": { "en-US": "Collision repair done right, the first time" },
+            "subhead": { "en-US": "Free estimates. We work with all insurance companies." },
+            "primaryCta": {
+              "label": { "en-US": "Get a free quote" },
+              "action": { "type": "open_form", "formId": "frm_quote" }
+            },
+            "secondaryCta": {
+              "label": { "en-US": "Call (555) 010-0100" },
+              "action": { "type": "tel", "value": "+15550100100" }
+            },
+            "image": { "assetId": "ast_7f3k" }
+          },
+          "style": { "background": "surface", "overlay": 0 }
+        }
+      ]
+    }
+  ],
+  "assets": {
+    "ast_7f3k": {
+      "type": "image",
+      "src": "https://cdn.pandino.example/ws_01JB7Q3ZK9/ast_7f3k.webp",
+      "alt": { "en-US": "Technician polishing a repaired red sedan" },
+      "source": "library",
+      "width": 1600,
+      "height": 1067
+    }
+  },
+  "forms": {
+    "frm_quote": { "kind": "quote", "photoUpload": true, "consent": ["contact", "marketing_optional"] }
+  }
+}

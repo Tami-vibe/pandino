@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<script>/* theme before paint: saved choice, else OS preference */
+(function(){var t=localStorage.getItem('pandino-theme');if(!t)t=matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';
+var q=new URLSearchParams(location.search).get('theme');if(q)t=q;document.documentElement.setAttribute('data-theme',t);})();</script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Pandino v102 · Icon-first sidebar mockup</title>
+<!-- Tailwind CSS 4 + daisyUI 5 (CDN, no build step) -->
+<link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+<!-- Google Fonts: UI font + the 5 preset pairings -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Syne:wght@700&family=Manrope:wght@500;700&family=DM+Serif+Display&family=Montserrat:wght@700;800&family=Playfair+Display:wght@700&family=Poppins:wght@600;700&display=swap" rel="stylesheet" />
+<!-- Material Symbols Rounded (Apache 2.0) -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,300..600,0..1,0&display=block" rel="stylesheet" />
+<link rel="stylesheet" href="sidebar.css" />
+</head>
+<body>
+<div class="app">
+  <!-- ICON RAIL -->
+  <nav class="rail" id="rail" aria-label="Builder sections">
+    <div class="rail-logo" data-tip="Pandino v102" data-tip-pos="right">🐼</div>
+    <div class="rail-items" id="railItems"></div>
+    <div class="rail-foot">
+      <button class="rail-btn" data-action="add" data-tip="Add section" data-tip-pos="right"><span class="ms">add_circle</span><small>Add</small></button>
+      <button class="rail-btn" data-action="theme" id="themeBtn" data-tip="Light mode" data-tip-pos="right"><span class="ms">light_mode</span><small>Theme</small></button>
+      <button class="rail-btn" data-group="settings" data-tip="Settings" data-tip-pos="right"><span class="ms">settings</span><small>Settings</small></button>
+    </div>
+  </nav>
+
+  <!-- FLYOUT PANEL -->
+  <aside class="panel" id="panel">
+    <header class="panel-head">
+      <div class="ph-row">
+        <div class="ph-title"><span class="ms fill" id="phIcon">palette</span><h1 id="phTitle">Style</h1></div>
+        <div class="ph-actions">
+          <button class="icon-btn" data-tip="Theme blueprint"><span class="ms">architecture</span></button>
+          <button class="icon-btn" data-tip="Sections spec"><span class="ms">checklist</span></button>
+          <button class="icon-btn" data-action="collapse" data-tip="Collapse panel"><span class="ms">left_panel_close</span></button>
+        </div>
+      </div>
+      <button class="page-chip" data-tip="Switch page"><span class="ms">description</span>Home<span class="ms sm">expand_more</span></button>
+    </header>
+    <div class="panel-body" id="panelBody"></div>
+    <footer class="panel-foot">
+      <button class="save-btn"><span class="ms fill">save</span>Save</button>
+      <div class="foot-icons">
+        <button class="icon-btn" data-tip="Undo"><span class="ms">undo</span></button>
+        <button class="icon-btn" data-tip="Redo"><span class="ms">redo</span></button>
+        <button class="icon-btn" data-action="preview" data-tip="Hide preview"><span class="ms">visibility</span></button>
+      </div>
+    </footer>
+  </aside>
+
+  <!-- CANVAS (placeholder preview) -->
+  <main class="canvas">
+    <div class="canvas-bar">
+      <div class="seg mini">
+        <button class="opt on" data-tip="Desktop"><span class="ms">desktop_windows</span></button>
+        <button class="opt" data-tip="Tablet"><span class="ms">tablet_mac</span></button>
+        <button class="opt" data-tip="Phone"><span class="ms">smartphone</span></button>
+      </div>
+      <div class="url"><span class="ms sm">lock</span>saadbodyshop.pandino.site</div>
+      <div class="bar-right">
+        <button class="icon-btn on" data-toggle data-tip="Canvas easing"><span class="ms">animation</span></button>
+        <button class="icon-btn" data-tip="Open live site"><span class="ms">open_in_new</span></button>
+      </div>
+    </div>
+    <div class="site" id="site">
+      <div class="site-nav" id="siteNav">
+        <b class="brand">SAAD<span>·</span>AUTOBODY</b>
+        <span class="links"><i>Services</i><i>Process</i><i>Reviews</i><i>FAQ</i></span>
+        <span class="cta" id="siteCta">Contact Us</span>
+      </div>
+      <section class="pd-hero" id="hero">
+        <div class="hero-img"></div>
+        <div class="hero-copy">
+          <span class="pd-badge"><span class="ms fill sm">star</span>4.9 · 320 Google reviews</span>
+          <h2 id="heroH">Precision Autobody Repair &amp; Refinishing</h2>
+          <p>Factory-grade collision repair, paint matching and refinishing — backed by a lifetime warranty.</p>
+          <div class="btns"><span class="b1">Get a free estimate</span><span class="b2">See our work</span></div>
+        </div>
+      </section>
+      <div class="biz"><span><span class="ms sm">schedule</span> Mon–Sat 8–6</span><span><span class="ms sm">call</span> (555) 201-7788</span><span><span class="ms sm">location_on</span> 12 Harbor Rd</span></div>
+    </div>
+  </main>
+</div>
+<div id="tip" class="tip" role="tooltip"></div>
+<script src="sidebar.js"></script>
+</body>
+</html>

@@ -1,1 +1,40 @@
-# pandino
+# Pandino
+
+Pandino builds websites for car aftermarket shops: garages, body shops, tyre shops, and glass shops. A site is one JSON document. Renderers turn that document into a hosted page, an HTML download, or a WordPress theme.
+
+This repository is the Phase 0 foundation: the site schema, the line budget, and CI. The product plan is `docs/PLAN.md`. The approved sidebar mockup is kept at `docs/design/sidebar-mockup/` for later phases.
+
+## Requirements
+
+- Node.js 22
+- pnpm 10 (`packageManager` pins the version)
+
+## Scripts
+
+```bash
+pnpm install
+pnpm dev          # Next.js app
+pnpm lint
+pnpm typecheck
+pnpm test
+pnpm meter
+pnpm meter -- --base origin/main
+```
+
+`pnpm meter` prints lines used against the Phase 0–1 budget and exits non-zero when a module budget, the 1,000-line total, a per-file cap, or a per-function cap is exceeded. The same check runs on every pull request and updates a comment with the table and the delta versus the base branch.
+
+## What counts
+
+Counted lines are non-blank, non-comment TypeScript, TSX, JavaScript, and PHP in `apps/`, `packages/`, `jobs/`, and `wordpress/`. Tests, config, CSS, recipe data and templates, docs, and the sidebar mockup are reported separately and do not count. `scripts/loc-meter.mjs` is outside the 1,000 and has its own budget in `loc-budget.json`.
+
+## Layout
+
+```
+apps/web                 Next.js app (Tailwind). The app shell counts toward the editor budget.
+packages/schema          Canonical site JSON schema, validator, and the Rossi Auto Body example.
+scripts/loc-meter.mjs    Line meter. No dependencies.
+docs/PLAN.md             Product and technical plan.
+docs/design/sidebar-mockup
+```
+
+Module paths for code that is not written yet (`packages/theme`, `packages/recipes`, `packages/ai`, and the others) are already listed in `loc-budget.json`, so new files are counted as soon as they appear.
