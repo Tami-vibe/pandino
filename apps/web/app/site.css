@@ -116,7 +116,11 @@
   --type-h2: calc(clamp(2.0736rem, 1.8103rem + 1.1704vw, 2.7466rem) * var(--type-scale));
   --type-h1: calc(clamp(2.4883rem, 2.1186rem + 1.6433vw, 3.4332rem) * var(--type-scale));
   --type-display: calc(clamp(2.986rem, 2.475rem + 2.2705vw, 4.2915rem) * var(--type-scale));
-  background: var(--surface);
+  --surface: var(--light-surface, #fafaf9);
+  --text: var(--light-text, #1c1917);
+  background:
+    radial-gradient(920px 420px at 88% -12%, color-mix(in srgb, var(--primary) 16%, transparent), transparent 62%),
+    var(--surface);
   color: var(--text);
   font-family: var(--body), var(--font-inter), Inter, sans-serif;
   font-size: var(--type-body);
@@ -206,10 +210,11 @@
 .cards, .steps { display: grid; gap: 0.7rem; margin-top: 1rem; }
 .steps { grid-template-columns: 1fr; }
 .card {
-  background: #fff;
-  border: 1px solid color-mix(in srgb, var(--text) 10%, transparent);
+  background: color-mix(in srgb, var(--surface, #fff) 94%, var(--text, #111));
+  border: 1px solid color-mix(in srgb, var(--text, #111) 10%, transparent);
   border-radius: var(--radius);
   padding: 1.15rem 1.2rem;
+  box-shadow: 0 16px 40px -28px color-mix(in srgb, var(--text, #111) 55%, transparent);
 }
 .card h3, .menu h3, .steps h3 { margin: 0 0 0.35rem; }
 .menu { list-style: none; margin: 1.75rem 0 0; padding: 0; border-top: 1px solid color-mix(in srgb, var(--text) 10%, transparent); }
@@ -447,3 +452,140 @@ html[data-cookie] .cookie-bar { display: none; }
 @media (min-width: 64rem) {
   .foot-grid { grid-template-columns: 1.4fr 1fr 0.8fr 1fr; }
 }
+
+.site .block { padding: 4rem 1.5rem; }
+.site .card h3 { font-size: var(--type-h4); }
+.site .shot, .site .pain img, .site .ba img { border-radius: 1rem; }
+.glass { backdrop-filter: blur(18px); }
+.review-badge, .brand-row, .svc, .stat, .offer-banner, .guarantee, .tabs label, .chip-row .chip {
+  border: 1px solid color-mix(in srgb, var(--text) 12%, transparent);
+}
+.review-badge {
+  width: fit-content;
+  margin-top: 1rem;
+  text-decoration: none;
+  background: color-mix(in srgb, white 18%, transparent);
+  color: inherit;
+  backdrop-filter: blur(12px);
+}
+.brand-row {
+  display: flex; flex-wrap: wrap; gap: 1rem 2rem; justify-content: space-between;
+  margin: 1.5rem 0 0; padding: 0; list-style: none;
+}
+.brand-row li {
+  font-family: var(--heading-family); font-size: var(--type-h4); letter-spacing: 0.12em;
+  text-transform: uppercase; opacity: 0.72;
+}
+.logos { padding-block: 2rem; }
+.svc-grid, .pain-grid, .stat-row, .review-row, .visit-grid, .feature-split, .faq-split {
+  display: grid; gap: 1.5rem; margin-top: 2rem;
+}
+.svc, .pain, .stat { display: grid; gap: 0.75rem; align-content: start; }
+.svc a, .svc.more { font-weight: 650; text-decoration: none; }
+.svc.more {
+  min-height: 12rem; align-content: end; padding: 1.5rem;
+  color: var(--on-primary);
+  background: linear-gradient(160deg, color-mix(in srgb, var(--primary) 72%, #111), var(--primary));
+}
+.pain .chip { width: fit-content; }
+.chips span {
+  display: inline-flex; border-radius: 999px; padding: 0.25rem 0.75rem;
+  background: color-mix(in srgb, var(--primary) 12%, var(--surface));
+}
+.guarantee, .offer-banner {
+  display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center;
+  margin-top: 1.5rem; padding: 1rem 1.25rem; border-radius: 1rem;
+  background: color-mix(in srgb, var(--primary) 10%, var(--surface));
+}
+.offer-banner { margin-top: 0; }
+.offer h2, .cta-band h2, .faq h2, .feature h2 { margin: 0; }
+.specs { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1.5rem 0 0; }
+.specs div { padding-top: 0.75rem; border-top: 1px solid color-mix(in srgb, var(--text) 14%, transparent); }
+.specs dt { color: var(--muted); font-size: var(--type-eyebrow); }
+.specs dd { margin: 0.25rem 0 0; font-family: var(--heading-family); font-size: var(--type-h4); }
+.chip-row, .badge-row, .tabs { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.chip-row .pick, .tabs input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+.chip-row .chip, .tabs label {
+  position: relative; cursor: pointer; padding: 0.5rem 0.9rem; border-radius: 999px;
+  background: color-mix(in srgb, var(--surface) 80%, var(--text));
+}
+.chip-row .chip:has(input:checked), .tabs label:has(input:checked) { background: var(--primary); color: var(--on-primary); }
+.filter-stage { margin-top: 1rem; }
+.filter-stage > * { display: none; }
+.filters:has(.chip-row label:nth-child(1) input:checked) .filter-stage > :nth-child(1),
+.filters:has(.chip-row label:nth-child(2) input:checked) .filter-stage > :nth-child(2),
+.filters:has(.chip-row label:nth-child(3) input:checked) .filter-stage > :nth-child(3),
+.filters:has(.chip-row label:nth-child(4) input:checked) .filter-stage > :nth-child(4) { display: block; }
+.tabs .panel { display: none; flex-basis: 100%; }
+.tabs:has(label:nth-child(1) input:checked) .panel:nth-child(4),
+.tabs:has(label:nth-child(2) input:checked) .panel:nth-child(5),
+.tabs:has(label:nth-child(3) input:checked) .panel:nth-child(6) { display: block; }
+.ba { position: relative; container-type: inline-size; --pos: 50%; border-radius: 1rem; overflow: hidden; }
+.ba .over { position: absolute; inset: 0 auto 0 0; width: var(--pos); overflow: hidden; border-right: 2px solid #fff; }
+.ba .shot, .ba .frame { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; border-radius: 0; }
+.ba .over .shot { width: 100cqi; max-width: none; height: 100%; }
+.ba input[type="range"] { position: absolute; left: 10%; right: 10%; bottom: 1rem; width: 80%; }
+.stat { text-align: left; }
+.stat strong { font-family: var(--heading-family); font-size: var(--type-h3); }
+.stat span, .badge-row { color: var(--muted); }
+.badge-row { list-style: none; margin: 1rem 0 0; padding: 0; }
+.faq-split { align-items: start; }
+.accordion { display: grid; gap: 0.75rem; }
+.accordion summary { cursor: pointer; font-weight: 650; }
+.accordion p { margin: 0.75rem 0 0; }
+.visit-grid { align-items: stretch; }
+.cta-band, .cta-band.tone-tint, .cta-band.tone-none, .cta-band.tone-image {
+  color: #fff;
+  background:
+    radial-gradient(640px 220px at 8% 0%, color-mix(in srgb, #fff 28%, transparent), transparent 70%),
+    linear-gradient(115deg, color-mix(in srgb, var(--primary) 86%, #140814), color-mix(in srgb, var(--primary) 48%, #1b1024));
+}
+.cta-band .lede, .cta-band .btn-line { color: #fff; }
+.cta-band .btn-fill { background: #fff; color: #1c1917; }
+@media (min-width: 48rem) {
+  .svc-grid, .pain-grid { grid-template-columns: 1fr 1fr; }
+  .stat-row, .review-row { grid-template-columns: repeat(3, 1fr); }
+}
+@media (min-width: 64rem) {
+  .site .block { padding: 6rem 2rem; }
+  .svc-grid { grid-template-columns: repeat(3, 1fr); }
+  .pain-grid { grid-template-columns: repeat(3, 1fr); }
+  .feature-split, .faq-split, .visit-grid, .quote-split { grid-template-columns: 0.9fr 1.1fr; align-items: center; }
+  .quote-split > .heading { grid-column: 1 / -1; }
+  .hero-screen { min-height: 100svh; align-items: end; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .site .card, .site .svc, .site .btn { transition: transform 0.2s ease, box-shadow 0.2s ease; }
+  .site .card:hover, .site .svc:hover { transform: translateY(-3px); }
+  .site .reveal:not(.hero-screen) {
+    animation: rise 0.8s ease both;
+    animation-timeline: view();
+    animation-range: entry 8% cover 22%;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .site .reveal { animation: none; }
+}
+@keyframes rise { from { transform: translateY(16px); } to { transform: none; } }
+html[data-tone="dark"] .site, html:not([data-tone="light"]) .site-dark {
+  --surface: #101218;
+  --text: #f4f0e8;
+}
+@media (prefers-color-scheme: dark) {
+  html:not([data-tone="light"]) .site { --surface: #101218; --text: #f4f0e8; }
+}
+html[data-tone="dark"] .site {
+  --surface: #101218;
+  --text: #f4f0e8;
+  background:
+    radial-gradient(920px 420px at 88% -12%, color-mix(in srgb, var(--primary) 28%, transparent), transparent 62%),
+    var(--surface);
+}
+html[data-tone="dark"] .site .card:not(.more),
+html[data-tone="dark"] .site .glass,
+html[data-tone="dark"] .site .topnav {
+  background: color-mix(in srgb, white 7%, transparent);
+  border-color: color-mix(in srgb, white 14%, transparent);
+  box-shadow: 0 18px 44px -28px rgba(0, 0, 0, 0.72);
+}
+html[data-tone="dark"] .site .field { background: color-mix(in srgb, white 4%, transparent); color: var(--text); }

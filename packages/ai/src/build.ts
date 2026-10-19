@@ -42,15 +42,14 @@ export function buildSite(profile: Profile, brandColor: string, recipes: string[
 }
 
 function varsFor(profile: Profile, bank: Record<string, string>) {
-  const italian = profile.market === "IT";
   const vars: Record<string, string> = {
     ...profile,
     address: addressLine(profile),
     mapUrl: mapQuery(profile),
-    contactLabel: italian ? "WhatsApp us" : "Call us",
-    contactType: italian ? "whatsapp" : "tel",
-    altLabel: italian ? "Call" : "Text us",
-    altType: italian ? "tel" : "sms",
+    contactLabel: "Call",
+    contactType: "tel",
+    altLabel: "Get an estimate",
+    altType: "open_form",
   };
   for (const [key, value] of Object.entries(bank)) {
     vars[key] = value.replaceAll("{city}", profile.city).replaceAll("{name}", profile.name);

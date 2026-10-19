@@ -14,6 +14,7 @@ export function openStudioPage(site: Site, slug: string, setSlug: (value: string
   setJump((n) => n + 1);
 }
 
-export function sectionId(site: Site, group: string) {
-  return site.pages.flatMap((page) => page.sections).find((section) => section.group === group)?.id ?? "";
+export function sectionId(site: Site, group: string, slug: string) {
+  const page = site.pages.find((item) => item.slug === slug) ?? site.pages[0];
+  return page?.sections.find((section) => section.group === group)?.id ?? "";
 }

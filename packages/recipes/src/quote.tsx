@@ -1,13 +1,15 @@
 import { recipeFields } from "./fields";
-import { anyPhoto, Mark } from "./media";
+import { anyPhoto, Mark, photo, Shot } from "./media";
 import { Band, readFields, tx, type Block } from "./parts";
 
 export function Quote({ site, section }: Block) {
   const fields = readFields(recipeFields["convert.quote-booking"], section.fields);
   if (!fields) return null;
+  const shot = section.variant === "split" ? photo(site, "ast_before") : undefined;
   return (
-    <Band id={section.id} group={section.group} label="Quote" className="block" wrap="wrap quote" title={tx(site, fields.headline)} body={tx(site, fields.subhead)} icon="request_quote" style={section.style} image={anyPhoto(site)}>
-      <form className="card form">
+    <Band id={section.id} group={section.group} label="Quote" variant={section.variant} className="block" wrap={shot ? "wrap quote quote-split" : "wrap quote"} title={tx(site, fields.headline)} body={tx(site, fields.subhead)} icon="request_quote" style={section.style} image={anyPhoto(site)}>
+      {shot ? <Shot label="Sample dent photo. Not this shop." src={shot.src} alt={tx(site, shot.alt)} /> : null}
+      <form className="card form glass">
         <fieldset className="job-pick">
           <legend><Mark name="request_quote" />What do you need?</legend>
           <label><input type="radio" name="job" value="dent" defaultChecked /> Dent / body only</label>

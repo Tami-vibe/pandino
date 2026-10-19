@@ -4,8 +4,8 @@ const PHONE = "+390200000000";
 
 const SHOTS: Record<string, [string, string]> = {
   ast_hero: [
-    "https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?auto=format&fit=crop&w=1600&q=80",
-    "Sample photo of a mechanic at work. Not this shop.",
+    "https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?auto=format&fit=crop&w=1600&q=80",
+    "Sample photo of a person with a car. Not this shop.",
   ],
   ast_before: [
     "https://images.unsplash.com/photo-1487754180451-c456f719a1fc?auto=format&fit=crop&w=1600&q=80",

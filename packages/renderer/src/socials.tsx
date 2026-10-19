@@ -1,8 +1,6 @@
 import type { Site } from "@pandino/schema";
-import { actionHref, liveAction } from "@pandino/recipes";
 
-const SOCIALS: [(keyof Site["business"]["socials"]) | "whatsapp", string, string][] = [
-  ["whatsapp", "chat", "WhatsApp"],
+const SOCIALS: [keyof Site["business"]["socials"], string, string][] = [
   ["facebook", "public", "Facebook"],
   ["instagram", "photo_camera", "Instagram"],
   ["tiktok", "movie", "TikTok"],
@@ -19,9 +17,7 @@ export function Socials({ site }: { site: Site }) {
 }
 
 function Social({ site, name, icon, label }: { site: Site; name: (typeof SOCIALS)[number][0]; icon: string; label: string }) {
-  const href = name === "whatsapp"
-    ? actionHref(liveAction(site, { type: "whatsapp", value: site.business.whatsapp || site.business.phone }))
-    : site.business.socials[name];
+  const href = site.business.socials[name];
   const sample = href.includes("example.com");
   if (!href.startsWith("http")) return <li><span className="note">Add {label}</span></li>;
   return (

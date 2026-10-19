@@ -8,8 +8,8 @@ function vars(site: Site): CSSProperties {
   return {
     "--primary": site.theme.palette.primary,
     "--on-primary": site.theme.palette.onPrimary,
-    "--surface": site.theme.palette.surface,
-    "--text": site.theme.palette.text,
+    "--light-surface": site.theme.palette.surface,
+    "--light-text": site.theme.palette.text,
     "--type-scale": String(site.theme.typeScale),
   } as CSSProperties;
 }

@@ -1,0 +1,160 @@
+{
+  "reviews": [
+    {
+      "id": "rv_sample_1",
+      "rating": 5,
+      "text": "Sample review. Not a real customer. The owner replaces this before publishing.",
+      "author": "Sample · A.",
+      "source": "sample"
+    },
+    {
+      "id": "rv_sample_2",
+      "rating": 5,
+      "text": "Sample review. Not a real customer. Nothing here was collected from a review site.",
+      "author": "Sample · B.",
+      "source": "sample"
+    },
+    {
+      "id": "rv_sample_3",
+      "rating": 5,
+      "text": "Sample review. Not a real customer. Ask the owner for reviews they can stand behind.",
+      "author": "Sample · C.",
+      "source": "sample"
+    }
+  ],
+  "sections": [
+    {
+      "id": "tpl_logos",
+      "group": "trust",
+      "recipe": "trust.logo-strip",
+      "recipeVersion": 1,
+      "variant": "brands",
+      "fields": {
+        "headline": { "en-US": "Makes we see in the shop" },
+        "brands": [
+          { "en-US": "BMW" },
+          { "en-US": "Mercedes-Benz" },
+          { "en-US": "Audi" },
+          { "en-US": "Volkswagen" },
+          { "en-US": "Toyota" },
+          { "en-US": "Ford" },
+          { "en-US": "Fiat" },
+          { "en-US": "Alfa Romeo" }
+        ]
+      },
+      "style": { "background": "none", "overlay": 0 }
+    },
+    {
+      "id": "tpl_feature",
+      "group": "trust",
+      "recipe": "trust.feature-split",
+      "recipeVersion": 1,
+      "variant": "facility",
+      "fields": {
+        "headline": { "en-US": "Master engineering and a clean facility" },
+        "subhead": { "en-US": "Sample description. The owner writes what this shop actually does on the floor." },
+        "specs": [
+          { "label": { "en-US": "Facility" }, "value": { "en-US": "Sample · owner confirms" } },
+          { "label": { "en-US": "Estimate" }, "value": { "en-US": "Written before work" } }
+        ]
+      },
+      "style": { "background": "none", "overlay": 0 }
+    },
+    {
+      "id": "tpl_facility",
+      "group": "trust",
+      "recipe": "trust.facility-gallery",
+      "recipeVersion": 1,
+      "variant": "filters",
+      "fields": {
+        "headline": { "en-US": "Inside the shop" },
+        "subhead": { "en-US": "Sample photos, not this shop. Filter chips switch the frame." },
+        "filters": [
+          { "name": { "en-US": "Floor" }, "assetId": "ast_hero" },
+          { "name": { "en-US": "Body" }, "assetId": "ast_before" },
+          { "name": { "en-US": "Finish" }, "assetId": "ast_after" }
+        ]
+      },
+      "style": { "background": "surface", "overlay": 0 }
+    },
+    {
+      "id": "tpl_journey",
+      "group": "convert",
+      "recipe": "convert.journey",
+      "recipeVersion": 1,
+      "variant": "tabs",
+      "fields": {
+        "headline": { "en-US": "From damage to done, without the stress." },
+        "subhead": { "en-US": "Sample walkthrough. The owner replaces it with the real process." },
+        "tabs": [
+          { "title": { "en-US": "Before/after slider" }, "kind": "slider", "body": { "en-US": "Sample photos, not this shop." } },
+          { "title": { "en-US": "Insurance claims" }, "kind": "copy", "body": { "en-US": "We help with paperwork you ask us to handle. No insurer is named until you confirm it." } },
+          { "title": { "en-US": "How it works" }, "kind": "copy", "body": { "en-US": "Photos and a written estimate before any work. No surprise charges." } }
+        ]
+      },
+      "style": { "background": "surface", "overlay": 0 }
+    },
+    {
+      "id": "tpl_stats",
+      "group": "trust",
+      "recipe": "trust.stats",
+      "recipeVersion": 1,
+      "variant": "row",
+      "fields": {
+        "headline": { "en-US": "Shop facts" },
+        "subhead": { "en-US": "Sample figures. The owner has not verified these." },
+        "items": [
+          { "label": { "en-US": "Bays" }, "value": { "en-US": "Sample" } },
+          { "label": { "en-US": "Estimates" }, "value": { "en-US": "Sample" } },
+          { "label": { "en-US": "Follow-up" }, "value": { "en-US": "Sample" } }
+        ],
+        "badges": [
+          { "en-US": "Sample · owner confirms" },
+          { "en-US": "Sample · not published proof" }
+        ]
+      },
+      "style": { "background": "none", "overlay": 0 }
+    },
+    {
+      "id": "tpl_faq",
+      "group": "convert",
+      "recipe": "convert.faq",
+      "recipeVersion": 1,
+      "variant": "split",
+      "fields": {
+        "headline": { "en-US": "Quick answers." },
+        "subhead": { "en-US": "Sample answers. The owner rewrites them for this shop." },
+        "items": [
+          { "q": { "en-US": "How do I get an estimate?" }, "a": { "en-US": "Call or use the estimate form. This preview does not send it." } },
+          { "q": { "en-US": "Do you handle insurance paperwork?" }, "a": { "en-US": "Ask us to help. We only name an insurer you confirm." } },
+          { "q": { "en-US": "How long does a repair take?" }, "a": { "en-US": "It depends on the damage. We tell you after we see the car." } }
+        ]
+      },
+      "style": { "background": "surface", "overlay": 0 }
+    },
+    {
+      "id": "tpl_offer",
+      "group": "convert",
+      "recipe": "convert.offer",
+      "recipeVersion": 1,
+      "variant": "banner",
+      "fields": {
+        "headline": { "en-US": "Owner offer" },
+        "subhead": { "en-US": "Sample offer. The owner has not set this. No price is shown." }
+      },
+      "style": { "background": "none", "overlay": 0 }
+    },
+    {
+      "id": "tpl_cta",
+      "group": "convert",
+      "recipe": "convert.cta-band",
+      "recipeVersion": 1,
+      "variant": "band",
+      "fields": {
+        "headline": { "en-US": "Had an accident? We'll take it from here." },
+        "subhead": { "en-US": "Call, or ask for an estimate. We tell you what we can see." }
+      },
+      "style": { "background": "image", "overlay": 0.45 }
+    }
+  ]
+}

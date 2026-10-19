@@ -27,7 +27,7 @@ describe("wordpress export", () => {
     expect(theme).toContain(site.theme.palette.primary);
     expect(template).toContain("wp:html");
     expect(gallery).toContain(">Sample<");
-    expect(gallery).toContain("Replace this with a review from a real customer before you publish.");
+    expect(gallery).toContain("Sample review. Not a real customer.");
     expect(template).not.toContain("<form");
     expect(estimate).not.toContain("<form");
     expect(estimate).toContain("This theme has no form.");

@@ -10,7 +10,7 @@ export function Process({ site, section }: Block) {
   const fields = readFields(recipeFields["services.process-insurance"], section.fields);
   if (!fields) return null;
   return (
-    <Band id={section.id} group={section.group} label="Process" className="block band promise" wrap="wrap" title={tx(site, fields.headline)} body={tx(site, fields.subhead)} icon="check_circle" style={section.style} image={anyPhoto(site)}>
+    <Band id={section.id} group={section.group} label="Process" variant={section.variant} className="block band promise" wrap="wrap" title={tx(site, fields.headline)} body={tx(site, fields.subhead)} icon="check_circle" style={section.style} image={anyPhoto(site)}>
       <p className="promise-line"><Mark name="verified" />{PROMISE}</p>
       <ol className="steps">
         {fields.steps.map((step, index) => (
@@ -35,7 +35,7 @@ export function Footer({ site, section }: Block) {
   const email = site.business.email.trim();
   const emailLine = email === "info@futura-example.it" ? `${email} (sample)` : email || "Add your email";
   return (
-    <Band id={section.id} group={section.group} label="Footer" icon="call_to_action" className="block footer" wrap="wrap footer-grid" style={section.style} image={anyPhoto(site)}>
+    <Band id={section.id} group={section.group} label="Footer" variant={section.variant} icon="call_to_action" className="block footer" wrap="wrap footer-grid" style={section.style} image={anyPhoto(site)}>
       <div>
         <h2>{site.business.name}</h2>
         <p className="contact-line"><Mark name="location_on" />{placeLine(site)}</p>

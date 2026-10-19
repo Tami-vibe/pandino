@@ -45,7 +45,7 @@ export function Heading({ title, body, icon }: { title: string; body?: string; i
   );
 }
 
-export function Band({ id, group, label, className, wrap, title, body, icon, style, image, children }: {
+export function Band({ id, group, label, className, wrap, title, body, icon, style, image, variant = "", children }: {
   id: string;
   group: string;
   label: string;
@@ -56,11 +56,12 @@ export function Band({ id, group, label, className, wrap, title, body, icon, sty
   icon?: string;
   style?: { background: string; overlay: number };
   image?: string;
+  variant?: string;
   children: ReactNode;
 }) {
   const tone = toneOf(style, image);
   return (
-    <section className={`${className} tone-${tone.mode}`} id={id} data-group={group} data-label={label} data-icon={icon} style={tone.css}>
+    <section className={`${className} tone-${tone.mode} reveal`} id={id} data-group={group} data-label={label} data-icon={icon} data-variant={variant} style={tone.css}>
       {tone.mode === "image" ? <span className="veil" aria-hidden="true" /> : null}
       <div className={wrap}>
         {title ? <Heading title={title} body={body} icon={icon} /> : null}

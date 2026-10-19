@@ -7,9 +7,15 @@ export function Reviews({ site, section }: Block) {
   if (!fields) return null;
   const team = photo(site, "ast_shop");
   return (
-    <Band id={section.id} group={section.group} label="Reviews" className="block" wrap="wrap split" title={tx(site, fields.headline)} body={tx(site, fields.subhead)} icon="verified" style={section.style} image={anyPhoto(site)}>
-      <div>
-        {fields.reviews.map((review) => (
+    <Band id={section.id} group={section.group} label="Reviews" variant={section.variant} className="block" wrap={site.reviews.length ? "wrap" : "wrap split"} title={tx(site, fields.headline)} body={tx(site, fields.subhead)} icon="verified" style={section.style} image={anyPhoto(site)}>
+      <div className={site.reviews.length ? "review-row" : undefined}>
+        {site.reviews.length ? site.reviews.slice(0, 3).map((review) => (
+          <blockquote key={review.id} className="card review glass">
+            {review.source === "sample" ? <span className="chip">Sample</span> : null}
+            <p>{review.text}</p>
+            <footer>{review.author}</footer>
+          </blockquote>
+        )) : fields.reviews.map((review) => (
           <blockquote key={tx(site, review.quote)} className="card review">
             <span className="chip">Sample</span>
             <p>{tx(site, review.quote)}</p>
@@ -17,11 +23,11 @@ export function Reviews({ site, section }: Block) {
           </blockquote>
         ))}
       </div>
-      <aside className="card certs">
+      {site.reviews.length ? null : <aside className="card certs">
         <h3><Mark name="groups" />Certifications</h3>
         <p>{tx(site, fields.certificationsNote)}</p>
         <Shot label="Add a photo of your team and shop" src={team?.src} alt={team ? tx(site, team.alt) : undefined} />
-      </aside>
+      </aside>}
     </Band>
   );
 }
@@ -32,7 +38,7 @@ export function Gallery({ site, section }: Block) {
   const before = photo(site, fields.before.assetId);
   const after = photo(site, fields.after.assetId);
   return (
-    <Band id={section.id} group={section.group} label="Gallery" className="block band" wrap="wrap" title={tx(site, fields.headline)} body={tx(site, fields.subhead)} icon="photo_camera" style={section.style} image={anyPhoto(site)}>
+    <Band id={section.id} group={section.group} label="Gallery" variant={section.variant} className="block band" wrap="wrap" title={tx(site, fields.headline)} body={tx(site, fields.subhead)} icon="photo_camera" style={section.style} image={anyPhoto(site)}>
       <div className="pair">
         <Shot label="Before — add your photo" src={before?.src} alt={before ? tx(site, before.alt) : undefined} />
         <Shot label="After — add your photo" src={after?.src} alt={after ? tx(site, after.alt) : undefined} />

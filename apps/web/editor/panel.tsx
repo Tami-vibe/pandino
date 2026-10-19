@@ -36,7 +36,7 @@ export function Panel({ site, group, slug, note, hot, onFields, onBrand, onStyle
         {group === "pages" ? <PageList site={site} slug={slug} hot={hot} onPage={onPage} onSection={onSection} onFields={onFields} /> : null}
         {group === "pages" ? <BusinessInfo site={site} onBusiness={onBusiness} onTitle={onTitle} /> : null}
         {group === "style" ? <StyleFields site={site} onBrand={onBrand} onTheme={onTheme} /> : null}
-        {group !== "pages" && group !== "style" ? <Sections site={site} group={group} hot={hot} onFields={onFields} onStyle={onStyle} /> : null}
+        {group !== "pages" && group !== "style" ? <Sections site={site} slug={slug} group={group} hot={hot} onFields={onFields} onStyle={onStyle} /> : null}
       </div>
       <footer className="panel-foot">
         <button type="button" className="save-btn" onClick={onSave}><Icon name="save" fill />Save</button>
@@ -46,14 +46,15 @@ export function Panel({ site, group, slug, note, hot, onFields, onBrand, onStyle
   );
 }
 
-function Sections({ site, group, hot, onFields, onStyle }: {
+function Sections({ site, slug, group, hot, onFields, onStyle }: {
   site: Site;
+  slug: string;
   group: RailId;
   hot: string;
   onFields: (id: string, fields: Fields) => void;
   onStyle: (id: string, style: Style) => void;
 }) {
-  const sections = site.pages.flatMap((page) => page.sections).filter((section) => section.group === group);
+  const sections = (site.pages.find((page) => page.slug === slug)?.sections ?? []).filter((section) => section.group === group);
   if (!sections.length) return <p className="hint">This page has no {group} section.</p>;
   return sections.map((section) => (
     <section className={section.id === hot ? "grp on" : "grp"} key={section.id}>
