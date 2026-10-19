@@ -1,14 +1,7 @@
-import { createContext, useContext } from "react";
 import type { Site } from "@pandino/schema";
 import type { Action } from "./fields";
 
 const PLACEHOLDER_PHONE = /^\+(?:390+|10+)$/;
-
-export const LinkMode = createContext<"file" | "pretty">("file");
-
-export function useLinks() {
-  return useContext(LinkMode);
-}
 
 export function pageHref(slug: string, mode: "file" | "pretty") {
   const bare = slug === "/" ? "index" : slug.replace(/^\//, "");

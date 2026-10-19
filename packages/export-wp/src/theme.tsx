@@ -16,9 +16,16 @@ export function wordpressTheme(site: Site) {
   return zipStore(files);
 }
 
+function prettyLinks(html: string) {
+  return html.replace(/href="([^"]+?)\.html(#[^"]*)?"/g, (_match, name: string, hash = "") => {
+    const path = name === "index" ? "/" : `/${name.replace(/^\.\//, "")}`;
+    return `href="${path}${hash}"`;
+  });
+}
+
 function template(site: Site, slug: string): [string, string] {
   const name = slug === "/" ? "templates/index.html" : `templates/page-${slug}.html`;
-  const html = renderToStaticMarkup(<SitePage site={site} slug={slug} links="pretty" />).replace(/<form[\s\S]*?<\/form>/g, "<p>This theme has no form. Add one with a plugin.</p>");
+  const html = prettyLinks(renderToStaticMarkup(<SitePage site={site} slug={slug} links="file" />)).replace(/<form[\s\S]*?<\/form>/g, "<p>This theme has no form. Add one with a plugin.</p>");
   return [`pandino-site/${name}`, `<!-- wp:html -->\n${html}\n<!-- /wp:html -->\n`];
 }
 

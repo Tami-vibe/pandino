@@ -7,7 +7,6 @@ import { Footer, Process } from "./shop";
 import type { Block } from "./parts";
 
 export { actionHref, liveAction, pageHref, tx } from "./parts";
-export { LinkMode } from "./href";
 export { placeLine, phoneLabel } from "./facts";
 export { StickyBar };
 

@@ -1,6 +1,6 @@
 import type { CSSProperties } from "react";
 import type { Site } from "@pandino/schema";
-import { LinkMode, Recipe, StickyBar } from "@pandino/recipes";
+import { Recipe, StickyBar } from "@pandino/recipes";
 import { SiteFooter } from "./footer";
 import { CookieBar, SiteHeader } from "./header";
 
@@ -18,7 +18,6 @@ export function SitePage({ site, slug, links = "file" }: { site: Site; slug?: st
   const page = site.pages.find((item) => item.slug === slug) ?? site.pages[0];
   if (!page) return null;
   return (
-    <LinkMode.Provider value={links}>
       <article
         className="site"
         id="top"
@@ -34,6 +33,5 @@ export function SitePage({ site, slug, links = "file" }: { site: Site; slug?: st
         {site.business.market === "IT" ? <CookieBar /> : null}
         <StickyBar site={site} />
       </article>
-    </LinkMode.Provider>
   );
 }

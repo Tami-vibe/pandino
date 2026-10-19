@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import type { Site } from "@pandino/schema";
 import type { Action } from "./fields";
-import { actionHref, useLinks } from "./href";
+import { actionHref } from "./href";
 import { Mark, toneOf } from "./media";
 
 export type Block = {
@@ -32,8 +32,7 @@ export function Cta({ site, label, action, className }: {
   action: Action;
   className: string;
 }) {
-  const links = useLinks();
-  return <a className={className} href={actionHref(liveAction(site, action), site, links)}>{tx(site, label)}</a>;
+  return <a className={className} href={actionHref(liveAction(site, action), site)}>{tx(site, label)}</a>;
 }
 
 export function Heading({ title, body, icon }: { title: string; body?: string; icon?: string }) {
