@@ -154,7 +154,7 @@ export function formatReport(result) {
     "", "GREEN under 80% · YELLOW 80-100% · RED over", "", head,
     ...result.modules.map((mod) => row(mod.id, mod.used, mod.budget, mod.base)),
     row("TOTAL", result.total.used, result.total.budget, result.total.base),
-    "", "Tooling (outside the 1000)", row("tooling", result.tooling.used, result.tooling.budget, result.tooling.base),
+    "", `Tooling (outside the ${result.total.budget})`, row("tooling", result.tooling.used, result.tooling.budget, result.tooling.base),
     "", "Not counted (non-blank lines)", ...cats,
     ...(result.violations.length ? ["", "Over budget", ...result.violations] : []),
     "", result.violations.length ? "Result: over budget" : "Result: within budget",

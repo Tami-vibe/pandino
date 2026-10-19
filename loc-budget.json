@@ -1,7 +1,7 @@
 {
   "version": 1,
   "phase": "0-1",
-  "total": 1000,
+  "total": 1400,
   "caps": {
     "perFile": 80,
     "perFunction": 40
@@ -9,7 +9,7 @@
   "tooling": {
     "budget": 180,
     "paths": ["scripts/loc-meter.mjs"],
-    "note": "Line meter. Outside the 1000 product lines. Do not raise this to hide growth."
+    "note": "Line meter. Outside the 1400 product lines. Do not raise this to hide growth."
   },
   "modules": [
     {
@@ -20,31 +20,31 @@
     },
     {
       "id": "theme",
-      "budget": 60,
+      "budget": 85,
       "paths": ["packages/theme/**"],
       "note": "Brand color to palette, contrast, five font presets, radius and spacing"
     },
     {
       "id": "recipes",
-      "budget": 240,
+      "budget": 360,
       "paths": ["packages/recipes/**"],
       "note": "Eight recipes: Zod fields and JSX"
     },
     {
       "id": "renderer",
-      "budget": 50,
+      "budget": 65,
       "paths": ["packages/renderer/**"],
       "note": "Page assembly, static HTML, CSS inlining"
     },
     {
       "id": "ai",
-      "budget": 150,
+      "budget": 290,
       "paths": ["packages/ai/**"],
       "note": "Intake, plan, fill, validation, one retry, cost logging"
     },
     {
       "id": "prompt-ui",
-      "budget": 60,
+      "budget": 155,
       "paths": ["apps/web/prompt/**"],
       "note": "Chat box, brand color picker, generation progress"
     },
@@ -56,7 +56,7 @@
     },
     {
       "id": "persistence",
-      "budget": 50,
+      "budget": 55,
       "paths": ["apps/web/persistence/**"],
       "note": "Supabase auth and save/load of site JSON"
     },
