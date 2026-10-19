@@ -1,14 +1,15 @@
 import { recipeFields } from "./fields";
+import { anyPhoto, Mark } from "./media";
 import { Band, readFields, tx, type Block } from "./parts";
 
 export function Quote({ site, section }: Block) {
   const fields = readFields(recipeFields["convert.quote-booking"], section.fields);
   if (!fields) return null;
   return (
-    <Band id={fields.formId} className="block" wrap="wrap quote" title={tx(site, fields.headline)} body={tx(site, fields.subhead)}>
+    <Band id={section.id} group={section.group} label="Quote" className="block" wrap="wrap quote" title={tx(site, fields.headline)} body={tx(site, fields.subhead)} icon="request_quote" style={section.style} image={anyPhoto(site)}>
       <form className="card form">
         <fieldset className="job-pick">
-          <legend>What do you need?</legend>
+          <legend><Mark name="request_quote" />What do you need?</legend>
           <label><input type="radio" name="job" value="dent" defaultChecked /> Dent / body only</label>
           <label><input type="radio" name="job" value="accident" /> Accident</label>
         </fieldset>

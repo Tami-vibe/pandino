@@ -14,7 +14,7 @@ const asset = z.strictObject({
   type: z.literal("image"),
   src: z.url(),
   alt: text,
-  source: z.enum(["library", "owner", "placeholder"]),
+  source: z.enum(["library", "owner", "placeholder", "sample"]),
   width: z.number().int().positive(),
   height: z.number().int().positive(),
 });
@@ -59,6 +59,8 @@ export const siteSchema = z
       fonts: z.strictObject({ heading: id, body: id }),
       radius: id,
       spacing: id,
+      stickyHeader: z.boolean().default(true),
+      typeScale: z.number().min(0.85).max(1.25).default(1),
     }),
     pages: z.array(page).min(1),
     assets: z.record(id, asset),

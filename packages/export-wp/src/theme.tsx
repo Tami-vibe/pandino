@@ -1,5 +1,5 @@
 import { renderToStaticMarkup } from "react-dom/server.edge";
-import { loadSiteCss } from "@pandino/export-html";
+import { iconFontLink, loadSiteCss } from "@pandino/export-html";
 import { SitePage } from "@pandino/renderer";
 import type { Site } from "@pandino/schema";
 import { zipStore } from "./zip";
@@ -10,7 +10,7 @@ const FONTS = `:root{--font-inter:"Inter",sans-serif;--font-manrope:"Manrope",sa
 export function wordpressTheme(site: Site) {
   const page = renderToStaticMarkup(<SitePage site={site} />).replace(/<form[\s\S]*?<\/form>/, "<p>This theme has no form. Add one with a plugin.</p>");
   return zipStore([
-    ["pandino-site/style.css", `${header(site)}\n${FONTS}\n${loadSiteCss()}\n`],
+    ["pandino-site/style.css", `${header(site)}\n@import url("${iconFontLink}");\n${FONTS}\n${loadSiteCss()}\n`],
     ["pandino-site/theme.json", `${JSON.stringify(tokens(site), null, 2)}\n`],
     ["pandino-site/templates/index.html", `<!-- wp:html -->\n${page}\n<!-- /wp:html -->\n`],
   ]);

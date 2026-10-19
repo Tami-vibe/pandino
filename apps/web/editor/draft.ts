@@ -11,7 +11,19 @@ export function withFields(site: Site, id: string, fields: Fields): Site {
 }
 
 export function withBrand(site: Site, color: string): Site {
-  return { ...site, theme: themeFromBrand(color) };
+  const theme = themeFromBrand(color);
+  return { ...site, theme: { ...theme, stickyHeader: site.theme.stickyHeader, typeScale: site.theme.typeScale } };
+}
+
+export function withTheme(site: Site, patch: { stickyHeader?: boolean; typeScale?: number }): Site {
+  return { ...site, theme: { ...site.theme, ...patch } };
+}
+
+export function withStyle(site: Site, id: string, style: Site["pages"][number]["sections"][number]["style"]): Site {
+  const next = structuredClone(site);
+  const section = next.pages.flatMap((page) => page.sections).find((item) => item.id === id);
+  if (section) section.style = style;
+  return next;
 }
 
 export function withBusiness(site: Site, business: Site["business"]): Site {

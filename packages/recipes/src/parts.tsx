@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import type { Site } from "@pandino/schema";
 import type { Action } from "./fields";
+import { Mark, toneOf } from "./media";
 
 export type Block = {
   site: Site;
@@ -42,35 +43,35 @@ export function Cta({ site, label, action, className }: {
   return <a className={className} href={actionHref(liveAction(site, action))}>{tx(site, label)}</a>;
 }
 
-export function Frame({ label }: { label: string }) {
-  return (
-    <div className="frame" role="img" aria-label={label}>
-      <span>{label}</span>
-    </div>
-  );
-}
-
-export function Heading({ title, body }: { title: string; body?: string }) {
+export function Heading({ title, body, icon }: { title: string; body?: string; icon?: string }) {
   return (
     <div className="heading">
+      {icon ? <Mark name={icon} /> : null}
       <h2>{title}</h2>
       {body ? <p>{body}</p> : null}
     </div>
   );
 }
 
-export function Band({ id, className, wrap, title, body, children }: {
+export function Band({ id, group, label, className, wrap, title, body, icon, style, image, children }: {
   id: string;
+  group: string;
+  label: string;
   className: string;
   wrap: string;
   title?: string;
   body?: string;
+  icon?: string;
+  style?: { background: string; overlay: number };
+  image?: string;
   children: ReactNode;
 }) {
+  const tone = toneOf(style, image);
   return (
-    <section className={className} id={id}>
+    <section className={`${className} tone-${tone.mode}`} id={id} data-group={group} data-label={label} style={tone.css}>
+      {tone.mode === "image" ? <span className="veil" aria-hidden="true" /> : null}
       <div className={wrap}>
-        {title ? <Heading title={title} body={body} /> : null}
+        {title ? <Heading title={title} body={body} icon={icon} /> : null}
         {children}
       </div>
     </section>
