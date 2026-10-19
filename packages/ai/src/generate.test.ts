@@ -15,8 +15,11 @@ describe("generateSite", () => {
   it("builds Futura Milano as an Italian body shop with placeholders", async () => {
     vi.stubEnv("AI_API_KEY", "");
     const site = await generateSite(futura);
-    expect(site.business).toMatchObject({ name: "Futura Auto Body Shop", vertical: "body_shop", market: "IT", phone: "+390000000000" });
-    expect(site.business.address).toEqual({ street: "", city: "Milano", region: "MI", country: "IT" });
+    expect(site.business).toMatchObject({
+      name: "Futura Auto Body Shop", vertical: "body_shop", market: "IT", phone: "+390200000000",
+      email: "info@futura-example.it", hours: "Mon–Fri 8:00–18:00 (sample)",
+    });
+    expect(site.business.address).toEqual({ street: "Via Esempio 12", city: "Milano", region: "MI", country: "IT" });
     expect(site.business.warranty).toBe("");
     expect(site.business.googleRating).toBeNull();
     expect(site.business.payments).toEqual([]);
@@ -24,10 +27,12 @@ describe("generateSite", () => {
     const json = JSON.stringify(site);
     expect(json).toContain("da € …");
     expect(json).toContain("WhatsApp us");
-    expect(json).toContain("Milano (MI), Italia");
-    expect(json).toContain("+39 ··· ··· ····");
+    expect(json).toContain("Via Esempio 12, 20100 Milano MI (sample)");
+    expect(json).toContain("+39 02 0000 0000 (sample)");
+    expect(json).toContain("Sample photo of a mechanic at work");
     expect(json).not.toMatch(/€\s*\d|\$\s*\d|\bASE\b|I-CAR|★/);
-    expect(Object.values(site.assets).every((asset) => asset.source === "placeholder")).toBe(true);
+    expect(Object.values(site.assets).every((asset) => asset.source === "sample")).toBe(true);
+    expect(site.theme.stickyHeader).toBe(true);
     const hero = site.pages[0]?.sections[0];
     expect(hero?.recipe).toBe("hero.split-photo");
     expect(hero?.fields.primaryCta).toMatchObject({ action: { type: "whatsapp" } });

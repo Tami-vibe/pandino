@@ -11,6 +11,10 @@ export const GROUPS = [
 
 export type RailId = (typeof GROUPS)[number]["id"];
 
+export function isGroup(value: string): value is RailId {
+  return GROUPS.some((item) => item.id === value);
+}
+
 const NAMES: Record<string, string> = {
   primaryCta: "Primary button", secondaryCta: "Secondary button", priceLabel: "Price",
   phoneDisplay: "Phone", phoneNote: "Phone note", mapLabel: "Map link", mapUrl: "Map URL",

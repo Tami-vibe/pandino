@@ -1,0 +1,65 @@
+import { useState, type CSSProperties } from "react";
+import type { Site } from "@pandino/schema";
+import { useFrame, useScale, WIDTH, type Device } from "./bridge";
+import { Icon } from "./chrome";
+
+const DEVICES: [Device, string, string][] = [
+  ["desktop", "desktop_windows", "Desktop"],
+  ["tablet", "tablet_mac", "Tablet"],
+  ["mobile", "smartphone", "Mobile"],
+];
+
+export function Canvas({ site, hot, jump, onSelect, onDownload }: {
+  site: Site;
+  hot: string;
+  jump: number;
+  onSelect: (id: string, group: string) => void;
+  onDownload: (kind: "html" | "wordpress") => void;
+}) {
+  const [device, setDevice] = useState<Device>("desktop");
+  const { stage, scale } = useScale(device);
+  const frame = useFrame(site, hot, jump, onSelect);
+  const inner = WIDTH[device];
+  const slug = site.business.name.toLowerCase().replace(/[^a-z0-9]+/g, "").slice(0, 28) || "shop";
+  return (
+    <main className="canvas" style={{ "--glow": site.theme.palette.primary } as CSSProperties}>
+      <Toolbar slug={slug} device={device} onDevice={setDevice} onDownload={onDownload} />
+      <p className="draft-bar">Draft preview. Sample photos and contact details are marked. Replace placeholder reviews, prices, and certifications before publishing.</p>
+      <div className="viewport" ref={stage}>
+        <div className="stage-fit" style={{ width: inner * scale }}>
+          <iframe
+            ref={frame}
+            title="Site preview"
+            src="/preview"
+            style={{ width: inner, height: `${100 / scale}%`, transform: `scale(${scale})`, transformOrigin: "top left" }}
+            onLoad={() => frame.current?.contentWindow?.postMessage({ type: "pandino-site", site }, location.origin)}
+          />
+        </div>
+      </div>
+    </main>
+  );
+}
+
+function Toolbar({ slug, device, onDevice, onDownload }: {
+  slug: string;
+  device: Device;
+  onDevice: (device: Device) => void;
+  onDownload: (kind: "html" | "wordpress") => void;
+}) {
+  return (
+    <div className="canvas-bar">
+      <div className="url"><Icon name="lock" /><span>{slug}.pandino.site</span></div>
+      <div className="devices" role="group" aria-label="Preview width">
+        {DEVICES.map(([id, icon, label]) => (
+          <button key={id} type="button" className={device === id ? "device on" : "device"} aria-pressed={device === id} title={label} onClick={() => onDevice(id)}>
+            <Icon name={icon} /><small>{label}</small>
+          </button>
+        ))}
+      </div>
+      <div className="bar-actions">
+        <button type="button" className="export-btn" title="Download HTML" onClick={() => onDownload("html")}><Icon name="html" /><span>HTML</span></button>
+        <button type="button" className="export-btn" title="Download WordPress theme" onClick={() => onDownload("wordpress")}><Icon name="deployed_code" /><span>WordPress</span></button>
+      </div>
+    </div>
+  );
+}

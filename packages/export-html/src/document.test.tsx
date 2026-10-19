@@ -13,7 +13,8 @@ describe("html export", () => {
     expect(html).toContain("Futura Auto Body Shop");
     expect(html).toContain("Collision repair in Milano, done with care");
     expect(html).toContain("Placeholder");
-    expect(html).toContain(".hero-grid");
+    expect(html).toContain(".hero-screen");
+    expect(html).toContain("Material+Symbols+Outlined");
     expect(html).not.toContain("I-CAR");
   });
 });

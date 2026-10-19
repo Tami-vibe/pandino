@@ -82,5 +82,7 @@ export function themeFromBrand(brandColor: string) {
     fonts: { heading: preset.heading, body: preset.body },
     radius: preset.radius,
     spacing: "comfortable" as const,
+    stickyHeader: true,
+    typeScale: 1,
   };
 }

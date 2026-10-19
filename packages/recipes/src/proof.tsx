@@ -1,11 +1,13 @@
 import { recipeFields } from "./fields";
-import { Band, Frame, readFields, tx, type Block } from "./parts";
+import { anyPhoto, Mark, photo, Shot } from "./media";
+import { Band, readFields, tx, type Block } from "./parts";
 
 export function Reviews({ site, section }: Block) {
   const fields = readFields(recipeFields["trust.reviews-certs"], section.fields);
   if (!fields) return null;
+  const team = photo(site, "ast_shop");
   return (
-    <Band id={section.id} className="block" wrap="wrap split" title={tx(site, fields.headline)} body={tx(site, fields.subhead)}>
+    <Band id={section.id} group={section.group} label="Reviews" className="block" wrap="wrap split" title={tx(site, fields.headline)} body={tx(site, fields.subhead)} icon="verified" style={section.style} image={anyPhoto(site)}>
       <div>
         {fields.reviews.map((review) => (
           <blockquote key={tx(site, review.quote)} className="card review">
@@ -16,9 +18,9 @@ export function Reviews({ site, section }: Block) {
         ))}
       </div>
       <aside className="card certs">
-        <h3>Certifications</h3>
+        <h3><Mark name="groups" />Certifications</h3>
         <p>{tx(site, fields.certificationsNote)}</p>
-        <Frame label="Add a photo of your team and shop" />
+        <Shot label="Add a photo of your team and shop" src={team?.src} alt={team ? tx(site, team.alt) : undefined} />
       </aside>
     </Band>
   );
@@ -27,11 +29,13 @@ export function Reviews({ site, section }: Block) {
 export function Gallery({ site, section }: Block) {
   const fields = readFields(recipeFields["trust.before-after"], section.fields);
   if (!fields) return null;
+  const before = photo(site, fields.before.assetId);
+  const after = photo(site, fields.after.assetId);
   return (
-    <Band id={section.id} className="block band" wrap="wrap" title={tx(site, fields.headline)} body={tx(site, fields.subhead)}>
+    <Band id={section.id} group={section.group} label="Gallery" className="block band" wrap="wrap" title={tx(site, fields.headline)} body={tx(site, fields.subhead)} icon="photo_camera" style={section.style} image={anyPhoto(site)}>
       <div className="pair">
-        <Frame label="Before — add your photo" />
-        <Frame label="After — add your photo" />
+        <Shot label="Before — add your photo" src={before?.src} alt={before ? tx(site, before.alt) : undefined} />
+        <Shot label="After — add your photo" src={after?.src} alt={after ? tx(site, after.alt) : undefined} />
       </div>
       <p className="note">{tx(site, fields.caption)}</p>
     </Band>

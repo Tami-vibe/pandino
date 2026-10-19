@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { buildSite, chooseRecipes } from "./build";
+import { dressSample } from "./sample";
 import { chat } from "./model";
 import { readProfile, type Market } from "./profile";
 
@@ -11,7 +12,7 @@ const fillSchema = z.object({
 export async function generateSite(input: { prompt: string; brandColor: string; market?: "auto" | Market }) {
   const profile = readProfile(input.prompt, input.market ?? "auto");
   const model = await modelCopy(profile, input.prompt);
-  return buildSite(profile, input.brandColor, chooseRecipes(model.recipes), model.copy);
+  return dressSample(buildSite(profile, input.brandColor, chooseRecipes(model.recipes), model.copy));
 }
 
 async function modelCopy(profile: { name: string; vertical: string; city: string; market: string }, prompt: string) {
