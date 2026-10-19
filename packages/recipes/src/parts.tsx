@@ -68,7 +68,7 @@ export function Band({ id, group, label, className, wrap, title, body, icon, sty
 }) {
   const tone = toneOf(style, image);
   return (
-    <section className={`${className} tone-${tone.mode}`} id={id} data-group={group} data-label={label} style={tone.css}>
+    <section className={`${className} tone-${tone.mode}`} id={id} data-group={group} data-label={label} data-icon={icon} style={tone.css}>
       {tone.mode === "image" ? <span className="veil" aria-hidden="true" /> : null}
       <div className={wrap}>
         {title ? <Heading title={title} body={body} icon={icon} /> : null}

@@ -23,7 +23,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0..1,0&icon_names=ads_click,auto_stories,call,call_to_action,car_repair,chat,check_circle,construction,dark_mode,deployed_code,description,desktop_windows,directions_car,format_paint,groups,html,light_mode,location_on,lock,mail,minor_crash,palette,payments,photo_camera,request_quote,save,schedule,search,sentiment_dissatisfied,smartphone,storefront,tablet_mac,verified&display=block" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0..1,0&icon_names=ads_click,auto_stories,call,call_to_action,car_repair,chat,check_circle,construction,dark_mode,deployed_code,description,desktop_windows,directions_car,format_paint,groups,html,light_mode,location_on,lock,mail,minor_crash,open_in_new,palette,payments,photo_camera,request_quote,save,schedule,search,sentiment_dissatisfied,smartphone,storefront,tablet_mac,verified&display=block" />
       </head>
       <body className={fonts.join(" ")}>{children}</body>
     </html>

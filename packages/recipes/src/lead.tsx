@@ -11,7 +11,7 @@ export function Hero({ site, section }: Block) {
   if (!fields) return null;
   const shot = photo(site, fields.image.assetId);
   return (
-    <Band id={section.id} group={section.group} label="Hero" className="hero block hero-screen" wrap="wrap hero-copy" style={section.style} image={shot?.src}>
+    <Band id={section.id} group={section.group} label="Hero" icon="minor_crash" className="hero block hero-screen" wrap="wrap hero-copy" style={section.style} image={shot?.src}>
       <p className="eyebrow"><Mark name="minor_crash" />{tx(site, fields.eyebrow)}</p>
       <GoogleBadge site={site} />
       <h1 className="display">{tx(site, fields.headline)}</h1>
