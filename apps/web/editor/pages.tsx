@@ -17,7 +17,7 @@ export function PageList({ site, slug, hot, onPage, onSection, onFields }: {
   const locale = site.locales.default;
   const current = page.sections.find((section) => section.id === hot);
   return (
-    <div className="stack">
+    <div className="edits">
       <ul className="page-list">
         {site.pages.map((item) => (
           <li key={item.id}>
