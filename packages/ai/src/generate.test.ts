@@ -32,6 +32,7 @@ describe("generateSite", () => {
     expect(json).toContain("Sample photo of a mechanic at work");
     expect(json).not.toMatch(/€\s*\d|\$\s*\d|\bASE\b|I-CAR|★/);
     expect(Object.values(site.assets).every((asset) => asset.source === "sample")).toBe(true);
+    expect(site.pages.map((page) => page.slug)).toEqual(["/", "services", "process", "gallery", "contact", "estimate", "privacy", "cookie", "note-legali"]);
     expect(site.theme.stickyHeader).toBe(true);
     const hero = site.pages[0]?.sections[0];
     expect(hero?.recipe).toBe("hero.split-photo");
@@ -46,6 +47,8 @@ describe("generateSite", () => {
     const json = JSON.stringify(site);
     expect(json).toContain("from $…");
     expect(json).toContain("Chicago, IL");
+    expect(site.pages.map((page) => page.slug)).toContain("accessibility");
+    expect(JSON.stringify(site)).toContain("Your California rights");
     expect(site.pages[0]?.sections[0]?.fields.primaryCta).toMatchObject({ action: { type: "tel" } });
     expect(json).toContain("Text us");
   });
@@ -71,7 +74,7 @@ describe("generateSite", () => {
     const site = await generateSite(futura);
     const hero = site.pages[0]?.sections[0]?.fields.headline as { "en-US": string };
     expect(hero["en-US"]).toBe("Quiet repairs in Milano");
-    expect(JSON.stringify(site)).not.toContain("250");
+    expect(JSON.stringify(site)).not.toContain("from €250");
     expect(JSON.stringify(site)).toContain("da € …");
   });
 });

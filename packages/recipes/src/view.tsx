@@ -1,11 +1,13 @@
 import { StickyBar } from "./facts";
 import { Hero, Menu, Pains } from "./lead";
+import { Legal } from "./legal";
 import { Gallery, Reviews } from "./proof";
 import { Quote } from "./quote";
 import { Footer, Process } from "./shop";
 import type { Block } from "./parts";
 
-export { actionHref, liveAction, tx } from "./parts";
+export { actionHref, liveAction, pageHref, tx } from "./parts";
+export { placeLine, phoneLabel } from "./facts";
 export { StickyBar };
 
 const VIEWS = {
@@ -17,6 +19,7 @@ const VIEWS = {
   "trust.before-after": Gallery,
   "convert.quote-booking": Quote,
   "footer.contact-map": Footer,
+  "legal.template": Legal,
 };
 
 export function Recipe({ site, section }: Block) {

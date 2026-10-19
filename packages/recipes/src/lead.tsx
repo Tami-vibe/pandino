@@ -11,7 +11,7 @@ export function Hero({ site, section }: Block) {
   if (!fields) return null;
   const shot = photo(site, fields.image.assetId);
   return (
-    <Band id={section.id} group={section.group} label="Hero" className="hero block hero-screen" wrap="wrap hero-copy" style={section.style} image={shot?.src}>
+    <Band id={section.id} group={section.group} label="Hero" icon="minor_crash" className="hero block hero-screen" wrap="wrap hero-copy" style={section.style} image={shot?.src}>
       <p className="eyebrow"><Mark name="minor_crash" />{tx(site, fields.eyebrow)}</p>
       <GoogleBadge site={site} />
       <h1 className="display">{tx(site, fields.headline)}</h1>
@@ -47,7 +47,7 @@ export function Menu({ site, section }: Block) {
   const fields = readFields(recipeFields["services.menu-from-prices"], section.fields);
   if (!fields) return null;
   return (
-    <Band id={section.id} group={section.group} label="Services" className="block" wrap="wrap" title={tx(site, fields.headline)} body={tx(site, fields.subhead)} icon="construction" style={section.style} image={anyPhoto(site)}>
+    <Band id={section.id} group={section.group} label={fields.items.length === 1 ? tx(site, fields.items[0]?.name ?? {}) || "Services" : "Services"} className="block" wrap="wrap" title={tx(site, fields.headline)} body={tx(site, fields.subhead)} icon="construction" style={section.style} image={anyPhoto(site)}>
       <ul className="menu">
         {fields.items.map((item, index) => (
           <li key={tx(site, item.name)}>

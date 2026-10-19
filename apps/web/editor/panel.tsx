@@ -4,14 +4,16 @@ import { SectionLook, StyleFields } from "./design";
 import { TextFields } from "./fields";
 import { GROUPS, recipeLabel, type RailId } from "./groups";
 import { Icon } from "./chrome";
+import { PageList } from "./pages";
 
 type Fields = Site["pages"][number]["sections"][number]["fields"];
 
 type Style = Site["pages"][number]["sections"][number]["style"];
 
-export function Panel({ site, group, note, hot, onFields, onBrand, onStyle, onTheme, onBusiness, onTitle, onSave }: {
+export function Panel({ site, group, slug, note, hot, onFields, onBrand, onStyle, onTheme, onBusiness, onTitle, onSave, onPage, onSection }: {
   site: Site;
   group: RailId;
+  slug: string;
   note: string;
   hot: string;
   onFields: (id: string, fields: Fields) => void;
@@ -21,6 +23,8 @@ export function Panel({ site, group, note, hot, onFields, onBrand, onStyle, onTh
   onBusiness: (business: Site["business"]) => void;
   onTitle: (title: string) => void;
   onSave: () => void;
+  onPage: (slug: string) => void;
+  onSection: (id: string, group: string) => void;
 }) {
   const meta = GROUPS.find((item) => item.id === group) ?? GROUPS[0];
   return (
@@ -29,6 +33,7 @@ export function Panel({ site, group, note, hot, onFields, onBrand, onStyle, onTh
         <div className="ph-title"><Icon name={meta.icon} /><h1>{meta.title}</h1></div>
       </header>
       <div className="panel-body">
+        {group === "pages" ? <PageList site={site} slug={slug} hot={hot} onPage={onPage} onSection={onSection} onFields={onFields} /> : null}
         {group === "pages" ? <BusinessInfo site={site} onBusiness={onBusiness} onTitle={onTitle} /> : null}
         {group === "style" ? <StyleFields site={site} onBrand={onBrand} onTheme={onTheme} /> : null}
         {group !== "pages" && group !== "style" ? <Sections site={site} group={group} hot={hot} onFields={onFields} onStyle={onStyle} /> : null}
@@ -48,7 +53,7 @@ function Sections({ site, group, hot, onFields, onStyle }: {
   onFields: (id: string, fields: Fields) => void;
   onStyle: (id: string, style: Style) => void;
 }) {
-  const sections = site.pages[0]?.sections.filter((section) => section.group === group) ?? [];
+  const sections = site.pages.flatMap((page) => page.sections).filter((section) => section.group === group);
   if (!sections.length) return <p className="hint">This page has no {group} section.</p>;
   return sections.map((section) => (
     <section className={section.id === hot ? "grp on" : "grp"} key={section.id}>

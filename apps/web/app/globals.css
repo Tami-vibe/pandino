@@ -1,9 +1,7 @@
 @import "tailwindcss";
+@plugin "daisyui";
+@plugin "@tailwindcss/typography";
 @import "./site.css";
-
-@media (min-width: 64rem) {
-  html { font-size: 18px; }
-}
 
 body {
   margin: 0;

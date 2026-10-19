@@ -8,7 +8,7 @@ export async function exportSite(kind: "html" | "wordpress", site: Site, setNote
     const url = URL.createObjectURL(await response.blob());
     const link = document.createElement("a");
     link.href = url;
-    link.download = kind === "html" ? "index.html" : "pandino-theme.zip";
+    link.download = kind === "html" ? "pandino-site.zip" : "pandino-theme.zip";
     link.click();
     URL.revokeObjectURL(url);
     setNote("Saved");

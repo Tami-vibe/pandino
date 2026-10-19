@@ -6,6 +6,7 @@ import { autosaveSite, saveNow } from "../persistence/storage";
 import { Rail } from "./chrome";
 import { exportSite } from "./download";
 import { withBrand, withBusiness, withFields, withMeta, withStyle, withTheme } from "./draft";
+import { focusSection, openStudioPage, sectionId } from "./focus";
 import { isGroup, type RailId } from "./groups";
 import { Panel } from "./panel";
 import { Canvas } from "./stage";
@@ -16,11 +17,12 @@ export function Studio({ initial }: { initial: Site }) {
     <div className="studio" data-theme={model.theme}>
       <Rail site={model.site} group={model.group} theme={model.theme} onPick={model.openGroup} onTheme={model.chooseTheme} />
       <Panel
-        site={model.site} group={model.group} note={model.note} hot={model.hot}
+        site={model.site} group={model.group} slug={model.slug} note={model.note} hot={model.hot}
         onFields={model.onFields} onBrand={model.onBrand} onStyle={model.onStyle} onTheme={model.onTheme}
         onBusiness={model.onBusiness} onTitle={model.onTitle} onSave={model.onSave}
+        onPage={model.openPage} onSection={model.openSection}
       />
-      <Canvas site={model.site} hot={model.hot} jump={model.jump} onSelect={model.openSection} onDownload={model.onDownload} />
+      <Canvas site={model.site} hot={model.hot} jump={model.jump} slug={model.slug} onSelect={model.openSection} onPage={model.openPage} onDownload={model.onDownload} />
     </div>
   );
 }
@@ -28,6 +30,7 @@ export function Studio({ initial }: { initial: Site }) {
 function useStudio(initial: Site) {
   const [site, setSite] = useState(initial);
   const [group, setGroup] = useState<RailId>("pages");
+  const [slug, setSlug] = useState(initial.pages[0]?.slug ?? "/");
   const [hot, setHot] = useState("");
   const [jump, setJump] = useState(0);
   const [theme, setTheme] = useState<"light" | "dark">("light");
@@ -38,10 +41,12 @@ function useStudio(initial: Site) {
     setNote("Saving…");
     autosaveSite(next, (ok) => setNote(ok ? "Saved" : "Add the missing text to save"));
   }
+  const focus = (id: string) => focusSection(site, id, setHot, setSlug);
   return {
-    site, group, theme, note, hot, jump,
-    openGroup(id: RailId) { setGroup(id); setHot(sectionId(site, id)); setJump((n) => n + 1); },
-    openSection(id: string, next: string) { if (isGroup(next)) setGroup(next); setHot(id); },
+    site, group, theme, note, hot, jump, slug,
+    openGroup(id: RailId) { setGroup(id); focus(sectionId(site, id)); setJump((n) => n + 1); },
+    openSection(id: string, next: string) { if (isGroup(next)) setGroup(next); focus(id); },
+    openPage(next: string) { openStudioPage(site, next, setSlug, setGroup, setHot, setJump); },
     chooseTheme() {
       const next = theme === "dark" ? "light" : "dark";
       setTheme(next);
@@ -56,10 +61,6 @@ function useStudio(initial: Site) {
     onSave() { try { saveNow(site); setNote("Saved"); } catch { setNote("Add the missing text to save"); } },
     onDownload: (kind: "html" | "wordpress") => void exportSite(kind, site, setNote),
   };
-}
-
-function sectionId(site: Site, group: string) {
-  return site.pages.flatMap((page) => page.sections).find((section) => section.group === group)?.id ?? "";
 }
 
 function rememberTheme(setTheme: (theme: "light" | "dark") => void) {
