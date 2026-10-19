@@ -13,7 +13,8 @@
   },
   "dependencies": {
     "@pandino/recipes": "workspace:*",
-    "@pandino/schema": "workspace:*"
+    "@pandino/schema": "workspace:*",
+    "@pandino/theme": "workspace:*"
   },
   "peerDependencies": {
     "react": "^19"

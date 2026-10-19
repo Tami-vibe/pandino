@@ -31,7 +31,7 @@ export function ReviewBadge({ site }: { site: Site }) {
   const score = count ? Math.round(reviews.reduce((sum, item) => sum + item.rating, 0) / count) : 0;
   const label = count ? `${sample ? "Sample · " : ""}${score} · ${count} reviews` : "Sample · add your reviews";
   const id = site.pages.flatMap((page) => page.sections).find((section) => section.recipe === "trust.reviews-certs")?.id ?? "reviews";
-  return <a className="chip review-badge" href={`#${id}`}>{label}</a>;
+  return <a className="hero-reviews badge badge-neutral gap-2 py-3 px-4 border border-white/20 mb-4 inline-flex items-center review-badge" href={`#${id}`}>{label}</a>;
 }
 
 export function MapboxMap({ query }: { query: string }) {

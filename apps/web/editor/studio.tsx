@@ -33,7 +33,7 @@ function useStudio(initial: Site) {
   const [slug, setSlug] = useState(initial.pages[0]?.slug ?? "/");
   const [hot, setHot] = useState("");
   const [jump, setJump] = useState(0);
-  const [theme, setTheme] = useState<"light" | "dark">("light");
+  const [theme, setTheme] = useState<"light" | "dark">("dark");
   const [note, setNote] = useState("Saved");
   useEffect(() => { rememberTheme(setTheme); }, []);
   function commit(next: Site) {
@@ -65,7 +65,7 @@ function useStudio(initial: Site) {
 
 function rememberTheme(setTheme: (theme: "light" | "dark") => void) {
   const saved = localStorage.getItem("pandino-theme");
-  const next = saved === "light" || saved === "dark" ? saved : matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+  const next = saved === "light" || saved === "dark" ? saved : "dark";
   setTheme(next);
   localStorage.setItem("pandino-theme", next);
 }

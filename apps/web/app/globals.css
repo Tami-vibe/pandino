@@ -1,7 +1,10 @@
 @import "tailwindcss";
 @plugin "daisyui";
 @plugin "@tailwindcss/typography";
+@source "../../../packages/recipes/src";
+@source "../../../packages/renderer/src";
 @import "./site.css";
+@import "./smiley.css";
 
 body {
   margin: 0;

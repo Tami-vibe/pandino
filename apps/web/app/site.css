@@ -191,25 +191,25 @@
 .split > .heading { grid-column: 1 / -1; }
 .eyebrow { margin: 0; font-weight: 650; color: var(--primary); }
 .site .eyebrow { display: flex; align-items: center; gap: 0.4rem; font-size: var(--type-eyebrow); letter-spacing: 0.08em; text-transform: uppercase; }
-.site :is(h1, h2, h3, h4, .display, .wordmark) {
+.site:not(.kit) :is(h1, h2, h3, h4, .display, .wordmark) {
   font-family: var(--heading-family);
   font-weight: 700;
   letter-spacing: -0.03em;
   line-height: 1.05;
 }
 .display, .heading h2, .footer h2 { margin: 0.6rem 0 0; }
-.site h1 { font-size: var(--type-h1); }
-.site h2, .site .heading h2, .site .footer h2, .site .site-footer h2 { font-size: var(--type-h2); }
-.site h3 { font-size: var(--type-h3); }
-.site h4 { font-size: var(--type-h4); }
+.site:not(.kit) h1 { font-size: var(--type-h1); }
+.site:not(.kit) h2, .site:not(.kit) .heading h2, .site:not(.kit) .footer h2, .site:not(.kit) .site-footer h2 { font-size: var(--type-h2); }
+.site:not(.kit) h3 { font-size: var(--type-h3); }
+.site:not(.kit) h4 { font-size: var(--type-h4); }
 .site .display { font-size: var(--type-display); font-weight: 700; letter-spacing: -0.03em; line-height: 0.96; }
 .site .lede, .site .heading p, .site .review p { font-size: var(--type-lead); }
 .site .note, .site .price span, .site .review footer, .site .site-footer small { font-size: var(--type-eyebrow); }
-.lede, .heading p, .card p, .menu p, .steps p, .note { color: var(--muted); line-height: 1.5; }
+.site:not(.kit) :is(.lede, .heading p, .card p, .menu p, .steps p, .note) { color: var(--muted); line-height: 1.5; }
 .cta-row { display: flex; flex-wrap: wrap; gap: 0.7rem; margin-top: 1.5rem; }
 .cards, .steps { display: grid; gap: 0.7rem; margin-top: 1rem; }
 .steps { grid-template-columns: 1fr; }
-.card {
+.site:not(.kit) .card {
   background: color-mix(in srgb, var(--surface, #fff) 94%, var(--text, #111));
   border: 1px solid color-mix(in srgb, var(--text, #111) 10%, transparent);
   border-radius: var(--radius);
@@ -233,7 +233,7 @@
 .steps { list-style: none; padding: 0; }
 .steps span { font-weight: 700; color: var(--primary); }
 .note { margin-top: 1rem; }
-.chip {
+.site:not(.kit) .chip {
   display: inline-flex;
   border-radius: 999px;
   padding: 0.15rem 0.65rem;
@@ -415,16 +415,16 @@ html { scroll-behavior: smooth; }
 
 /* Header, footer, and cookie bar follow HyperUI section patterns (MIT). */
 .nav-cta { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-left: auto; }
-.site .nav-cta .btn {
+.site:not(.kit) .nav-cta .btn {
   min-height: 2.25rem; height: auto; width: auto; padding: 0 0.85rem;
   font-family: var(--font-inter), Inter, sans-serif; font-size: 0.875rem; font-weight: 650; line-height: 1;
   box-shadow: none; background-image: none; text-shadow: none;
 }
-.site .hero > * { grid-area: auto; }
+.site:not(.kit) .hero > * { grid-area: auto; }
 .site .menu { display: block; width: auto; padding: 0; font-size: inherit; }
 .site .steps { display: grid; width: auto; overflow: visible; grid-auto-flow: row; font-size: inherit; }
 .site .footer { display: block; width: auto; font-size: inherit; }
-.site .card { width: auto; font-size: inherit; }
+.site:not(.kit) .card { width: auto; font-size: inherit; }
 .site .site-footer, .site .site-footer a { font-family: var(--body), var(--font-inter), Inter, sans-serif; font-size: var(--type-body); }
 .site-footer { padding: 2.6rem 1.1rem 5rem; border-top: 1px solid color-mix(in srgb, var(--text) 10%, transparent); background: color-mix(in srgb, var(--text) 4%, var(--surface)); }
 .foot-grid { display: grid; gap: 1.5rem; }
@@ -454,13 +454,13 @@ html[data-cookie] .cookie-bar { display: none; }
 }
 
 .site .block { padding: 4rem 1.5rem; }
-.site .card h3 { font-size: var(--type-h4); }
+.site:not(.kit) .card h3 { font-size: var(--type-h4); }
 .site .shot, .site .pain img, .site .ba img { border-radius: 1rem; }
 .glass { backdrop-filter: blur(18px); }
 .review-badge, .brand-row, .svc, .stat, .offer-banner, .guarantee, .tabs label, .chip-row .chip {
   border: 1px solid color-mix(in srgb, var(--text) 12%, transparent);
 }
-.review-badge {
+.site:not(.kit) .review-badge {
   width: fit-content;
   margin-top: 1rem;
   text-decoration: none;
@@ -503,8 +503,8 @@ html[data-cookie] .cookie-bar { display: none; }
 .specs div { padding-top: 0.75rem; border-top: 1px solid color-mix(in srgb, var(--text) 14%, transparent); }
 .specs dt { color: var(--muted); font-size: var(--type-eyebrow); }
 .specs dd { margin: 0.25rem 0 0; font-family: var(--heading-family); font-size: var(--type-h4); }
-.chip-row, .badge-row, .tabs { display: flex; flex-wrap: wrap; gap: 0.5rem; }
-.chip-row .pick, .tabs input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+.site:not(.kit) :is(.chip-row, .badge-row, .tabs) { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.site:not(.kit) :is(.chip-row .pick, .tabs input) { position: absolute; width: 1px; height: 1px; opacity: 0; }
 .chip-row .chip, .tabs label {
   position: relative; cursor: pointer; padding: 0.5rem 0.9rem; border-radius: 999px;
   background: color-mix(in srgb, var(--surface) 80%, var(--text));
@@ -516,10 +516,10 @@ html[data-cookie] .cookie-bar { display: none; }
 .filters:has(.chip-row label:nth-child(2) input:checked) .filter-stage > :nth-child(2),
 .filters:has(.chip-row label:nth-child(3) input:checked) .filter-stage > :nth-child(3),
 .filters:has(.chip-row label:nth-child(4) input:checked) .filter-stage > :nth-child(4) { display: block; }
-.tabs .panel { display: none; flex-basis: 100%; }
-.tabs:has(label:nth-child(1) input:checked) .panel:nth-child(4),
-.tabs:has(label:nth-child(2) input:checked) .panel:nth-child(5),
-.tabs:has(label:nth-child(3) input:checked) .panel:nth-child(6) { display: block; }
+.site:not(.kit) .tabs .panel { display: none; flex-basis: 100%; }
+.site:not(.kit) .tabs:has(label:nth-child(1) input:checked) .panel:nth-child(4),
+.site:not(.kit) .tabs:has(label:nth-child(2) input:checked) .panel:nth-child(5),
+.site:not(.kit) .tabs:has(label:nth-child(3) input:checked) .panel:nth-child(6) { display: block; }
 .ba { position: relative; container-type: inline-size; --pos: 50%; border-radius: 1rem; overflow: hidden; }
 .ba .over { position: absolute; inset: 0 auto 0 0; width: var(--pos); overflow: hidden; border-right: 2px solid #fff; }
 .ba .shot, .ba .frame { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; border-radius: 0; }
@@ -581,9 +581,9 @@ html[data-tone="dark"] .site {
     radial-gradient(920px 420px at 88% -12%, color-mix(in srgb, var(--primary) 28%, transparent), transparent 62%),
     var(--surface);
 }
-html[data-tone="dark"] .site .card:not(.more),
-html[data-tone="dark"] .site .glass,
-html[data-tone="dark"] .site .topnav {
+html[data-tone="dark"] .site:not(.kit) .card:not(.more),
+html[data-tone="dark"] .site:not(.kit) .glass,
+html[data-tone="dark"] .site:not(.kit) .topnav {
   background: color-mix(in srgb, white 7%, transparent);
   border-color: color-mix(in srgb, white 14%, transparent);
   box-shadow: 0 18px 44px -28px rgba(0, 0, 0, 0.72);

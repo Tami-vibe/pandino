@@ -1,14 +1,15 @@
-import { Band, type Block } from "../parts";
+import type { Block } from "../parts";
 import { line, rows } from "./text";
 
 export function Logos({ site, section }: Block) {
-  const brands = rows(section.fields.brands);
+  const brands = rows(section.fields.brands).map((brand) => line(site, brand));
+  const row = brands.map((brand) => <span key={brand}>{brand}</span>);
   return (
-    <Band id={section.id} group={section.group} label="Brands" variant={section.variant} icon="directions_car" className="block logos" wrap="wrap" style={section.style}>
-      <p className="eyebrow">{line(site, section.fields.headline)}</p>
-      <ul className="brand-row">
-        {brands.map((brand) => <li key={line(site, brand)}>{line(site, brand)}</li>)}
-      </ul>
-    </Band>
+    <section id={section.id} data-group={section.group} data-label="Brands" data-icon="directions_car" className="w-full py-8 overflow-hidden relative mask-feather-x" aria-label={line(site, section.fields.headline)}>
+      <div className="flex w-max animate-marquee">
+        <div className="flex shrink-0 items-center gap-12 min-w-full justify-around text-sm font-bold tracking-wider uppercase opacity-60">{row}</div>
+        <div className="flex shrink-0 items-center gap-12 min-w-full justify-around text-sm font-bold tracking-wider uppercase opacity-60" aria-hidden="true">{brands.map((brand) => <span key={`b-${brand}`}>{brand}</span>)}</div>
+      </div>
+    </section>
   );
 }

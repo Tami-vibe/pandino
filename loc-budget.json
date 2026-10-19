@@ -20,19 +20,19 @@
     },
     {
       "id": "theme",
-      "budget": 80,
+      "budget": 140,
       "paths": ["packages/theme/**"],
       "note": "Brand color to palette, contrast, five font presets, radius and spacing"
     },
     {
       "id": "recipes",
-      "budget": 1250,
+      "budget": 1180,
       "paths": ["packages/recipes/**"],
       "note": "Eight recipes: Zod fields and JSX"
     },
     {
       "id": "renderer",
-      "budget": 160,
+      "budget": 170,
       "paths": ["packages/renderer/**"],
       "note": "Page assembly, static HTML, CSS inlining"
     },
