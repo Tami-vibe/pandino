@@ -20,6 +20,11 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   const fonts = [inter.className, inter.variable, manrope.variable, syne.variable, montserrat.variable, poppins.variable, dm.variable, playfair.variable];
   return (
     <html lang="en">
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0..1,0&icon_names=ads_click,auto_stories,call_to_action,construction,dark_mode,light_mode,lock,palette,save,sentiment_dissatisfied,storefront,verified&display=block" />
+      </head>
       <body className={fonts.join(" ")}>{children}</body>
     </html>
   );
