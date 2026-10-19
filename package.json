@@ -1,0 +1,21 @@
+{
+  "name": "pandino",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@10.33.4",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev": "pnpm --filter @pandino/web dev",
+    "lint": "turbo run lint",
+    "typecheck": "turbo run typecheck",
+    "test": "turbo run test && node --test scripts/loc-meter.test.mjs",
+    "meter": "node scripts/loc-meter.mjs"
+  },
+  "devDependencies": {
+    "eslint": "^10.13.0",
+    "turbo": "^2.11.9",
+    "typescript-eslint": "^8.71.2"
+  }
+}

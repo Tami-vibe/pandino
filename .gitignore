@@ -1,0 +1,9 @@
+node_modules
+.turbo
+.next
+dist
+coverage
+*.tsbuildinfo
+next-env.d.ts
+meter.txt
+.DS_Store
