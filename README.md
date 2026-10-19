@@ -4,6 +4,8 @@ Pandino builds websites for car aftermarket shops: garages, body shops, tyre sho
 
 Phase 1a turns a prompt and a brand color into a recipe site. With no `AI_API_KEY`, generation is deterministic. Italy (detected from the city or country, or chosen in the prompt) uses euro placeholders, a `+39` number, and WhatsApp. The US uses dollar placeholders, a `+1` number, and call or text. Reviews, prices, photos, and certifications are placeholders.
 
+After Generate, the editor opens on Business info: name, phone, WhatsApp, email, address, city, hours, Google reviews, warranty, and payment options. Section text and the brand color edit the same site JSON. The preview updates live and the draft autosaves in this browser. The quote form asks dent or accident and does not submit. Download HTML saves one `index.html`. Download WordPress theme saves a GPL block theme (`style.css`, `theme.json`, `templates/index.html`) with core blocks only.
+
 ```bash
 AI_API_KEY=        # optional, OpenAI-compatible
 AI_MODEL=gpt-4o-mini
@@ -38,7 +40,9 @@ Counted lines are non-blank, non-comment TypeScript, TSX, JavaScript, and PHP in
 ## Layout
 
 ```
-apps/web                 Next.js app (Tailwind). The app shell counts toward the editor budget.
+apps/web                 Next.js app (Tailwind). Prompt, editor, and the app shell.
+packages/export-html     Single-file HTML download.
+packages/export-wp       Minimal GPL WordPress block theme.
 packages/schema          Canonical site JSON schema, validator, and the Rossi Auto Body example.
 scripts/loc-meter.mjs    Line meter. No dependencies.
 docs/PLAN.md             Product and technical plan.

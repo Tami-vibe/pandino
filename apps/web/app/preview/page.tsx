@@ -1,5 +1,5 @@
-import { Preview } from "../../persistence/preview";
+import { redirect } from "next/navigation";
 
 export default function PreviewPage() {
-  return <Preview />;
+  redirect("/editor");
 }

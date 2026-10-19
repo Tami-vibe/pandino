@@ -8,7 +8,15 @@
     "vertical": "body_shop",
     "market": "US",
     "phone": "+15550100100",
-    "address": { "city": "Columbus", "region": "OH", "country": "US" },
+    "whatsapp": "+15550100100",
+    "email": "",
+    "address": { "street": "", "city": "Columbus", "region": "OH", "country": "US" },
+    "hours": "Add your opening hours",
+    "googleReviewsUrl": "",
+    "googleRating": null,
+    "googleReviewCount": null,
+    "warranty": "",
+    "payments": [],
     "certifications": ["i-car-gold", "ase"]
   },
   "theme": {

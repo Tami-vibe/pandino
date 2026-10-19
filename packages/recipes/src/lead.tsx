@@ -1,3 +1,4 @@
+import { GoogleBadge } from "./facts";
 import { recipeFields } from "./fields";
 import { Band, Cta, Frame, readFields, tx, type Block } from "./parts";
 
@@ -8,6 +9,7 @@ export function Hero({ site, section }: Block) {
     <Band id={section.id} className="hero block" wrap="wrap hero-grid">
       <div>
         <p className="eyebrow">{tx(site, fields.eyebrow)}</p>
+        <GoogleBadge site={site} />
         <h1 className="display">{tx(site, fields.headline)}</h1>
         <p className="lede">{tx(site, fields.subhead)}</p>
         <div className="cta-row">
@@ -24,7 +26,7 @@ export function Pains({ site, section }: Block) {
   const fields = readFields(recipeFields["pains.cards"], section.fields);
   if (!fields) return null;
   return (
-    <Band id={section.id} className="block band" wrap="wrap" title={tx(site, fields.headline)} body={tx(site, fields.subhead)}>
+    <Band id={section.id} className="block band strip" wrap="wrap" title={tx(site, fields.headline)} body={tx(site, fields.subhead)}>
       <div className="cards">
         {fields.items.map((item) => (
           <article key={tx(site, item.title)} className="card">
@@ -57,25 +59,6 @@ export function Menu({ site, section }: Block) {
           </li>
         ))}
       </ul>
-    </Band>
-  );
-}
-
-export function Process({ site, section }: Block) {
-  const fields = readFields(recipeFields["services.process-insurance"], section.fields);
-  if (!fields) return null;
-  return (
-    <Band id={section.id} className="block band" wrap="wrap" title={tx(site, fields.headline)} body={tx(site, fields.subhead)}>
-      <ol className="steps">
-        {fields.steps.map((step, index) => (
-          <li key={tx(site, step.title)}>
-            <span>{String(index + 1).padStart(2, "0")}</span>
-            <h3>{tx(site, step.title)}</h3>
-            <p>{tx(site, step.body)}</p>
-          </li>
-        ))}
-      </ol>
-      <p className="note">{tx(site, fields.note)}</p>
     </Band>
   );
 }

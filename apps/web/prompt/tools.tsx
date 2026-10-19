@@ -61,7 +61,7 @@ export async function submit(event: FormEvent<HTMLFormElement>, fields: Fields) 
       return;
     }
     saveSite(body);
-    fields.router.push("/preview");
+    fields.router.push("/editor");
   } catch {
     fields.setBusy(false);
     fields.setError("Could not generate a site.");
