@@ -7,3 +7,13 @@
 - Barlow Condensed and Inter (SIL Open Font License).
 
 Not used: Tailwind Plus, Flowbite Pro, shadcndesign.com Pro, Preline, coss ui, Origin UI.
+
+## Cursor agent skills (.cursor/skills/)
+
+These are vendored, unmodified SKILL.md folders. They contain no hooks, no plugin manifests and no executables that run automatically. License texts are in .cursor/skills/LICENSES/.
+
+- **ponytail** (`ponytail`, `ponytail-review`, `ponytail-audit`): Copyright (c) 2026 DietrichGebert. MIT. https://github.com/DietrichGebert/ponytail @ 09c434a
+- **mattpocock/skills** (`tdd`, `diagnosing-bugs`, `codebase-design`, `prototype`): Copyright (c) 2026 Matt Pocock. MIT. https://github.com/mattpocock/skills @ 5beb35b. The `agents/openai.yaml` metadata files were dropped.
+- **superpowers** (`verification-before-completion`): Copyright (c) 2025 Jesse Vincent. MIT. https://github.com/obra/superpowers @ bb92a77
+- **impeccable** (`impeccable`): Copyright (c) Renaissance Geek, Inc. / Paul Bakaus. Apache-2.0, with its NOTICE in LICENSES/impeccable-NOTICE.md. https://github.com/pbakaus/impeccable @ 46b822f (from its .cursor/skills/impeccable). The `scripts/` folder (engine launcher, downloaded binary and browser scripts) was intentionally omitted; the skill uses its documented "Launcher unavailable" fallback. Per Apache-2.0 §4(b): files unmodified, the scripts/ directory removed.
+- **i-have-adhd** (`i-have-adhd`): Copyright (c) 2026 Ayoub Ghriss MIT. https://github.com/ayghri/i-have-adhd @ 1ecea19. The `agents/` metadata files were dropped.
