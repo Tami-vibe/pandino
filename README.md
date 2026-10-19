@@ -31,11 +31,11 @@ pnpm meter
 pnpm meter -- --base origin/main
 ```
 
-`pnpm meter` prints lines used against the Phase 0–1 budget and exits non-zero when a module budget, the 1,400-line total, a per-file cap, or a per-function cap is exceeded. The same check runs on every pull request and updates a comment with the table and the delta versus the base branch.
+`pnpm meter` prints lines used against the Phase 0–1 budget and exits non-zero when a module budget, the 1,650-line total, a per-file cap, or a per-function cap is exceeded. The same check runs on every pull request and updates a comment with the table and the delta versus the base branch.
 
 ## What counts
 
-Counted lines are non-blank, non-comment TypeScript, TSX, JavaScript, and PHP in `apps/`, `packages/`, `jobs/`, and `wordpress/`. Tests, config, CSS, recipe data and templates, docs, and the sidebar mockup are reported separately and do not count. `scripts/loc-meter.mjs` is outside the 1,400 and has its own budget in `loc-budget.json`.
+Counted lines are non-blank, non-comment TypeScript, TSX, JavaScript, and PHP in `apps/`, `packages/`, `jobs/`, and `wordpress/`. Tests, config, CSS, recipe data and templates, docs, and the sidebar mockup are reported separately and do not count. `scripts/loc-meter.mjs` is outside the 1,650 and has its own budget in `loc-budget.json`.
 
 ## Layout
 
