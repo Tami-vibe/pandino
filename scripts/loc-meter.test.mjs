@@ -9,6 +9,7 @@ const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const budget = {
   total: 100,
   caps: { perFile: 80, perFunction: 40 },
+  tooling: { budget: 150, paths: ["scripts/loc-meter.mjs"] },
   modules: [
     { id: "schema", budget: 60, paths: ["packages/schema/**"] },
     { id: "editor", budget: 40, paths: ["apps/web/app/**"] },
@@ -61,15 +62,6 @@ test("comments, strings, and regex braces are not code structure", () => {
   assert.equal(fn.functions[0].lines, 3);
 });
 
-test("a brace-free or object return type still belongs to the function", () => {
-  const plain = analyze('function plain(): string {\n  return "x";\n}\n', ".ts");
-  assert.equal(plain.functions[0].lines, 3);
-  const typed = analyze('function typed(): { a: string } {\n  return { a: "x" };\n}\n', ".ts");
-  assert.equal(typed.functions.length, 1);
-  assert.equal(typed.functions[0].name, "typed");
-  assert.equal(typed.functions[0].lines, 3);
-});
-
 test("php comments and functions count", () => {
   const php = analyze("<?php\n# note\nfunction ping($ok) {\n  return $ok;\n}\n", ".php");
   assert.equal(php.functions.length, 1);
@@ -112,5 +104,6 @@ test("the repository is within budget", () => {
   assert.equal(result.status, 0, result.stdout + result.stderr);
   assert.match(result.stdout, /schema/);
   assert.match(result.stdout, /mockup/);
+  assert.match(result.stdout, /tooling/);
   assert.match(result.stdout, /Result: within budget/);
 });

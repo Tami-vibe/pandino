@@ -7,7 +7,7 @@ alwaysApply: true
 
 Phases 0–1 have a hard budget of 1,000 counted lines, split in `loc-budget.json`. Run `pnpm meter` before finishing. Say which module budgets the change touches.
 
-Counted lines are non-blank, non-comment TypeScript, TSX, JavaScript, and PHP in `apps/`, `packages/`, `jobs/`, and `wordpress/`. Tests, config, CSS, recipe data, docs, the sidebar mockup, and the line meter do not count. Do not hide product code in those buckets.
+Counted lines are non-blank, non-comment TypeScript, TSX, JavaScript, and PHP in `apps/`, `packages/`, `jobs/`, and `wordpress/`. Tests, config, CSS, recipe data, docs, and the sidebar mockup do not count. The line meter is outside the 1,000 and has its own budget. Do not hide product code in an uncounted bucket or raise the tooling budget.
 
 - Small pull requests, one concern each.
 - Delete unused code before adding code.

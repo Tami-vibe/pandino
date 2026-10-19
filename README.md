@@ -25,7 +25,7 @@ pnpm meter -- --base origin/main
 
 ## What counts
 
-Counted lines are non-blank, non-comment TypeScript, TSX, JavaScript, and PHP in `apps/`, `packages/`, `jobs/`, and `wordpress/`. Tests, config, CSS, recipe data and templates, docs, the sidebar mockup, and `scripts/loc-meter.mjs` are reported separately and do not count. The split and the caps live in `loc-budget.json`.
+Counted lines are non-blank, non-comment TypeScript, TSX, JavaScript, and PHP in `apps/`, `packages/`, `jobs/`, and `wordpress/`. Tests, config, CSS, recipe data and templates, docs, and the sidebar mockup are reported separately and do not count. `scripts/loc-meter.mjs` is outside the 1,000 and has its own budget in `loc-budget.json`.
 
 ## Layout
 

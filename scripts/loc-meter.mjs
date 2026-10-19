@@ -1,619 +1,193 @@
 #!/usr/bin/env node
 import { spawnSync } from "node:child_process";
-import { readFileSync, realpathSync } from "node:fs";
+import { readFileSync } from "node:fs";
 import { basename, extname } from "node:path";
-import { fileURLToPath, pathToFileURL } from "node:url";
 
-const SOURCE_EXT = new Set([".ts", ".tsx", ".js", ".jsx", ".mjs", ".cjs", ".php"]);
+const EXT = new Set([".ts", ".tsx", ".js", ".jsx", ".mjs", ".cjs", ".php"]);
 const ROOTS = ["apps/", "packages/", "jobs/", "wordpress/"];
-const CONTROL = new Set(["if", "for", "while", "switch", "catch", "with"]);
-const REGEX_WORDS = new Set([
-  "return", "throw", "case", "typeof", "void", "delete", "await", "yield", "else", "do", "in", "of",
-]);
-const BAR = 16;
-const CATEGORIES = ["tests", "config", "css", "recipe-data", "docs", "mockup", "tooling"];
+const FLOW = new Set(["if", "for", "while", "switch", "catch", "with"]);
+const CATS = ["tests", "config", "css", "recipe-data", "docs", "mockup", "lockfiles", "prototype", "other"];
+const CONFIG = new Set([".gitignore", "package.json", "loc-budget.json", "turbo.json", "pnpm-workspace.yaml", "next-env.d.ts"]);
 
 export function statusFor(used, budget) {
   if (used > budget) return "RED";
-  if (budget <= 0) return "GREEN";
-  if (used / budget >= 0.8) return "YELLOW";
-  return "GREEN";
+  return budget > 0 && used / budget >= 0.8 ? "YELLOW" : "GREEN";
 }
 
-export function bar(used, budget, width = BAR) {
-  const ratio = budget <= 0 ? (used > 0 ? 1 : 0) : used / budget;
-  const filled = Math.max(0, Math.min(width, Math.round(ratio * width)));
-  return "█".repeat(filled) + "░".repeat(width - filled);
+export function bar(used, budget, width = 16) {
+  const n = Math.min(width, Math.max(0, Math.round((budget > 0 ? used / budget : used ? 1 : 0) * width)));
+  return `${"█".repeat(n)}${"░".repeat(width - n)}`;
 }
 
 export function matchGlob(glob, file) {
-  const body = glob
-    .split("**")
-    .map((part) => part.split("*").map(escapeRegExp).join("[^/]*"))
-    .join(".*");
+  const body = glob.split("**").map((part) => part.replace(/[.+^${}()|[\]\\]/g, "\\$&").replaceAll("*", "[^/]*")).join(".*");
   return new RegExp(`^${body}$`).test(file);
 }
 
-export function classify(filePath) {
-  const path = filePath.replaceAll("\\", "/");
+export function classify(file) {
+  const path = file.replaceAll("\\", "/");
+  const base = basename(path);
   if (path.startsWith("docs/design/sidebar-mockup/")) return "mockup";
   if (path.startsWith("docs/") || path.startsWith(".cursor/") || path.endsWith(".md")) return "docs";
   if (path.startsWith("prototype/")) return "prototype";
-  if (isTest(path)) return "tests";
-  if (path.startsWith("scripts/")) return "tooling";
+  if (/\.(test|spec)\.[^.]+$/.test(path) || path.includes("/__tests__/")) return "tests";
   if (path.endsWith(".css")) return "css";
-  if (isLockfile(path)) return "lockfiles";
-  if (isConfig(path)) return "config";
-  if (path.endsWith(".json") || isTemplate(path)) return "recipe-data";
-  if (ROOTS.some((root) => path.startsWith(root)) && SOURCE_EXT.has(extname(path))) return "product";
-  return "other";
+  if (["pnpm-lock.yaml", "package-lock.json", "yarn.lock"].includes(base)) return "lockfiles";
+  if (base.includes(".config.") || /^tsconfig.*\.json$/.test(base) || path.startsWith(".github/") || CONFIG.has(base)) return "config";
+  if (path.endsWith(".json") || (/\.(html|wxr)$/.test(path) && /^(packages|wordpress)\//.test(path))) return "recipe-data";
+  if (ROOTS.some((root) => path.startsWith(root)) && EXT.has(extname(path))) return "product";
+  return path.startsWith("scripts/") ? "tooling" : "other";
 }
 
-export function analyze(source, ext) {
-  const masked = mask(source, ext === ".php");
-  const code = masked.split("\n").map((line) => line.trim() !== "");
-  return { lines: code.filter(Boolean).length, functions: findFunctions(masked, code) };
+export function analyze(source) {
+  let out = "", mode = "c";
+  for (let i = 0; i < source.length; i++) {
+    const c = source[i], n = source[i + 1] ?? "";
+    if (mode === "l") { if (c === "\n") { mode = "c"; out += "\n"; } continue; }
+    if (mode === "b") { if (c === "*" && n === "/") { mode = "c"; i++; } else if (c === "\n") out += "\n"; continue; }
+    if (mode !== "c") { if (c === "\\") i++; else if (c === mode) mode = "c"; else if (c === "\n") out += "\n"; continue; }
+    if (c === "/" && (n === "/" || n === "*")) { mode = n === "/" ? "l" : "b"; i++; continue; }
+    if (c === "#") { mode = "l"; continue; }
+    if ("'\"`".includes(c)) { mode = c; continue; }
+    out += c;
+  }
+  const live = out.split("\n").map((line) => line.trim() !== "");
+  const fns = [], stack = [];
+  let depth = 0, at = 0;
+  for (let i = 0; i < out.length; i++) {
+    const c = out[i];
+    if (c === "\n") at++;
+    else if (c === "{") { const name = fnName(out, i); if (name) stack.push([depth, at, name]); depth++; }
+    else if (c === "}") {
+      depth--;
+      if (stack.at(-1)?.[0] === depth) {
+        const fn = stack.pop();
+        fns.push({ name: fn[2], line: fn[1] + 1, lines: live.slice(fn[1], at + 1).filter(Boolean).length });
+      }
+    }
+  }
+  return { lines: live.filter(Boolean).length, functions: fns };
+}
+
+function fnName(src, brace) {
+  let j = brace;
+  while (--j >= 0 && /\s/.test(src[j]));
+  if (src[j] === ">" && src[j - 1] === "=") return ident(src, j - 1) || "arrow";
+  while (j >= 0 && src[j] !== ")") { if ("({};".includes(src[j])) return ""; j--; }
+  if (src[j] !== ")") return "";
+  let depth = 1;
+  while (--j >= 0 && depth) depth += src[j] === ")" ? 1 : src[j] === "(" ? -1 : 0;
+  const name = ident(src, j + 1);
+  return FLOW.has(name) ? "" : name && name !== "function" ? name : "anonymous";
+}
+
+function ident(src, index) {
+  let j = index;
+  while (--j >= 0 && /\s/.test(src[j]));
+  const end = j;
+  while (j >= 0 && /[\w$]/.test(src[j])) j--;
+  return src.slice(j + 1, end + 1);
 }
 
 export function evaluate(files, budget, baseFiles = null) {
-  const modules = budget.modules.map((mod) => ({ ...mod, used: 0, base: 0 }));
-  const categories = emptyCategories();
   const violations = [];
-  const sum = budget.modules.reduce((total, mod) => total + mod.budget, 0);
-  if (sum !== budget.total) {
-    violations.push(`Module budgets sum to ${sum}, total is ${budget.total}`);
-  }
-
-  const current = tally(files, modules, categories, budget, violations, "used");
-  const base = baseFiles ? tally(baseFiles, modules, categories, budget, [], "base") : null;
-  const used = current.product + current.unassignedLines;
-  const baseUsed = base ? base.product + base.unassignedLines : 0;
+  const modules = budget.modules.map((mod) => ({ ...mod, used: 0, base: 0 }));
+  const tooling = { budget: budget.tooling?.budget ?? 0, paths: budget.tooling?.paths ?? [], used: 0, base: 0 };
+  const categories = Object.fromEntries(CATS.map((name) => [name, { lines: 0, base: 0, files: 0 }]));
+  const sum = modules.reduce((total, mod) => total + mod.budget, 0);
+  if (sum !== budget.total) violations.push(`Module budgets sum to ${sum}, total is ${budget.total}`);
+  if (!tooling.budget || !tooling.paths.length) violations.push("loc-budget.json needs a tooling budget");
+  const now = tally(files, modules, tooling, categories, budget, violations, "used");
+  const was = baseFiles ? tally(baseFiles, modules, tooling, categories, budget, [], "base") : null;
+  const used = now.product + now.unassigned;
   if (used > budget.total) violations.push(`Total ${used}/${budget.total}`);
-
-  return {
-    modules,
-    categories,
-    violations,
-    total: { used, budget: budget.total, base: baseUsed },
-    showDelta: baseFiles !== null,
-  };
+  if (tooling.used > tooling.budget) violations.push(`Tooling ${tooling.used}/${tooling.budget}`);
+  return { modules, tooling, categories, violations, showDelta: Boolean(baseFiles), total: { used, budget: budget.total, base: was ? was.product + was.unassigned : 0 } };
 }
 
-export function formatReport(result, color = false) {
-  const showDelta = result.showDelta;
-  const header = ["Module", "Used", "Budget", ...(showDelta ? ["Delta"] : []), "%", "Status", "Bar"];
-  const rows = result.modules.map((mod) => row(mod.id, mod.used, mod.budget, showDelta ? mod.used - mod.base : null));
-  rows.push(row("TOTAL", result.total.used, result.total.budget, showDelta ? result.total.used - result.total.base : null));
-  const widths = header.map((label, index) =>
-    Math.max(label.length, ...rows.map((cells) => cells[index].length)),
-  );
-  const lines = [
-    `Pandino line budget · phases 0-1 · ${result.total.budget} lines`,
-    "",
-    "GREEN under 80% · YELLOW 80-100% · RED over",
-    "",
-    align(header, widths, false),
-    widths.map((width) => "-".repeat(width)).join("  "),
-  ];
-  for (const cells of rows) lines.push(align(cells, widths, color));
-
-  lines.push("", "Not counted (non-blank lines)");
-  const catHeader = ["Category", "Lines", ...(showDelta ? ["Delta"] : []), "Files"];
-  const catRows = categoryRows(result.categories, showDelta);
-  const catWidths = catHeader.map((label, index) =>
-    Math.max(label.length, ...catRows.map((cells) => cells[index].length)),
-  );
-  lines.push(align(catHeader, catWidths, false));
-  lines.push(catWidths.map((width) => "-".repeat(width)).join("  "));
-  for (const cells of catRows) lines.push(align(cells, catWidths, false));
-
-  if (result.violations.length) {
-    lines.push("", "Over budget");
-    for (const violation of result.violations) lines.push(violation);
-  }
-  lines.push("", result.violations.length ? "Result: over budget" : "Result: within budget");
-  return lines.join("\n");
-}
-
-function categoryRows(categories, showDelta) {
-  const names = [...CATEGORIES];
-  for (const name of Object.keys(categories)) {
-    if (!names.includes(name) && (categories[name].lines > 0 || categories[name].base > 0)) names.push(name);
-  }
-  return names.map((name) => {
-    const cat = categories[name];
-    const cells = [name, String(cat.lines)];
-    if (showDelta) cells.push(formatDelta(cat.lines - cat.base));
-    cells.push(String(cat.files));
-    return cells;
-  });
-}
-
-function row(id, used, budget, delta) {
-  const status = statusFor(used, budget);
-  const cells = [id, String(used), String(budget)];
-  if (delta !== null) cells.push(formatDelta(delta));
-    cells.push(percent(used, budget), status, bar(used, budget));
-  return cells;
-}
-
-function align(cells, widths, color) {
-  return cells
-    .map((cell, index) => {
-      const padded = index === 0 ? cell.padEnd(widths[index]) : cell.padStart(widths[index]);
-      if (color && (cell === "GREEN" || cell === "YELLOW" || cell === "RED")) return padded.replace(cell, paint(cell, true));
-      return padded;
-    })
-    .join("  ");
-}
-
-function percent(used, budget) {
-  if (budget <= 0) return used > 0 ? "100%" : "0%";
-  return `${Math.round((used / budget) * 100)}%`;
-}
-
-function formatDelta(delta) {
-  return delta > 0 ? `+${delta}` : String(delta);
-}
-
-function paint(status, color) {
-  if (!color) return status;
-  const code = status === "GREEN" ? 32 : status === "YELLOW" ? 33 : 31;
-  return `\x1b[${code}m${status}\x1b[0m`;
-}
-
-function emptyCategories() {
-  const categories = {};
-  for (const name of [...CATEGORIES, "lockfiles", "prototype", "other"]) {
-    categories[name] = { lines: 0, base: 0, files: 0 };
-  }
-  return categories;
-}
-
-function tally(files, modules, categories, budget, violations, slot) {
+function tally(files, modules, tooling, categories, budget, violations, slot) {
   let product = 0;
-  let unassignedLines = 0;
+  let unassigned = 0;
   for (const file of files) {
-    const kind = classify(file.path);
-    if (kind !== "product") {
-      const cat = categories[kind] ?? (categories[kind] = { lines: 0, base: 0, files: 0 });
-      cat[slot === "base" ? "base" : "lines"] += nonBlank(file.text);
-      if (slot === "used") cat.files += 1;
-      if (slot === "used" && kind === "other" && SOURCE_EXT.has(extname(file.path))) {
-        violations.push(`Uncounted source file ${file.path} is outside apps, packages, jobs, and wordpress`);
-      }
+    const group = classify(file.path);
+    if (group !== "product" && group !== "tooling") {
+      categories[group][slot === "base" ? "base" : "lines"] += file.text.split("\n").filter((line) => line.trim()).length;
+      if (slot === "used") categories[group].files++;
+      if (slot === "used" && group === "other" && EXT.has(extname(file.path))) violations.push(`Uncounted source file ${file.path}`);
+      continue;
+    }
+    const stats = analyze(file.text);
+    if (slot === "used") for (const fn of stats.functions) if (fn.lines > budget.caps.perFunction) violations.push(`Function cap ${file.path}:${fn.line} ${fn.name} ${fn.lines}/${budget.caps.perFunction}`);
+    if (group === "tooling") {
+      tooling[slot] += stats.lines;
+      if (slot === "used" && !tooling.paths.some((glob) => matchGlob(glob, file.path))) violations.push(`${file.path} is tooling without a budget path`);
       continue;
     }
     const hits = modules.filter((mod) => mod.paths.some((glob) => matchGlob(glob, file.path)));
-    const stats = analyze(file.text, extname(file.path));
-    if (hits.length !== 1) {
-      unassignedLines += stats.lines;
-      if (slot === "used") {
-        const why = hits.length === 0 ? "no module" : "more than one module";
-        violations.push(`${file.path} matches ${why} (${stats.lines} lines)`);
-      }
-      continue;
-    }
-    hits[0][slot] += stats.lines;
-    product += stats.lines;
-    if (slot !== "used") continue;
-    if (stats.lines > budget.caps.perFile) {
-      violations.push(`File cap ${file.path} ${stats.lines}/${budget.caps.perFile}`);
-    }
-    for (const fn of stats.functions) {
-      if (fn.lines > budget.caps.perFunction) {
-        violations.push(`Function cap ${file.path}:${fn.line} ${fn.name} ${fn.lines}/${budget.caps.perFunction}`);
-      }
+    if (hits.length === 1) {
+      hits[0][slot] += stats.lines;
+      product += stats.lines;
+      if (slot === "used" && stats.lines > budget.caps.perFile) violations.push(`File cap ${file.path} ${stats.lines}/${budget.caps.perFile}`);
+    } else {
+      unassigned += stats.lines;
+      if (slot === "used") violations.push(`${file.path} matches ${hits.length ? "more than one module" : "no module"} (${stats.lines} lines)`);
     }
   }
-  for (const mod of modules) {
-    if (slot === "used" && mod.used > mod.budget) violations.push(`Module ${mod.id} ${mod.used}/${mod.budget}`);
-  }
-  return { product, unassignedLines };
+  if (slot === "used") for (const mod of modules) if (mod.used > mod.budget) violations.push(`Module ${mod.id} ${mod.used}/${mod.budget}`);
+  return { product, unassigned };
 }
 
-function nonBlank(text) {
-  return text.split("\n").filter((line) => line.trim() !== "").length;
+export function formatReport(result) {
+  const delta = result.showDelta;
+  const row = (id, used, budget, base) => {
+    const pct = `${budget > 0 ? Math.round((used / budget) * 100) : used ? 100 : 0}%`;
+    const change = delta ? `  ${signed(used - base).padStart(5)}` : "";
+    return `${id.padEnd(12)} ${String(used).padStart(5)}  ${String(budget).padStart(6)}${change}  ${pct.padStart(5)}  ${statusFor(used, budget).padEnd(6)}  ${bar(used, budget)}`;
+  };
+  const cats = CATS.filter((name) => result.categories[name].lines || result.categories[name].base || result.categories[name].files).map((name) => {
+    const cat = result.categories[name];
+    return `  ${name.padEnd(12)} ${String(cat.lines).padStart(5)}${delta ? `  ${signed(cat.lines - cat.base).padStart(5)}` : ""}  ${cat.files} files`;
+  });
+  const head = `Module        ${"Used".padStart(5)}  ${"Budget".padStart(6)}${delta ? `  ${"Delta".padStart(5)}` : ""}  ${"%".padStart(5)}  Status  Bar`;
+  return [
+    `Pandino line budget · phases 0-1 · ${result.total.budget} lines`,
+    "", "GREEN under 80% · YELLOW 80-100% · RED over", "", head,
+    ...result.modules.map((mod) => row(mod.id, mod.used, mod.budget, mod.base)),
+    row("TOTAL", result.total.used, result.total.budget, result.total.base),
+    "", "Tooling (outside the 1000)", row("tooling", result.tooling.used, result.tooling.budget, result.tooling.base),
+    "", "Not counted (non-blank lines)", ...cats,
+    ...(result.violations.length ? ["", "Over budget", ...result.violations] : []),
+    "", result.violations.length ? "Result: over budget" : "Result: within budget",
+  ].join("\n");
 }
 
-function isTest(path) {
-  return /\.(test|spec)\.[^.]+$/.test(path) || path.includes("/__tests__/");
-}
-
-function isLockfile(path) {
-  return ["pnpm-lock.yaml", "package-lock.json", "yarn.lock"].includes(basename(path));
-}
-
-function isConfig(path) {
-  const base = basename(path);
-  if (["package.json", "loc-budget.json", "turbo.json", "pnpm-workspace.yaml", ".gitignore", ".npmrc"].includes(base)) {
-    return true;
-  }
-  if (base.startsWith("tsconfig") && base.endsWith(".json")) return true;
-  if (base.includes(".config.")) return true;
-  if (base === "next-env.d.ts") return true;
-  return path.startsWith(".github/");
-}
-
-function isTemplate(path) {
-  return /\.(html|wxr)$/.test(path) && (path.startsWith("packages/") || path.startsWith("wordpress/"));
-}
-
-function escapeRegExp(value) {
-  return value.replace(/[.+^${}()|[\]\\]/g, "\\$&");
-}
-
-function mask(source, php) {
-  const out = [];
-  let i = 0;
-  let mode = "code";
-  const resume = [];
-  const exprAt = [];
-  let brace = 0;
-  while (i < source.length) {
-    const c = source[i];
-    const next = source[i + 1];
-    if (mode === "line") {
-      out.push(c === "\n" ? "\n" : " ");
-      if (c === "\n") mode = resume.pop() ?? "code";
-      i++;
-      continue;
-    }
-    if (mode === "block") {
-      if (c === "*" && next === "/") {
-        out.push(" ", " ");
-        mode = resume.pop() ?? "code";
-        i += 2;
-        continue;
-      }
-      out.push(c === "\n" ? "\n" : " ");
-      i++;
-      continue;
-    }
-    if (mode === "sq" || mode === "dq" || mode === "tmpl") {
-      if (c === "\\") {
-        out.push(" ", source[i + 1] === "\n" ? "\n" : " ");
-        i += 2;
-        continue;
-      }
-      if ((mode === "sq" && c === "'") || (mode === "dq" && c === '"') || (mode === "tmpl" && c === "`")) {
-        out.push(c);
-        mode = resume.pop() ?? "code";
-        i++;
-        continue;
-      }
-      if (mode === "tmpl" && c === "$" && next === "{") {
-        exprAt.push(brace);
-        out.push("$", "{");
-        brace++;
-        mode = "code";
-        i += 2;
-        continue;
-      }
-      out.push(c === "\n" ? "\n" : " ");
-      i++;
-      continue;
-    }
-    if (c === "/" && next === "/") {
-      resume.push(mode);
-      mode = "line";
-      out.push(" ", " ");
-      i += 2;
-      continue;
-    }
-    if (c === "/" && next === "*") {
-      resume.push(mode);
-      mode = "block";
-      out.push(" ", " ");
-      i += 2;
-      continue;
-    }
-    if (php && c === "#") {
-      resume.push(mode);
-      mode = "line";
-      out.push(" ");
-      i++;
-      continue;
-    }
-    if (c === "'" || c === '"' || (!php && c === "`")) {
-      resume.push(mode);
-      mode = c === "'" ? "sq" : c === '"' ? "dq" : "tmpl";
-      out.push(c);
-      i++;
-      continue;
-    }
-    if (!php && c === "/" && regexStarts(out)) {
-      const end = maskRegex(source, i, out);
-      if (end > i) {
-        i = end;
-        continue;
-      }
-    }
-    if (c === "{") brace++;
-    if (c === "}") {
-      if (brace > 0) brace--;
-      if (exprAt.length > 0 && brace === exprAt.at(-1)) {
-        exprAt.pop();
-        mode = "tmpl";
-      }
-    }
-    out.push(c);
-    i++;
-  }
-  return out.join("");
-}
-
-function regexStarts(out) {
-  let i = out.length - 1;
-  while (i >= 0 && /\s/.test(out[i])) i--;
-  if (i < 0) return true;
-  const end = i;
-  while (i >= 0 && /[A-Za-z0-9_$]/.test(out[i])) i--;
-  const word = out.slice(i + 1, end + 1).join("");
-  if (REGEX_WORDS.has(word)) return true;
-  return "([{:;,=!?&|+-*%~^<>".includes(out[end]);
-}
-
-function maskRegex(source, start, out) {
-  const saved = out.length;
-  let i = start + 1;
-  let inClass = false;
-  while (i < source.length) {
-    const c = source[i];
-    if (c === "\\") {
-      out.push(" ", " ");
-      i += 2;
-      continue;
-    }
-    if (c === "[") inClass = true;
-    else if (c === "]") inClass = false;
-    else if (c === "/" && !inClass) {
-      out.push(" ");
-      i++;
-      while (i < source.length && /[a-z]/i.test(source[i])) {
-        out.push(" ");
-        i++;
-      }
-      return i;
-    }
-    if (c === "\n") {
-      out.length = saved;
-      return start;
-    }
-    out.push(" ");
-    i++;
-  }
-  out.length = saved;
-  return start;
-}
-
-function findFunctions(masked, code) {
-  const functions = [];
-  const stack = [];
-  const scheduled = [];
-  const parens = [];
-  let depth = 0;
-  let parenDepth = 0;
-  let line = 1;
-  let i = 0;
-  while (i < masked.length) {
-    const c = masked[i];
-    if (c === "\n") {
-      line++;
-      i++;
-      continue;
-    }
-    if (/\s/.test(c)) {
-      i++;
-      continue;
-    }
-    if (/[A-Za-z0-9_$]/.test(c)) {
-      i++;
-      continue;
-    }
-    if (c === "(") {
-      parens.push({ line, word: wordBefore(masked, i) });
-      parenDepth++;
-      i++;
-      continue;
-    }
-    if (c === ")") {
-      parenDepth--;
-      const opened = parens.pop();
-      if (opened && parenDepth === 0 && !CONTROL.has(opened.word)) {
-        const at = bodyBrace(masked, i);
-        if (at >= 0) scheduled.push({ at, start: opened.line, name: functionName(opened.word) });
-      }
-      i++;
-      continue;
-    }
-    if (c === "=" && masked[i + 1] === ">") {
-      let j = i + 2;
-      while (j < masked.length && /\s/.test(masked[j])) j++;
-      if (masked[j] === "{") {
-        const close = previousClose(masked, i);
-        scheduled.push({
-          at: j,
-          start: close ? close.line : line,
-          name: arrowName(masked, i),
-        });
-      }
-      i += 2;
-      continue;
-    }
-    if (c === "{") {
-      const start = scheduled.find((item) => item.at === i);
-      if (start) stack.push({ depth, start: start.start, name: start.name });
-      depth++;
-      i++;
-      continue;
-    }
-    if (c === "}") {
-      depth--;
-      if (stack.length && stack.at(-1).depth === depth) {
-        const fn = stack.pop();
-        functions.push({ name: fn.name, line: fn.start, lines: countCode(code, fn.start, line) });
-      }
-      i++;
-      continue;
-    }
-    i++;
-  }
-  return functions;
-}
-
-function wordBefore(source, index) {
-  let j = index - 1;
-  while (j >= 0 && /\s/.test(source[j])) j--;
-  const end = j;
-  while (j >= 0 && /[A-Za-z0-9_$]/.test(source[j])) j--;
-  return source.slice(j + 1, end + 1);
-}
-
-function functionName(word) {
-  return word && word !== "function" ? word : "anonymous";
-}
-
-function bodyBrace(source, parenEnd) {
-  let j = parenEnd + 1;
-  while (j < source.length && /\s/.test(source[j])) j++;
-  if (source[j] === "{") return j;
-  if (source[j] !== ":") return -1;
-  j++;
-  let angle = 0;
-  let curly = 0;
-  let paren = 0;
-  let bracket = 0;
-  while (j < source.length) {
-    const c = source[j];
-    if (/\s/.test(c)) {
-      j++;
-      continue;
-    }
-    const depth = angle + curly + paren + bracket;
-    if (c === "{") {
-      const prev = previousChar(source, j);
-      if (depth === 0 && prev && /[\w$>\])}]/.test(prev)) return j;
-      curly++;
-    } else if (c === "}" && curly) curly--;
-    else if (c === "<") angle++;
-    else if (c === ">" && angle) angle--;
-    else if (c === "(") paren++;
-    else if (c === ")" && paren) paren--;
-    else if (c === "[") bracket++;
-    else if (c === "]" && bracket) bracket--;
-    else if (depth === 0 && c === "=" && source[j + 1] === ">") j++;
-    else if (depth === 0 && (c === "=" || c === ";")) return -1;
-    j++;
-  }
-  return -1;
-}
-
-function previousChar(source, index) {
-  let j = index - 1;
-  while (j >= 0 && /\s/.test(source[j])) j--;
-  return j >= 0 ? source[j] : "";
-}
-
-function previousClose(source, index) {
-  let j = index - 1;
-  while (j >= 0 && /\s/.test(source[j])) j--;
-  if (source[j] !== ")") return null;
-  let line = 1;
-  for (let k = 0; k < j; k++) if (source[k] === "\n") line++;
-  return { index: j, line, word: wordBefore(source, j) };
-}
-
-function arrowName(source, eq) {
-  const close = previousClose(source, eq);
-  const from = close ? close.index : eq;
-  const name = wordBefore(source, from);
-  if (name && !["function", "async"].includes(name)) return name;
-  return close?.word && close.word !== "function" ? close.word : "arrow";
-}
-
-function countCode(code, start, end) {
-  let count = 0;
-  for (let line = start; line <= end; line++) if (code[line - 1]) count++;
-  return count;
-}
+function signed(n) { return n > 0 ? `+${n}` : String(n); }
 
 function git(args, cwd) {
-  const result = spawnSync("git", args, { cwd, encoding: "utf8" });
-  if (result.status !== 0) throw new Error((result.stderr || `git ${args.join(" ")} failed`).trim());
-  return result.stdout;
+  const run = spawnSync("git", args, { cwd, encoding: "utf8" });
+  if (run.status) throw new Error((run.stderr || `git ${args[0]} failed`).trim());
+  return run.stdout;
 }
 
-function readText(path) {
-  const bytes = readFileSync(path);
-  if (bytes.includes(0)) return null;
-  return bytes.toString("utf8");
-}
-
-function listWorking(root) {
-  const listed = `${git(["ls-files", "-z"], root)}${git(["ls-files", "--others", "--exclude-standard", "-z"], root)}`;
-  return [...new Set(listed.split("\0").filter(Boolean))].map((path) => {
-    const text = readText(`${root}/${path}`);
-    return text === null ? null : { path, text };
-  }).filter(Boolean);
-}
-
-function listRef(root, ref) {
-  return git(["ls-tree", "-r", "--name-only", ref], root)
-    .split("\n")
-    .filter(Boolean)
-    .map((path) => {
-      const text = git(["show", `${ref}:${path}`], root);
-      return text.includes("\0") ? null : { path, text };
-    })
-    .filter(Boolean);
-}
-
-function loadBudget(root) {
-  const budget = JSON.parse(readFileSync(`${root}/loc-budget.json`, "utf8"));
-  if (!Array.isArray(budget.modules) || typeof budget.total !== "number") {
-    throw new Error("loc-budget.json needs a total and a modules array");
-  }
-  if (typeof budget.caps?.perFile !== "number" || typeof budget.caps?.perFunction !== "number") {
-    throw new Error("loc-budget.json needs caps.perFile and caps.perFunction");
-  }
-  return budget;
-}
-
-function parseArgs(argv) {
-  let base = null;
-  for (let i = 0; i < argv.length; i++) {
-    if (argv[i] === "--base") {
-      base = argv[++i];
-      if (!base) throw new Error("--base needs a git ref");
-    } else if (argv[i] === "--help") {
-      return { help: true };
-    } else {
-      throw new Error(`Unknown argument ${argv[i]}`);
-    }
-  }
-  return { base };
+function filesAt(root, ref) {
+  const listed = ref ? git(["ls-tree", "-r", "--name-only", ref], root).split("\n") : `${git(["ls-files", "-z"], root)}${git(["ls-files", "--others", "--exclude-standard", "-z"], root)}`.split("\0");
+  return listed.filter(Boolean).flatMap((path) => {
+    const text = ref ? git(["show", `${ref}:${path}`], root) : readFileSync(`${root}/${path}`, "utf8");
+    return text.includes("\0") ? [] : [{ path, text }];
+  });
 }
 
 function main() {
-  const options = parseArgs(process.argv.slice(2));
-  if (options.help) {
-    console.log("Usage: node scripts/loc-meter.mjs [--base <git-ref>]");
-    return 0;
-  }
+  const baseFlag = process.argv.indexOf("--base");
+  if (process.argv.includes("--help")) { console.log("Usage: node scripts/loc-meter.mjs [--base <git-ref>]"); return 0; }
+  if (baseFlag >= 0 && !process.argv[baseFlag + 1]) throw new Error("--base needs a git ref");
   const root = git(["rev-parse", "--show-toplevel"]).trim();
-  const budget = loadBudget(root);
-  const result = evaluate(listWorking(root), budget, options.base ? listRef(root, options.base) : null);
-  console.log(formatReport(result, Boolean(process.stdout.isTTY)));
+  const result = evaluate(filesAt(root), JSON.parse(readFileSync(`${root}/loc-budget.json`, "utf8")), baseFlag < 0 ? null : filesAt(root, process.argv[baseFlag + 1]));
+  console.log(formatReport(result));
   return result.violations.length ? 1 : 0;
 }
 
-const entry = process.argv[1] ? pathToFileURL(realpathSync(process.argv[1])).href : "";
-if (entry === pathToFileURL(realpathSync(fileURLToPath(import.meta.url))).href) {
-  try {
-    process.exit(main());
-  } catch (error) {
-    console.error(error instanceof Error ? error.message : String(error));
-    process.exit(2);
-  }
+if (process.argv[1]?.endsWith("loc-meter.mjs")) {
+  try { process.exit(main()); }
+  catch (error) { console.error(error instanceof Error ? error.message : String(error)); process.exit(2); }
 }

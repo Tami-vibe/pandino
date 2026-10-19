@@ -6,6 +6,11 @@
     "perFile": 80,
     "perFunction": 40
   },
+  "tooling": {
+    "budget": 180,
+    "paths": ["scripts/loc-meter.mjs"],
+    "note": "Line meter. Outside the 1000 product lines. Do not raise this to hide growth."
+  },
   "modules": [
     {
       "id": "schema",
