@@ -307,3 +307,14 @@ body.scheme-white { background-color: #ffffff; color: #17191c; --color-base-100:
 html[data-tone="light"] .site.kit { --color-base-100: #f6f7f9; --color-base-200: #fff; --color-base-300: #e5e7eb; --color-base-content: #17191c; --color-text-secondary: #5c6370; background: #f6f7f9; color: #17191c; }
 html[data-tone="light"] .site.kit footer { background: #fff; color: #17191c; border-color: #e5e7eb; }
 .site.kit .chip-row .pick { position: absolute; width: 1px; height: 1px; opacity: 0; }
+.site.kit { --outline: 1px; }
+.site.kit[data-border="2"] { --outline: 2px; }
+.site.kit[data-border="3"] { --outline: 3px; }
+.site.kit :is(.card, .btn, .studio-card) { border-width: var(--outline); border-style: solid; border-color: color-mix(in srgb, var(--color-base-content) 18%, transparent); }
+.site.kit[data-radius="sm"] :is(.card, .btn, .studio-card) { border-radius: 10px; }
+.site.kit[data-radius="md"] :is(.card, .btn, .studio-card) { border-radius: 16px; }
+.site.kit[data-radius="lg"] :is(.card, .btn, .studio-card) { border-radius: 22px; }
+.site.kit[data-header="center"] .site-header { height: auto; }
+.site.kit[data-header="center"] .site-header > div { flex-wrap: wrap; justify-content: center; row-gap: 0.35rem; padding-block: 0.4rem; }
+.site.kit[data-header="center"] .site-header nav { order: 3; flex: 1 1 100%; justify-content: center; }
+.site.kit[data-footer="stack"] #footer > div { grid-template-columns: minmax(0, 1fr); }

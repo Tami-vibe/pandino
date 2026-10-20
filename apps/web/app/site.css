@@ -216,9 +216,9 @@
   padding: 1.15rem 1.2rem;
   box-shadow: 0 16px 40px -28px color-mix(in srgb, var(--text, #111) 55%, transparent);
 }
-.card h3, .menu h3, .steps h3 { margin: 0 0 0.35rem; }
-.menu { list-style: none; margin: 1.75rem 0 0; padding: 0; border-top: 1px solid color-mix(in srgb, var(--text) 10%, transparent); }
-.menu li {
+.card h3, .site .menu h3, .steps h3 { margin: 0 0 0.35rem; }
+.site .menu { list-style: none; margin: 1.75rem 0 0; padding: 0; border-top: 1px solid color-mix(in srgb, var(--text) 10%, transparent); }
+.site .menu li {
   display: grid;
   grid-template-columns: auto 1fr;
   gap: 0.35rem 0.8rem;
@@ -226,7 +226,7 @@
   padding: 0.85rem 0;
   border-bottom: 1px solid color-mix(in srgb, var(--text) 10%, transparent);
 }
-.menu .price { grid-column: 2; }
+.site .menu .price { grid-column: 2; }
 .price { text-align: left; }
 .price strong { display: block; color: var(--primary); font-size: 1.25rem; }
 .price span, .steps span { display: block; color: var(--muted); }
@@ -312,8 +312,8 @@
   .strip .heading p, .strip .card p { display: revert; }
   .frame { min-height: 14rem; }
   .pair { grid-template-columns: 1fr 1fr; }
-  .menu li { grid-template-columns: auto 1fr auto; align-items: center; }
-  .menu .price { grid-column: auto; text-align: right; }
+  .site .menu li { grid-template-columns: auto 1fr auto; align-items: center; }
+  .site .menu .price { grid-column: auto; text-align: right; }
   .topnav { padding-inline: 2rem; }
   .block { padding: 3.25rem 2rem; }
 }
