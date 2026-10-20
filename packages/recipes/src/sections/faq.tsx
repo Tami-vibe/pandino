@@ -10,9 +10,9 @@ export function Faq({ site, section }: Block) {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
         <div className="lg:col-span-5 space-y-4 lg:sticky lg:top-24">
           <span className="text-xs font-mono font-bold uppercase tracking-[0.2em] text-primary block">Sample</span>
-          <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight text-base-content">{line(site, section.fields.headline)}</h2>
-          <p className="text-base-content/70">{line(site, section.fields.subhead)}</p>
-          <div className="flex flex-wrap gap-3"><a className="btn btn-sm h-10 px-5 rounded-full btn-primary" href={call}>Call</a><a className="btn btn-sm h-10 px-5 rounded-full bg-base-content/10 border border-base-content/10" href={pageHref("estimate", "file")}>Get an estimate</a></div>
+          <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight text-base-content leading-tight">{line(site, section.fields.headline)}</h2>
+          <p className="text-base text-base-content/70 leading-relaxed">{line(site, section.fields.subhead)}</p>
+          <div className="pt-4 flex flex-col sm:flex-row gap-3"><a className="btn btn-sm h-10 px-5 rounded-full btn-primary text-xs font-semibold" href={call}>Call</a><a className="btn btn-sm h-10 px-5 rounded-full bg-base-content/10 border border-base-content/10 text-xs font-medium" href={pageHref("estimate", "file")}>Get an estimate</a></div>
         </div>
         <div className="lg:col-span-7 join join-vertical w-full border border-white/[0.08] rounded-2xl bg-base-200/60 divide-y divide-white/[0.08]">
           {items.map((item, index) => (

@@ -15,7 +15,7 @@ export function Reviews({ site, section }: Block) {
           {cards.map((review) => (
             <blockquote key={review.id} className="card border border-white/[0.08] bg-base-200/60 rounded-2xl">
               <div className="card-body p-6 flex flex-col justify-between gap-4">
-                <div className="flex items-center gap-3"><span className="w-10 h-10 rounded-full bg-primary/20 text-primary font-bold flex items-center justify-center text-sm">{review.author.trim().charAt(0) || "S"}</span><div><b className="text-sm block">{review.author}</b><small className="text-xs opacity-60">{review.sample ? "Sample" : "Recent"}</small></div></div>
+                <div className="flex items-center gap-3"><span className="w-10 h-10 shrink-0 rounded-full bg-primary/20 text-primary font-bold flex items-center justify-center text-sm">{review.author.trim().charAt(0) || "S"}</span><div className="flex flex-col"><b className="text-sm">{review.author}</b><small className="text-xs opacity-60">{review.sample ? "Sample" : "Recent"}</small></div></div>
                 <div className="text-warning text-sm" aria-label="Sample rating">★★★★★</div>
                 <p className="text-sm opacity-80 leading-relaxed">{review.text}</p>
               </div>
