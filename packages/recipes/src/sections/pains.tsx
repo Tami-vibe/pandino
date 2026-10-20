@@ -17,7 +17,7 @@ export function PainPhotos({ site, section }: Block) {
             const image = photo(site, SHOTS[index] ?? "ast_hero");
             return (
               <article key={tx(site, item.title)} className="card bg-base-200/60 border border-primary/25 rounded-2xl overflow-hidden">
-                {image ? <figure className="relative aspect-[16/10] overflow-hidden"><img src={image.src} alt={tx(site, image.alt)} className="w-full h-full object-cover" /><span className="absolute top-3 right-3 badge badge-neutral">Sample</span></figure> : null}
+                {image ? <figure className="shot-frame m-0"><img src={image.src} alt={tx(site, image.alt)} /><span className="absolute top-3 right-3 badge badge-neutral">Sample</span></figure> : null}
                 <div className="card-body p-6"><h3 className="card-title text-lg">{tx(site, item.title)}</h3><p className="text-sm text-base-content/70">{tx(site, item.body)}</p></div>
               </article>
             );

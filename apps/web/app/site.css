@@ -129,7 +129,7 @@
   max-width: 100%;
   overflow-x: clip;
 }
-.site img, .site svg, .site video { max-width: 100%; height: auto; }
+.site:not(.kit) img, .site:not(.kit) svg, .site:not(.kit) video { max-width: 100%; height: auto; }
 .site[data-radius="sm"] { --radius: 10px; }
 .site[data-radius="lg"] { --radius: 22px; }
 .site[data-heading="Barlow Condensed"] { --heading: var(--font-barlow), "Barlow Condensed", sans-serif; }

@@ -10,8 +10,10 @@ export function Journey({ site, section }: Block) {
       <div className="w-full max-w-7xl 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12 flex flex-col gap-8">
         <div className="text-center max-w-2xl mx-auto"><h2 className="tracking-tight font-extrabold text-base-content">{line(site, section.fields.headline)}</h2><p className="opacity-70 mt-2">{line(site, section.fields.subhead)}</p></div>
         <div className="tabs tabs-box w-full" role="tablist">
-          {tabs.map((tab, index) => <input key={line(site, tab.title)} className="tab" type="radio" name={section.id} aria-label={line(site, tab.title)} defaultChecked={index === 0} />)}
-          {tabs.map((tab) => <Panel key={`p-${line(site, tab.title)}`} site={site} tab={tab} />)}
+          {tabs.flatMap((tab, index) => [
+            <input key={line(site, tab.title)} className="tab" type="radio" name={section.id} aria-label={line(site, tab.title)} defaultChecked={index === 0} />,
+            <Panel key={`p-${line(site, tab.title)}`} site={site} tab={tab} />,
+          ])}
         </div>
       </div>
     </section>

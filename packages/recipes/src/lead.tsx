@@ -12,7 +12,7 @@ export function Hero({ site, section }: Block) {
   const slides = [photo(site, fields.image.assetId), photo(site, "ast_before"), photo(site, "ast_after")].flatMap((item) => item ? [item] : []);
   return (
     <section id={section.id} data-group={section.group} data-label="Hero" data-icon="minor_crash" data-variant={section.variant} className="hero w-full relative overflow-hidden flex items-center justify-center" data-hero-tier="full" data-layout="1" data-hero-fx="fade" data-hero-ease="smooth" data-panel="off">
-      <div className="carousel w-full h-full absolute inset-0 z-0 overflow-hidden" aria-hidden="true">
+      <div className="carousel w-full h-full absolute inset-0 z-0 overflow-hidden" aria-hidden="true" style={slides[0] ? { backgroundImage: `url("${slides[0].src}")`, backgroundSize: "cover", backgroundPosition: "center" } : undefined}>
         {slides.map((item, index) => <div key={item.src} className={index ? "carousel-item absolute inset-0 w-full h-full" : "carousel-item absolute inset-0 w-full h-full is-active"}><img src={item.src} alt={tx(site, item.alt)} className="w-full h-full object-cover" /></div>)}
         <span className="absolute inset-0 bg-black/40" />
       </div>
