@@ -6,7 +6,7 @@ export function Feature({ site, section }: Block) {
   const specs = rows(section.fields.specs);
   const image = photo(site, "ast_shop") ?? photo(site, "ast_after");
   return (
-    <section id={section.id} data-group={section.group} data-label="Feature" data-icon="construction" className="w-full py-12 md:py-20 bg-base-100" data-theme="dark">
+    <section id="about" data-sid={section.id} data-group={section.group} data-label="Feature" data-icon="construction" className="w-full py-12 md:py-20 bg-base-100" data-theme="dark">
       <div className="w-full max-w-7xl 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12 flex flex-col gap-10">
         <div className="text-center max-w-2xl mx-auto"><span className="text-xs font-mono font-bold uppercase tracking-[0.2em] text-primary/90 block mb-1">About the shop</span><h2 className="tracking-tight font-extrabold text-base-content mt-1">{line(site, section.fields.headline)}</h2><p className="opacity-70 mt-2 text-base">{line(site, section.fields.subhead)}</p></div>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">

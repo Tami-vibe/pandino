@@ -7,7 +7,7 @@ export function Visit({ site, section }: Block) {
   const fields = readFields(recipeFields["footer.contact-map"], section.fields);
   if (!fields) return null;
   return (
-    <section id={section.id} data-group={section.group} data-label="Visit" data-icon="location_on" className="w-full py-16 md:py-24 bg-base-100 relative overflow-hidden" data-theme="dark">
+    <section id="contact" data-sid={section.id} data-group={section.group} data-label="Visit" data-icon="location_on" className="w-full py-16 md:py-24 bg-base-100 relative overflow-hidden" data-theme="dark">
       <div className="w-full max-w-7xl 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
         <article className="lg:col-span-5 card bg-base-200/60 border border-base-content/10 p-8 rounded-3xl flex flex-col justify-between">

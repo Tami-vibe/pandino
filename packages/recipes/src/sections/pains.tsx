@@ -9,7 +9,7 @@ export function PainPhotos({ site, section }: Block) {
   const fields = readFields(recipeFields["pains.cards"], section.fields);
   if (!fields) return null;
   return (
-    <section id={section.id} data-group={section.group} data-label="Pains" data-icon="sentiment_dissatisfied" className="w-full py-16 md:py-24 bg-base-100" data-theme="dark">
+    <section id="pains" data-sid={section.id} data-group={section.group} data-label="Pains" data-icon="sentiment_dissatisfied" className="w-full py-16 md:py-24 bg-base-100" data-theme="dark">
       <div className="w-full max-w-7xl 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12">
         <div className="text-center max-w-2xl mx-auto mb-12"><h2 className="text-3xl md:text-5xl font-extrabold tracking-tight text-base-content">{tx(site, fields.headline)}</h2><p className="text-sm md:text-base text-base-content/70 mt-3">{tx(site, fields.subhead)}</p></div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

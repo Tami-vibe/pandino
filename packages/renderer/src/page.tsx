@@ -7,7 +7,7 @@ import { CookieBar, SiteHeader } from "./header";
 
 function vars(site: Site): CSSProperties {
   const brand = site.theme.brandColor;
-  return { "--primary": brand, "--on-primary": site.theme.palette.onPrimary, ...rampVars(brand) } as CSSProperties;
+  return { "--primary": brand, "--on-primary": site.theme.palette.onPrimary, "--radius-selector": "0.5rem", ...rampVars(brand) } as CSSProperties;
 }
 
 export function SitePage({ site, slug, links = "file" }: { site: Site; slug?: string; links?: "file" | "pretty" }) {

@@ -4,7 +4,7 @@ import { line } from "./text";
 export function CtaBand({ site, section }: Block) {
   const call = actionHref(liveAction(site, { type: "tel", value: site.business.phone }));
   return (
-    <section id={section.id} data-group={section.group} data-label="Call to action" data-icon="call" className="w-full py-20 md:py-28 relative overflow-hidden bg-base-100 border-t border-base-content/10" data-theme="dark">
+    <section id="cta" data-sid={section.id} data-group={section.group} data-label="Call to action" data-icon="call" className="w-full py-20 md:py-28 relative overflow-hidden bg-base-100 border-t border-base-content/10" data-theme="dark">
       <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(ellipse_at_center,color-mix(in_oklab,var(--color-primary)_22%,transparent)_0%,transparent_70%)]" />
       <div className="relative z-10 w-full max-w-7xl 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12 flex flex-col items-center justify-center text-center gap-6">
         <h2 className="font-extrabold text-3xl md:text-5xl text-white">{line(site, section.fields.headline)}</h2>

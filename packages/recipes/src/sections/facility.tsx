@@ -11,7 +11,7 @@ export function Facility({ site, section }: Block) {
     return image ? [{ src: image.src, alt: tx(site, image.alt), name: line(site, item.name) }] : [];
   });
   return (
-    <section id={section.id} data-group={section.group} data-label="Facility" data-icon="photo_camera" className="w-full py-12 md:py-20 bg-base-100" data-theme="dark">
+    <section id="story" data-sid={section.id} data-group={section.group} data-label="Facility" data-icon="photo_camera" className="w-full py-12 md:py-20 bg-base-100" data-theme="dark">
       <div className="w-full max-w-7xl 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12 flex flex-col gap-4">
         <div className="text-center max-w-2xl mx-auto">
           <span className="text-xs font-mono font-bold uppercase tracking-wider text-primary">Sample</span>

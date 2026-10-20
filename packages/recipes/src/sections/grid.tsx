@@ -10,7 +10,7 @@ export function ServiceGrid({ site, section }: Block) {
   const href = pageHref("services", "file");
   const cols = fields.perRow === "2" ? "lg:grid-cols-2" : fields.perRow === "4" ? "lg:grid-cols-4" : "lg:grid-cols-3";
   return (
-    <section id={section.id} data-group={section.group} data-label="Services" data-icon="construction" className="w-full py-20 md:py-32 bg-base-200" data-theme="dark" aria-labelledby="svc-title" data-align="center" data-card-align="left" data-action-align="start">
+    <section id="services" data-sid={section.id} data-group={section.group} data-label="Services" data-icon="construction" className="w-full py-20 md:py-32 bg-base-200" data-theme="dark" aria-labelledby="svc-title" data-align="center" data-card-align="left" data-action-align="start">
       <div className="w-full max-w-7xl 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12 flex flex-col gap-10">
         <div className="text-center max-w-2xl mx-auto"><span className="eyebrow-pill mb-3">Our services</span><h2 id="svc-title" className="tracking-tight font-extrabold text-base-content mt-1">{tx(site, fields.headline)}</h2><p className="opacity-70 mt-3 text-base">{tx(site, fields.subhead)}</p></div>
         <ul className={`grid grid-cols-1 md:grid-cols-2 ${cols} gap-6 w-full p-0 m-0 list-none`}>

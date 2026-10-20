@@ -11,7 +11,7 @@ const STEP = "relative z-10 flex flex-col items-center text-center w-full lg:fle
 export function Journey({ site, section }: Block) {
   const tabs = rows(section.fields.tabs);
   return (
-    <section id={section.id} data-group={section.group} data-label="Journey" data-icon="photo_camera" className="w-full py-20 md:py-32 bg-base-100" data-theme="dark">
+    <section id="solutions" data-sid={section.id} data-group={section.group} data-label="Journey" data-icon="photo_camera" className="w-full py-20 md:py-32 bg-base-100" data-theme="dark">
       <div className="w-full max-w-7xl 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12 flex flex-col gap-8">
         <div className="text-center max-w-2xl mx-auto">
           <span className="text-xs font-mono font-bold uppercase tracking-[0.2em] text-primary/90 block mb-1">How we work</span>
