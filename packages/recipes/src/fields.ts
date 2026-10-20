@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { heroSplit } from "./sections/hero-fields";
 
 const text = z.record(z.string(), z.string().min(1));
 
@@ -12,17 +13,7 @@ const cta = z.object({ label: text, action: actionSchema, icon: z.enum(["call", 
 const card = z.object({ title: text, body: text });
 
 export const recipeFields = {
-  "hero.split-photo": z.object({
-    eyebrow: text,
-    headline: text,
-    subhead: text,
-    primaryCta: cta,
-    secondaryCta: cta,
-    image: z.object({ assetId: z.string().min(1) }),
-    look: z.object({ tlh: z.number(), tw: z.number(), ttr: z.number(), slh: z.number(), sw: z.number(), str: z.number(), sz: z.number() }).partial().optional(),
-    shade: z.enum(["soft", "bottom", "strong"]).optional(),
-    slides: z.array(z.string().min(1)).max(6).optional(),
-  }),
+  "hero.split-photo": heroSplit,
   "pains.cards": z.object({
     headline: text,
     subhead: text,
