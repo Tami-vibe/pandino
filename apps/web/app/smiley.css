@@ -318,3 +318,10 @@ html[data-tone="light"] .site.kit footer { background: #fff; color: #17191c; bor
 .site.kit[data-header="center"] .site-header > div { flex-wrap: wrap; justify-content: center; row-gap: 0.35rem; padding-block: 0.4rem; }
 .site.kit[data-header="center"] .site-header nav { order: 3; flex: 1 1 100%; justify-content: center; }
 .site.kit[data-footer="stack"] #footer > div { grid-template-columns: minmax(0, 1fr); }
+.site.kit .svc-grid { grid-template-columns: minmax(0, 1fr); }
+@media (min-width: 768px) {
+  .site.kit .svc-grid[data-cols="2"] { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .site.kit .svc-grid[data-cols="3"] { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .site.kit .svc-grid[data-cols="4"] { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+.site.kit .gal-img { height: 10rem; }

@@ -75,11 +75,13 @@
           "fields": {
             "headline": { "en-US": "{{servicesHeadline}}" },
             "subhead": { "en-US": "{{servicesSubhead}}" },
+            "perRow": "2",
             "items": [
               { "name": { "en-US": "{{services.0.0}}" }, "detail": { "en-US": "{{services.0.1}}" }, "priceLabel": { "en-US": "{{price}}" }, "duration": { "en-US": "Add a typical duration" } },
               { "name": { "en-US": "{{services.1.0}}" }, "detail": { "en-US": "{{services.1.1}}" }, "priceLabel": { "en-US": "{{price}}" }, "duration": { "en-US": "Add a typical duration" } },
               { "name": { "en-US": "{{services.2.0}}" }, "detail": { "en-US": "{{services.2.1}}" }, "priceLabel": { "en-US": "{{price}}" }, "duration": { "en-US": "Add a typical duration" } },
-              { "name": { "en-US": "{{services.3.0}}" }, "detail": { "en-US": "{{services.3.1}}" }, "priceLabel": { "en-US": "{{price}}" }, "duration": { "en-US": "Add a typical duration" } }
+              { "name": { "en-US": "{{services.3.0}}" }, "detail": { "en-US": "{{services.3.1}}" }, "priceLabel": { "en-US": "{{price}}" }, "duration": { "en-US": "Add a typical duration" } },
+              { "name": { "en-US": "Glass" }, "detail": { "en-US": "Add this service only if you offer it." }, "priceLabel": { "en-US": "{{price}}" }, "duration": { "en-US": "Add a typical duration" } }
             ]
           },
           "style": { "background": "surface", "overlay": 0 }
