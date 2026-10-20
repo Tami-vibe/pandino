@@ -9,19 +9,27 @@ const MENU_ICONS = ["car_repair", "format_paint", "minor_crash", "directions_car
 export function Hero({ site, section }: Block) {
   const fields = readFields(recipeFields["hero.split-photo"], section.fields);
   if (!fields) return null;
-  const shot = photo(site, fields.image.assetId);
+  const slides = [photo(site, fields.image.assetId), photo(site, "ast_before"), photo(site, "ast_after")].flatMap((item) => item ? [item] : []);
   return (
-    <Band id={section.id} group={section.group} label="Hero" variant={section.variant} icon="minor_crash" className="hero block hero-screen" wrap="wrap hero-copy" style={section.style} image={shot?.src}>
-      <p className="eyebrow"><Mark name="minor_crash" />{tx(site, fields.eyebrow)}</p>
-      <ReviewBadge site={site} />
-      <h1 className="display">{tx(site, fields.headline)}</h1>
-      <p className="lede">{tx(site, fields.subhead)}</p>
-      <div className="cta-row">
-        <Cta site={site} label={fields.primaryCta.label} action={fields.primaryCta.action} className="btn btn-fill" />
-        <Cta site={site} label={fields.secondaryCta.label} action={fields.secondaryCta.action} className="btn btn-line" />
+    <section id={section.id} data-group={section.group} data-label="Hero" data-icon="minor_crash" data-variant={section.variant} className="hero w-full relative overflow-hidden flex items-center justify-center" data-hero-tier="full" data-layout="1" data-hero-fx="fade" data-hero-ease="smooth" data-panel="off">
+      <div className="carousel w-full h-full absolute inset-0 z-0 overflow-hidden" aria-hidden="true">
+        {slides.map((item, index) => <div key={item.src} className={index ? "carousel-item absolute inset-0 w-full h-full" : "carousel-item absolute inset-0 w-full h-full is-active"}><img src={item.src} alt={tx(site, item.alt)} className="w-full h-full object-cover" /></div>)}
+        <span className="absolute inset-0 bg-black/40" />
       </div>
-      {shot ? <span className="sr">{tx(site, shot.alt)}</span> : <p className="note">Add a photo of your shop</p>}
-    </Band>
+      <div className="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-[var(--color-base-100)] via-[var(--color-base-100)]/60 to-transparent pointer-events-none z-10" />
+      <div className="hero-content text-center z-20 max-w-4xl px-4 my-auto pt-16 pb-4">
+        <div className="max-w-2xl mx-auto flex flex-col items-center">
+          <ReviewBadge site={site} />
+          <span className="eyebrow-pill mb-3">{tx(site, fields.eyebrow)}</span>
+          <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight text-white drop-shadow-md">{tx(site, fields.headline)}</h1>
+          <p className="py-2 text-sm sm:text-base text-slate-300 max-w-xl leading-relaxed">{tx(site, fields.subhead)}</p>
+          <div className="flex flex-wrap gap-3 justify-center mt-2">
+            <Cta site={site} label={fields.primaryCta.label} action={fields.primaryCta.action} className="btn btn-primary h-12 px-8 rounded-full font-semibold shadow-lg shadow-primary/25" />
+            <Cta site={site} label={fields.secondaryCta.label} action={fields.secondaryCta.action} className="btn h-12 px-8 rounded-full bg-white/10 hover:bg-white/15 text-white border border-white/10 backdrop-blur-md" />
+          </div>
+        </div>
+      </div>
+    </section>
   );
 }
 

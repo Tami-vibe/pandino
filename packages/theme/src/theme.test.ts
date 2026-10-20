@@ -17,7 +17,7 @@ describe("themeFromBrand", () => {
   it("pairs a rose brand with the bold mockup fonts", () => {
     const theme = themeFromBrand("#E11D48");
     expect(theme.vibe).toBe("bold-trustworthy");
-    expect(theme.fonts).toEqual({ heading: "Barlow Condensed", body: "Inter" });
+    expect(theme.fonts).toEqual({ heading: "Syne", body: "Manrope" });
     expect(theme.radius).toBe("md");
     expect(theme.spacing).toBe("comfortable");
   });

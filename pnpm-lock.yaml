@@ -223,6 +223,9 @@ importers:
       '@pandino/schema':
         specifier: workspace:*
         version: link:../schema
+      '@pandino/theme':
+        specifier: workspace:*
+        version: link:../theme
     devDependencies:
       '@pandino/ai':
         specifier: workspace:*

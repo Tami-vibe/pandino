@@ -1,6 +1,7 @@
 import type { CSSProperties } from "react";
 import type { Site } from "@pandino/schema";
 import { Recipe, StickyBar } from "@pandino/recipes";
+import { rampVars } from "@pandino/theme";
 import { SiteFooter } from "./footer";
 import { CookieBar, SiteHeader } from "./header";
 
@@ -11,6 +12,7 @@ function vars(site: Site): CSSProperties {
     "--light-surface": site.theme.palette.surface,
     "--light-text": site.theme.palette.text,
     "--type-scale": String(site.theme.typeScale),
+    ...rampVars(site.theme.brandColor),
   } as CSSProperties;
 }
 
@@ -19,8 +21,9 @@ export function SitePage({ site, slug, links = "file" }: { site: Site; slug?: st
   if (!page) return null;
   return (
       <article
-        className="site"
+        className="site kit"
         id="top"
+        data-theme="dark"
         data-radius={site.theme.radius}
         data-heading={site.theme.fonts.heading}
         data-body={site.theme.fonts.body}
@@ -28,8 +31,10 @@ export function SitePage({ site, slug, links = "file" }: { site: Site; slug?: st
         style={vars(site)}
       >
         <SiteHeader site={site} links={links} />
-        {page.sections.map((section) => <Recipe key={section.id} site={site} section={section} />)}
-        <SiteFooter site={site} links={links} />
+        <main className="heroes-container w-full bg-base-100">
+          {page.sections.map((section) => <Recipe key={section.id} site={site} section={section} />)}
+          <SiteFooter site={site} links={links} />
+        </main>
         {site.business.market === "IT" ? <CookieBar /> : null}
         <StickyBar site={site} />
       </article>

@@ -1,5 +1,7 @@
 import presets from "../presets.json" with { type: "json" };
 
+export { rampFromHex, rampVars } from "./ramp";
+
 const SURFACE = "#FAFAF9";
 const TEXT = "#1C1917";
 
@@ -79,7 +81,7 @@ export function themeFromBrand(brandColor: string) {
     brandColor: brandColor.toUpperCase(),
     vibe: preset.vibe,
     palette: { ...readablePrimary(brandColor), surface: SURFACE, text: TEXT },
-    fonts: { heading: "Barlow Condensed", body: "Inter" },
+    fonts: { heading: "Syne", body: "Manrope" },
     radius: preset.radius,
     spacing: "comfortable" as const,
     stickyHeader: true,

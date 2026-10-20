@@ -10,22 +10,22 @@ export function SiteFooter({ site, links }: { site: Site; links: Mode }) {
   const nav = site.pages.filter((page) => page.nav).map((page) => ({ href: pageHref(page.slug, links), label: page.title[locale] ?? page.slug }));
   const legal = site.pages.filter((page) => !page.nav && page.slug !== "estimate").map((page) => ({ href: pageHref(page.slug, links), label: page.title[locale] ?? page.slug }));
   return (
-    <footer className="site-footer">
-      <div className="wrap foot-grid">
-        <div>
-          <p className="wordmark">{site.business.name}</p>
-          <p>{blurb(site)}</p>
+    <footer id="footer" className="w-full bg-[#070A10] border-t border-white/[0.08] text-slate-300">
+      <div className="w-full max-w-7xl 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12 py-10 grid grid-cols-1 md:grid-cols-4 gap-8 text-[13px]">
+        <div className="space-y-3">
+          <div className="flex items-center gap-2"><span className="w-7 h-7 rounded-lg bg-primary text-primary-content flex items-center justify-center font-black text-xs">{site.business.name.trim().charAt(0) || "P"}</span><span className="brand-wordmark text-base font-bold text-white">{site.business.name}</span></div>
+          <p className="text-slate-400 text-[12px]">{blurb(site)}</p>
           <p>{placeLine(site)}</p>
           <p>{phoneLabel(site)}</p>
           <p>{site.business.hours.trim() || "Add your opening hours"}</p>
-          {site.business.market === "IT" ? <p className="vat">{vatLine(site)}</p> : null}
+          {site.business.market === "IT" ? <p className="text-[11px] font-mono text-slate-500">{vatLine(site)}</p> : null}
         </div>
         <LinkList title="Services" items={serviceLinks(site, links)} />
         <LinkList title="Pages" items={nav} />
-        <div>
+        <div className="space-y-3">
           <LinkList title="Legal" items={legal} />
           <Socials site={site} />
-          <p className="note">© {new Date().getFullYear()} {site.business.name}</p>
+          <p className="text-[11px] text-slate-500">© {new Date().getFullYear()} {site.business.name}</p>
         </div>
       </div>
     </footer>
@@ -34,9 +34,9 @@ export function SiteFooter({ site, links }: { site: Site; links: Mode }) {
 
 function LinkList({ title, items }: { title: string; items: Link[] }) {
   return (
-    <div>
-      <h2>{title}</h2>
-      <ul>{items.map((item) => <li key={`${item.href}:${item.label}`}><a href={item.href}>{item.label}</a></li>)}</ul>
+    <div className="space-y-2">
+      <h2 className="text-[11px] font-bold tracking-wider text-slate-400 uppercase">{title}</h2>
+      <ul className="space-y-1.5 list-none p-0 m-0">{items.map((item) => <li key={`${item.href}:${item.label}`}><a className="hover:text-white" href={item.href}>{item.label}</a></li>)}</ul>
     </div>
   );
 }

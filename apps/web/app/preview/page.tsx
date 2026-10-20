@@ -46,7 +46,7 @@ export default function PreviewPage() {
 
 function applyTone() {
   const saved = localStorage.getItem("pandino-theme");
-  document.documentElement.dataset.tone = saved === "dark" ? "dark" : "light";
+  document.documentElement.dataset.tone = saved === "light" ? "light" : "dark";
 }
 
 function applyMessage(event: MessageEvent, setSite: (site: Site) => void, setSlug: (slug: string) => void, setSpot: (value: (prev: { id: string; tick: number }) => { id: string; tick: number }) => void) {
