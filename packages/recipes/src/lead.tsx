@@ -12,7 +12,7 @@ export function Hero({ site, section }: Block) {
   const slides = [photo(site, fields.image.assetId), photo(site, "ast_before"), photo(site, "ast_after")].flatMap((item) => item ? [item] : []);
   return (
     <section id={section.id} data-group={section.group} data-label="Hero" data-icon="minor_crash" data-variant={section.variant} className="hero w-full relative overflow-hidden flex items-center justify-center" data-hero-tier="full" data-layout="1" data-hero-fx="fade" data-hero-ease="smooth" data-panel="off">
-      <div className="carousel w-full h-full absolute inset-0 z-0 overflow-hidden" aria-hidden="true">
+      <div className="carousel w-full h-full absolute inset-0 z-0 overflow-hidden" aria-hidden="true" style={slides[0] ? { backgroundImage: `url("${slides[0].src}")`, backgroundSize: "cover", backgroundPosition: "center" } : undefined}>
         {slides.map((item, index) => <div key={item.src} className={index ? "carousel-item absolute inset-0 w-full h-full" : "carousel-item absolute inset-0 w-full h-full is-active"}><img src={item.src} alt={tx(site, item.alt)} className="w-full h-full object-cover" /></div>)}
         <span className="absolute inset-0 bg-black/40" />
       </div>
@@ -24,8 +24,7 @@ export function Hero({ site, section }: Block) {
           <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight text-white drop-shadow-md">{tx(site, fields.headline)}</h1>
           <p className="py-2 text-sm sm:text-base text-slate-300 max-w-xl leading-relaxed">{tx(site, fields.subhead)}</p>
           <div className="flex flex-wrap gap-3 justify-center mt-2">
-            <Cta site={site} label={fields.primaryCta.label} action={fields.primaryCta.action} className="btn btn-primary h-12 px-8 rounded-full font-semibold shadow-lg shadow-primary/25" />
-            <Cta site={site} label={fields.secondaryCta.label} action={fields.secondaryCta.action} className="btn h-12 px-8 rounded-full bg-white/10 hover:bg-white/15 text-white border border-white/10 backdrop-blur-md" />
+            <Cta site={site} label={fields.secondaryCta.label} action={fields.secondaryCta.action} className="btn btn-primary h-12 px-8 rounded-full font-semibold shadow-lg shadow-primary/25" />
           </div>
         </div>
       </div>

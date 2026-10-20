@@ -15,7 +15,7 @@ export function Facility({ site, section }: Block) {
           <div className="filter-stage mt-6">
             {filters.map((item) => {
               const image = photo(site, String(item.assetId ?? ""));
-              return <div key={String(item.assetId)} className="rounded-3xl overflow-hidden border border-base-content/10">{image ? <img className="w-full aspect-[16/7] object-cover" src={image.src} alt={tx(site, image.alt)} /> : null}</div>;
+              return <div key={String(item.assetId)} className="shot-frame rounded-3xl border border-base-content/10">{image ? <img src={image.src} alt={tx(site, image.alt)} /> : null}</div>;
             })}
           </div>
         </div>

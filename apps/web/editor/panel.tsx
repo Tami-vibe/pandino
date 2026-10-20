@@ -1,6 +1,6 @@
 import type { Site } from "@pandino/schema";
 import { BusinessInfo } from "./business";
-import { SectionLook, StyleFields } from "./design";
+import { SectionLook, StyleFields, type ThemePatch } from "./design";
 import { TextFields } from "./fields";
 import { GROUPS, recipeLabel, type RailId } from "./groups";
 import { Icon } from "./chrome";
@@ -10,7 +10,7 @@ type Fields = Site["pages"][number]["sections"][number]["fields"];
 
 type Style = Site["pages"][number]["sections"][number]["style"];
 
-export function Panel({ site, group, slug, note, hot, onFields, onBrand, onStyle, onTheme, onBusiness, onTitle, onSave, onPage, onSection }: {
+export function Panel({ site, group, slug, note, hot, onFields, onBrand, onStyle, onTheme, onBusiness, onTitle, onSave, onPage, onSection, onOrder }: {
   site: Site;
   group: RailId;
   slug: string;
@@ -19,12 +19,13 @@ export function Panel({ site, group, slug, note, hot, onFields, onBrand, onStyle
   onFields: (id: string, fields: Fields) => void;
   onBrand: (color: string) => void;
   onStyle: (id: string, style: Style) => void;
-  onTheme: (patch: { stickyHeader?: boolean; typeScale?: number }) => void;
+  onTheme: (patch: ThemePatch) => void;
   onBusiness: (business: Site["business"]) => void;
   onTitle: (title: string) => void;
   onSave: () => void;
   onPage: (slug: string) => void;
   onSection: (id: string, group: string) => void;
+  onOrder: (from: number, to: number) => void;
 }) {
   const meta = GROUPS.find((item) => item.id === group) ?? GROUPS[0];
   return (
@@ -33,7 +34,7 @@ export function Panel({ site, group, slug, note, hot, onFields, onBrand, onStyle
         <div className="ph-title"><Icon name={meta.icon} /><h1>{meta.title}</h1></div>
       </header>
       <div className="panel-body">
-        {group === "pages" ? <PageList site={site} slug={slug} hot={hot} onPage={onPage} onSection={onSection} onFields={onFields} /> : null}
+        {group === "pages" ? <PageList site={site} slug={slug} hot={hot} onPage={onPage} onSection={onSection} onFields={onFields} onOrder={onOrder} /> : null}
         {group === "pages" ? <BusinessInfo site={site} onBusiness={onBusiness} onTitle={onTitle} /> : null}
         {group === "style" ? <StyleFields site={site} onBrand={onBrand} onTheme={onTheme} /> : null}
         {group !== "pages" && group !== "style" ? <Sections site={site} slug={slug} group={group} hot={hot} onFields={onFields} onStyle={onStyle} /> : null}

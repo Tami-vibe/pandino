@@ -15,7 +15,7 @@ export function SiteHeader({ site, links }: { site: Site; links: Mode }) {
           <span className="brand-name font-bold tracking-tight">{site.business.name}</span>
         </a>
         <nav aria-label="Main Navigation" className="hidden md:flex items-center gap-5 text-[13px] font-medium text-slate-300">
-          {site.pages.filter((page) => page.nav).map((page) => (
+          {site.pages.filter((page) => page.nav && page.title[locale] !== (site.pages[0]?.sections[0]?.fields.headline as Record<string, string> | undefined)?.[locale]).map((page) => (
             <a key={page.id} className="hover:text-white" href={pageHref(page.slug, links)}>{page.title[locale] ?? page.slug}</a>
           ))}
         </nav>

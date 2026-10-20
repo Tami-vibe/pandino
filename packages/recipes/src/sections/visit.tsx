@@ -8,7 +8,7 @@ export function Visit({ site, section }: Block) {
   if (!fields) return null;
   return (
     <section id={section.id} data-group={section.group} data-label="Visit" data-icon="location_on" className="w-full py-16 md:py-24 bg-base-100">
-      <div className="w-full max-w-7xl 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12 grid grid-cols-1 lg:grid-cols-12 gap-8">
+      <div className="kit-split w-full max-w-7xl 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12">
         <article className="lg:col-span-5 card bg-base-200/60 border border-base-content/10 p-8 rounded-3xl">
           <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight">Visit us</h2>
           <p className="mt-4 flex gap-2"><Mark name="location_on" />{placeLine(site)}</p>

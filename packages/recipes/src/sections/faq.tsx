@@ -6,7 +6,7 @@ export function Faq({ site, section }: Block) {
   const call = actionHref(liveAction(site, { type: "tel", value: site.business.phone }));
   return (
     <section id={section.id} data-group={section.group} data-label="FAQ" data-icon="description" className="w-full py-16 md:py-24 bg-base-100">
-      <div className="w-full max-w-7xl 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12 grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+      <div className="kit-split w-full max-w-7xl 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12">
         <div className="lg:col-span-5 lg:sticky lg:top-24 space-y-4">
           <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight">{line(site, section.fields.headline)}</h2>
           <p className="text-base-content/70">{line(site, section.fields.subhead)}</p>
