@@ -7,12 +7,12 @@ type Page = Site["pages"][number];
 
 export function PageTools({ site, page, onSite, onPage }: { site: Site; page: Page; onSite: (next: Site) => void; onPage: (slug: string) => void }) {
   const locale = site.locales.default;
-  const parents = site.pages.filter((item) => item.nav && item.slug !== page.slug && !item.parent);
+  const parents = site.pages.some((item) => item.parent === page.slug) ? [] : site.pages.filter((item) => item.nav && item.slug !== page.slug && !item.parent);
   const add = (nav: boolean) => { const made = addPage(site, nav ? "New menu item" : "New page", nav); onSite(made.site); onPage(made.slug); };
   return (
     <>
       <SeoName pageId={page.id} name={page.title[locale] ?? ""} onName={(name) => onSite(renamePage(site, page.id, name))} />
-      <label className="edit"><span>In the header</span><select className="studio-input" aria-label="In the header" value={page.nav ? "yes" : "no"} onChange={(event) => onSite(setNav(site, page.id, event.target.value === "yes"))}><option value="yes">Yes</option><option value="no">No</option></select></label>
+      <label className="edit"><span>In the header</span><select className="studio-input" aria-label="In the header" value={page.nav || page.parent ? "yes" : "no"} onChange={(event) => onSite(setNav(site, page.id, event.target.value === "yes"))}><option value="yes">Yes</option><option value="no">No</option></select></label>
       <label className="edit"><span>Submenu of</span><select className="studio-input" aria-label="Submenu of" value={page.parent ?? ""} onChange={(event) => onSite(setParent(site, page.id, event.target.value))}><option value="">None</option>{parents.map((item) => <option key={item.id} value={item.slug}>{item.title[locale] ?? item.slug}</option>)}</select></label>
       <div className="edit page-add"><button type="button" className="studio-input" onClick={() => add(false)}>Add page</button><button type="button" className="studio-input" onClick={() => add(true)}>Add menu item</button></div>
     </>
@@ -48,14 +48,14 @@ function renamePage(site: Site, id: string, name: string): Site {
 function setNav(site: Site, id: string, nav: boolean): Site {
   const next = structuredClone(site);
   const page = next.pages.find((item) => item.id === id);
-  if (page) page.nav = nav;
+  if (page) { page.nav = nav; if (!nav) delete page.parent; }
   return next;
 }
 
 function setParent(site: Site, id: string, parent: string): Site {
   const next = structuredClone(site);
   const page = next.pages.find((item) => item.id === id);
-  if (page) { if (parent && parent !== page.slug) page.parent = parent; else delete page.parent; }
+  if (page) { if (parent && parent !== page.slug && !next.pages.some((item) => item.parent === page.slug)) page.parent = parent; else delete page.parent; page.nav = true; }
   return next;
 }
 
