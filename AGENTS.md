@@ -1,6 +1,6 @@
 # Agent rules
 
-Read `docs/PLAN.md` before changing the product. These rules win when a prompt disagrees with them.
+Read `docs/PLAN.md` before changing the product. These rules win when a prompt disagrees with them. Always follow `.cursor/rules/agent-speed.mdc`. Follow `docs/smiley-apply-guide.md` for design ports.
 
 ## Line budget
 
