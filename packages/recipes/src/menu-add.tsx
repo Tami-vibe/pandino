@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import type { Site } from "@pandino/schema";
+import { menuName } from "./menu";
 
 type Page = Site["pages"][number];
 
@@ -26,16 +27,16 @@ export function MenuAdd({ site, onSite, onPage }: { site: Site; onSite: (next: S
     else if (target) { onSite(linkPage(site, target.id, label, parent)); onPage(target.slug); }
     setWords(""); setMode("new"); setPageId(""); setName(""); setNamed(false); setPlace("");
   };
-  const title = (item: Page) => item.menu || item.title[locale] || item.slug;
+  const title = (item: Page) => menuName(item, locale);
   return (
     <details className="edit menu-add" open>
       <summary>Add menu item</summary>
-      <label className="edit"><span>Menu words</span><input className="studio-input" aria-label="Menu words" value={words} placeholder="Rental Lux Cars" onChange={(event) => setWords(event.target.value)} /></label>
+      <label className="edit"><span>Navigation label</span><input className="studio-input" aria-label="Navigation label" value={words} placeholder="e.g., About Us" onChange={(event) => setWords(event.target.value)} /></label>
       <label className="edit"><span>Page</span><select className="studio-input" aria-label="Page" value={mode} onChange={(event) => setMode(event.target.value)}><option value="link">Link existing page</option><option value="new">Create new page</option></select></label>
       {mode === "link"
         ? <label className="edit"><span>Existing page</span><select className="studio-input" aria-label="Existing page" value={target?.id ?? ""} onChange={(event) => setPageId(event.target.value)}>{site.pages.map((item) => <option key={item.id} value={item.id}>{title(item)}</option>)}</select></label>
-        : <label className="edit"><span>Page name / title</span><input className="studio-input" aria-label="Page name / title" value={named ? name : words} placeholder="Rental Lux Cars" onChange={(event) => { setNamed(true); setName(event.target.value); }} /></label>}
-      <label className="edit"><span>Place</span><select className="studio-input" aria-label="Place" value={locked ? "" : place} disabled={locked} onChange={(event) => setPlace(event.target.value)}><option value="">Top-level header item</option>{parents.map((item) => <option key={item.id} value={item.slug}>{title(item)}</option>)}</select></label>
+        : <label className="edit"><span>Page name</span><input className="studio-input" aria-label="Page name" value={named ? name : words} placeholder="e.g., About Our Company" onChange={(event) => { setNamed(true); setName(event.target.value); }} /></label>}
+      <label className="edit"><span>Menu position</span><select className="studio-input" aria-label="Menu position" value={locked ? "" : place} disabled={locked} onChange={(event) => setPlace(event.target.value)}><option value="">Top-level header item</option>{parents.map((item) => <option key={item.id} value={item.slug}>{title(item)}</option>)}</select></label>
       {locked ? <p className="hint">This page already holds other items, so it stays top-level.</p> : null}
       <button type="button" className="studio-input" onClick={add} disabled={!ready}>Add to the header</button>
     </details>

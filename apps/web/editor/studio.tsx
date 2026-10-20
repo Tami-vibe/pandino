@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import type { Site } from "@pandino/schema";
+import { validateSite, type Site } from "@pandino/schema";
 import { autosaveSite, saveNow } from "../persistence/storage";
 import { Rail } from "./chrome";
 import { exportSite } from "./download";
@@ -37,9 +37,11 @@ function useStudio(initial: Site) {
   const [note, setNote] = useState("Saved");
   useEffect(() => { rememberTheme(setTheme); }, []);
   function commit(next: Site) {
-    setSite(next);
+    const parsed = validateSite(next);
+    if (!parsed.success) { setNote("Could not update the preview."); return; }
+    setSite(parsed.data);
     setNote("Saving…");
-    autosaveSite(next, (ok) => setNote(ok ? "Saved" : "Add the missing text to save"));
+    autosaveSite(parsed.data, (ok) => setNote(ok ? "Saved" : "Add the missing text to save"));
   }
   const focus = (id: string) => focusSection(site, id, setHot, setSlug);
   return {

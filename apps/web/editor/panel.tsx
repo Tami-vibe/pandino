@@ -41,7 +41,7 @@ export function Panel({ site, group, slug, note, hot, onFields, onBrand, onStyle
       </div>
       <footer className="panel-foot">
         <button type="button" className="save-btn" onClick={onSave}><Icon name="save" fill />Save</button>
-        <span className="save-note" role="status">{note}</span>
+        <span className="save-note" role="status" data-bad={note === "Could not update the preview." ? "" : undefined}>{note}</span>
       </footer>
     </aside>
   );
