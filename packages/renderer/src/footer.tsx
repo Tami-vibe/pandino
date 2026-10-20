@@ -10,7 +10,7 @@ export function SiteFooter({ site, links }: { site: Site; links: Mode }) {
   const nav = site.pages.filter((page) => page.nav).map((page) => ({ href: pageHref(page.slug, links), label: page.title[locale] ?? page.slug }));
   const legal = site.pages.filter((page) => !page.nav && page.slug !== "estimate").map((page) => ({ href: pageHref(page.slug, links), label: page.title[locale] ?? page.slug }));
   return (
-    <footer id="footer" className="w-full bg-[#070A10] border-t border-white/[0.08] text-slate-300">
+    <footer id="footer" className="w-full bg-[#070A10] border-t border-white/[0.08] text-slate-300 antialiased" data-theme="dark">
       <div className="w-full max-w-7xl 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12 py-10 grid grid-cols-1 md:grid-cols-4 gap-8 text-[13px]">
         <div className="space-y-3">
           <div className="flex items-center gap-2"><span className="w-7 h-7 rounded-lg bg-primary text-primary-content flex items-center justify-center font-black text-xs">{site.business.name.trim().charAt(0) || "P"}</span><span className="brand-wordmark text-base font-bold text-white">{site.business.name}</span></div>
@@ -22,10 +22,13 @@ export function SiteFooter({ site, links }: { site: Site; links: Mode }) {
         </div>
         <LinkList title="Services" items={serviceLinks(site, links)} />
         <LinkList title="Pages" items={nav} />
-        <div className="space-y-3">
-          <LinkList title="Legal" items={legal} />
+        <LinkList title="Legal" items={legal} />
+      </div>
+      <div className="foot-bar border-t border-white/[0.06] py-4 text-[11px] text-slate-500" data-sticky="false">
+        <div className="w-full max-w-7xl 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12 flex flex-col sm:flex-row items-center justify-between gap-3">
+          <p>© {new Date().getFullYear()} {site.business.name}</p>
+          <ul className="flex flex-wrap items-center gap-5 list-none p-0 m-0">{legal.map((item) => <li key={item.href}><a className="hover:text-slate-400" href={item.href}>{item.label}</a></li>)}</ul>
           <Socials site={site} />
-          <p className="text-[11px] text-slate-500">© {new Date().getFullYear()} {site.business.name}</p>
         </div>
       </div>
     </footer>

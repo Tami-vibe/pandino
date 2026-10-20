@@ -1,5 +1,5 @@
 import { renderToStaticMarkup } from "react-dom/server.edge";
-import { iconFontLink, loadSiteCss } from "@pandino/export-html";
+import { iconFontLink, loadSiteCss, styleSheets } from "@pandino/export-html";
 import { SitePage } from "@pandino/renderer";
 import type { Site } from "@pandino/schema";
 import { zipStore } from "./zip";
@@ -9,7 +9,7 @@ const FONTS = `:root{--font-inter:"Inter",sans-serif;--font-barlow:"Barlow Conde
 
 export function wordpressTheme(site: Site) {
   const files: [string, string][] = [
-    ["pandino-site/style.css", `${header(site)}\n@import url("${iconFontLink}");\n${FONTS}\n${loadSiteCss()}\n`],
+    ["pandino-site/style.css", `${header(site)}\n@import url("${iconFontLink}");\n${FONTS}\n${styleSheets().map((entry) => entry[1]).join("\n")}\n${loadSiteCss()}\n`],
     ["pandino-site/theme.json", `${JSON.stringify(tokens(site), null, 2)}\n`],
   ];
   for (const page of site.pages) files.push(template(site, page.slug));

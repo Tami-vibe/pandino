@@ -2,7 +2,7 @@ import type { CSSProperties } from "react";
 import type { Site } from "@pandino/schema";
 
 export function Mark({ name }: { name: string }) {
-  return <span className="icon" aria-hidden="true">{name}</span>;
+  return <span className="material-symbols-outlined" aria-hidden="true">{name}</span>;
 }
 
 export function Shot({ label, src, alt }: { label: string; src?: string; alt?: string }) {

@@ -23,7 +23,7 @@ function Social({ site, name, icon, label }: { site: Site; name: (typeof SOCIALS
   return (
     <li>
       <a href={href} aria-label={sample ? `${label} (sample)` : label}>
-        <span className="icon">{icon}</span>
+        <span className="material-symbols-outlined" aria-hidden="true">{icon}</span>
         {sample ? <small>sample</small> : null}
       </a>
     </li>

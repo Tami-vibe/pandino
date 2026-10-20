@@ -207,8 +207,8 @@
 .site .note, .site .price span, .site .review footer, .site .site-footer small { font-size: var(--type-eyebrow); }
 .site:not(.kit) :is(.lede, .heading p, .card p, .menu p, .steps p, .note) { color: var(--muted); line-height: 1.5; }
 .cta-row { display: flex; flex-wrap: wrap; gap: 0.7rem; margin-top: 1.5rem; }
-.cards, .steps { display: grid; gap: 0.7rem; margin-top: 1rem; }
-.steps { grid-template-columns: 1fr; }
+.site:not(.kit) .cards, .site:not(.kit) .steps { display: grid; gap: 0.7rem; margin-top: 1rem; }
+.site:not(.kit) .steps { grid-template-columns: 1fr; }
 .site:not(.kit) .card {
   background: color-mix(in srgb, var(--surface, #fff) 94%, var(--text, #111));
   border: 1px solid color-mix(in srgb, var(--text, #111) 10%, transparent);
@@ -216,9 +216,9 @@
   padding: 1.15rem 1.2rem;
   box-shadow: 0 16px 40px -28px color-mix(in srgb, var(--text, #111) 55%, transparent);
 }
-.card h3, .menu h3, .steps h3 { margin: 0 0 0.35rem; }
-.menu { list-style: none; margin: 1.75rem 0 0; padding: 0; border-top: 1px solid color-mix(in srgb, var(--text) 10%, transparent); }
-.menu li {
+.site:not(.kit) .card h3, .site:not(.kit) .menu h3, .site:not(.kit) .steps h3 { margin: 0 0 0.35rem; }
+.site:not(.kit) .menu { list-style: none; margin: 1.75rem 0 0; padding: 0; border-top: 1px solid color-mix(in srgb, var(--text) 10%, transparent); }
+.site:not(.kit) .menu li {
   display: grid;
   grid-template-columns: auto 1fr;
   gap: 0.35rem 0.8rem;
@@ -226,12 +226,12 @@
   padding: 0.85rem 0;
   border-bottom: 1px solid color-mix(in srgb, var(--text) 10%, transparent);
 }
-.menu .price { grid-column: 2; }
+.site:not(.kit) .menu .price { grid-column: 2; }
 .price { text-align: left; }
 .price strong { display: block; color: var(--primary); font-size: 1.25rem; }
-.price span, .steps span { display: block; color: var(--muted); }
-.steps { list-style: none; padding: 0; }
-.steps span { font-weight: 700; color: var(--primary); }
+.site:not(.kit) .price span, .site:not(.kit) .steps span { display: block; color: var(--muted); }
+.site:not(.kit) .steps { list-style: none; padding: 0; }
+.site:not(.kit) .steps span { font-weight: 700; color: var(--primary); }
 .note { margin-top: 1rem; }
 .site:not(.kit) .chip {
   display: inline-flex;
@@ -263,7 +263,7 @@
 .form { display: grid; gap: 0.85rem; }
 .form label { display: grid; gap: 0.35rem; }
 .check { grid-template-columns: auto 1fr; align-items: start; }
-.field {
+.site:not(.kit) .field {
   width: 100%;
   min-height: 2.9rem;
   border-radius: 0.8rem;
@@ -273,7 +273,7 @@
 }
 .area { min-height: 7rem; }
 .phone { font-size: clamp(1.2rem, 4vw, 1.6rem); font-weight: 700; letter-spacing: 0.02em; margin: 0; overflow-wrap: anywhere; }
-.footer { border-top: 1px solid color-mix(in srgb, var(--text) 10%, transparent); }
+.site:not(.kit) .footer { border-top: 1px solid color-mix(in srgb, var(--text) 10%, transparent); }
 .strip { padding-top: 0.35rem; padding-bottom: 1rem; }
 .strip .heading h2 { font-size: var(--type-h4); }
 .strip .heading p, .strip .card p { display: none; }
@@ -567,14 +567,14 @@ html[data-cookie] .cookie-bar { display: none; }
   .site .reveal { animation: none; }
 }
 @keyframes rise { from { transform: translateY(16px); } to { transform: none; } }
-html[data-tone="dark"] .site, html:not([data-tone="light"]) .site-dark {
+html[data-tone="dark"] .site:not(.kit), html:not([data-tone="light"]) .site-dark {
   --surface: #101218;
   --text: #f4f0e8;
 }
 @media (prefers-color-scheme: dark) {
-  html:not([data-tone="light"]) .site { --surface: #101218; --text: #f4f0e8; }
+  html:not([data-tone="light"]) .site:not(.kit) { --surface: #101218; --text: #f4f0e8; }
 }
-html[data-tone="dark"] .site {
+html[data-tone="dark"] .site:not(.kit) {
   --surface: #101218;
   --text: #f4f0e8;
   background:
@@ -588,4 +588,4 @@ html[data-tone="dark"] .site:not(.kit) .topnav {
   border-color: color-mix(in srgb, white 14%, transparent);
   box-shadow: 0 18px 44px -28px rgba(0, 0, 0, 0.72);
 }
-html[data-tone="dark"] .site .field { background: color-mix(in srgb, white 4%, transparent); color: var(--text); }
+html[data-tone="dark"] .site:not(.kit) .field { background: color-mix(in srgb, white 4%, transparent); color: var(--text); }

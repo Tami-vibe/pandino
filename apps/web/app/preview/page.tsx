@@ -12,6 +12,7 @@ export default function PreviewPage() {
   const [slug, setSlug] = useState("/");
   const [spot, setSpot] = useState({ id: "", tick: 0 });
   useEffect(() => {
+    document.body.classList.add("scheme-dark", "bg-base-100", "text-base-content", "antialiased");
     setSite(loadSite());
     applyTone();
     window.addEventListener("storage", applyTone);
