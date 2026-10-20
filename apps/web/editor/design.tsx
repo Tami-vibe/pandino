@@ -2,7 +2,9 @@ import { useEffect, useState } from "react";
 import type { Site } from "@pandino/schema";
 
 type Style = Site["pages"][number]["sections"][number]["style"];
-type ThemePatch = { stickyHeader?: boolean; typeScale?: number };
+export type ThemePatch = Partial<Pick<Site["theme"], "stickyHeader" | "typeScale" | "fonts" | "radius" | "header" | "footer" | "border">>;
+
+const PAIRS = ["Syne/Manrope=Syne and Manrope", "Barlow Condensed/Inter=Barlow Condensed and Inter", "Montserrat/Inter=Montserrat and Inter", "Poppins/Poppins=Poppins", "DM Serif Display/Manrope=DM Serif Display and Manrope", "Playfair Display/Inter=Playfair Display and Inter"];
 
 export function StyleFields({ site, onBrand, onTheme }: {
   site: Site;
@@ -25,6 +27,11 @@ export function StyleFields({ site, onBrand, onTheme }: {
           <input className="studio-input" aria-label="Brand color hex" value={hex} onChange={(event) => apply(event.target.value)} />
         </span>
       </label>
+      <Pick label="Fonts" value={`${site.theme.fonts.heading}/${site.theme.fonts.body}`} options={PAIRS} onPick={(value) => onTheme({ fonts: { heading: value.split("/")[0] || "Syne", body: value.split("/")[1] || "Manrope" } })} />
+      <Pick label="Header" value={site.theme.header} options={["bar=Bar", "center=Centered"]} onPick={(header) => onTheme({ header: header as Site["theme"]["header"] })} />
+      <Pick label="Footer" value={site.theme.footer} options={["columns=Columns", "stack=Stacked"]} onPick={(footer) => onTheme({ footer: footer as Site["theme"]["footer"] })} />
+      <Pick label="Outline" value={String(site.theme.border)} options={["1=1 px", "2=2 px", "3=3 px"]} onPick={(border) => onTheme({ border: Number(border) })} />
+      <Pick label="Radius" value={site.theme.radius} options={["sm=Small", "md=Medium", "lg=Large"]} onPick={(radius) => onTheme({ radius })} />
       <label className="check-row">
         <input type="checkbox" checked={site.theme.stickyHeader} onChange={(event) => onTheme({ stickyHeader: event.target.checked })} />
         Sticky header
@@ -33,8 +40,22 @@ export function StyleFields({ site, onBrand, onTheme }: {
         <span>Type scale {site.theme.typeScale.toFixed(2)}</span>
         <input className="range" type="range" min="0.85" max="1.25" step="0.05" value={site.theme.typeScale} aria-label="Type scale" onChange={(event) => onTheme({ typeScale: Number(event.target.value) })} />
       </label>
-      <p className="hint">{site.theme.fonts.heading} and {site.theme.fonts.body}. Eyebrow, heading, subhead, body, and small type follow this scale.</p>
+      <p className="hint">Fonts, color, header, footer, outline, and radius apply to every section.</p>
     </div>
+  );
+}
+
+function Pick({ label, value, options, onPick }: { label: string; value: string; options: string[]; onPick: (value: string) => void }) {
+  return (
+    <label className="edit">
+      <span>{label}</span>
+      <select className="studio-input" aria-label={label} value={value} onChange={(event) => onPick(event.target.value)}>
+        {options.map((item) => {
+          const [id, name] = item.split("=");
+          return <option key={id} value={id}>{name ?? id}</option>;
+        })}
+      </select>
+    </label>
   );
 }
 

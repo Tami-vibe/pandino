@@ -5,7 +5,8 @@ import type { Site } from "@pandino/schema";
 import { autosaveSite, saveNow } from "../persistence/storage";
 import { Rail } from "./chrome";
 import { exportSite } from "./download";
-import { withBrand, withBusiness, withFields, withMeta, withStyle, withTheme } from "./draft";
+import { withBrand, withBusiness, withFields, withMeta, withOrder, withStyle, withTheme } from "./draft";
+import type { ThemePatch } from "./design";
 import { focusSection, openStudioPage, sectionId } from "./focus";
 import { isGroup, type RailId } from "./groups";
 import { Panel } from "./panel";
@@ -20,7 +21,7 @@ export function Studio({ initial }: { initial: Site }) {
         site={model.site} group={model.group} slug={model.slug} note={model.note} hot={model.hot}
         onFields={model.onFields} onBrand={model.onBrand} onStyle={model.onStyle} onTheme={model.onTheme}
         onBusiness={model.onBusiness} onTitle={model.onTitle} onSave={model.onSave}
-        onPage={model.openPage} onSection={model.openSection}
+        onPage={model.openPage} onSection={model.openSection} onOrder={model.onOrder}
       />
       <Canvas site={model.site} hot={model.hot} jump={model.jump} slug={model.slug} onSelect={model.openSection} onPage={model.openPage} onDownload={model.onDownload} />
     </div>
@@ -55,7 +56,8 @@ function useStudio(initial: Site) {
     onFields: (id: string, fields: Site["pages"][number]["sections"][number]["fields"]) => commit(withFields(site, id, fields)),
     onBrand: (color: string) => commit(withBrand(site, color)),
     onStyle: (id: string, style: Site["pages"][number]["sections"][number]["style"]) => commit(withStyle(site, id, style)),
-    onTheme: (patch: { stickyHeader?: boolean; typeScale?: number }) => commit(withTheme(site, patch)),
+    onTheme: (patch: ThemePatch) => commit(withTheme(site, patch)),
+    onOrder: (from: number, to: number) => commit(withOrder(site, slug, from, to)),
     onBusiness: (business: Site["business"]) => commit(withBusiness(site, business)),
     onTitle: (title: string) => commit(withMeta(site, title, site.business.name)),
     onSave() { try { saveNow(site); setNote("Saved"); } catch { setNote("Add the missing text to save"); } },

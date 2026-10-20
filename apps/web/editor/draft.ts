@@ -12,11 +12,20 @@ export function withFields(site: Site, id: string, fields: Fields): Site {
 
 export function withBrand(site: Site, color: string): Site {
   const theme = themeFromBrand(color);
-  return { ...site, theme: { ...theme, stickyHeader: site.theme.stickyHeader, typeScale: site.theme.typeScale } };
+  const keep = site.theme;
+  return { ...site, theme: { ...theme, stickyHeader: keep.stickyHeader, typeScale: keep.typeScale, fonts: keep.fonts, radius: keep.radius, header: keep.header, footer: keep.footer, border: keep.border } };
 }
 
-export function withTheme(site: Site, patch: { stickyHeader?: boolean; typeScale?: number }): Site {
+export function withTheme(site: Site, patch: Partial<Site["theme"]>): Site {
   return { ...site, theme: { ...site.theme, ...patch } };
+}
+
+export function withOrder(site: Site, slug: string, from: number, to: number): Site {
+  const next = structuredClone(site);
+  const page = next.pages.find((item) => item.slug === slug);
+  const [section] = page?.sections.splice(from, 1) ?? [];
+  if (page && section) page.sections.splice(to, 0, section);
+  return next;
 }
 
 export function withStyle(site: Site, id: string, style: Site["pages"][number]["sections"][number]["style"]): Site {

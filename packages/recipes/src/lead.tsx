@@ -24,8 +24,7 @@ export function Hero({ site, section }: Block) {
           <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight text-white drop-shadow-md">{tx(site, fields.headline)}</h1>
           <p className="py-2 text-sm sm:text-base text-slate-300 max-w-xl leading-relaxed">{tx(site, fields.subhead)}</p>
           <div className="flex flex-wrap gap-3 justify-center mt-2">
-            <Cta site={site} label={fields.primaryCta.label} action={fields.primaryCta.action} className="btn btn-primary h-12 px-8 rounded-full font-semibold shadow-lg shadow-primary/25" />
-            <Cta site={site} label={fields.secondaryCta.label} action={fields.secondaryCta.action} className="btn h-12 px-8 rounded-full bg-white/10 hover:bg-white/15 text-white border border-white/10 backdrop-blur-md" />
+            <Cta site={site} label={fields.secondaryCta.label} action={fields.secondaryCta.action} className="btn btn-primary h-12 px-8 rounded-full font-semibold shadow-lg shadow-primary/25" />
           </div>
         </div>
       </div>

@@ -44,7 +44,7 @@
             "headline": { "en-US": "{{heroHeadline}}" },
             "subhead": { "en-US": "{{heroSubhead}}" },
             "primaryCta": { "label": { "en-US": "{{contactLabel}}" }, "action": { "type": "{{contactType}}", "value": "{{phone}}" } },
-            "secondaryCta": { "label": { "en-US": "Get an estimate" }, "action": { "type": "open_form", "formId": "frm_quote" } },
+            "secondaryCta": { "label": { "en-US": "See the shop" }, "action": { "type": "url", "value": "gallery.html" } },
             "image": { "assetId": "ast_hero" }
           },
           "style": { "background": "surface", "overlay": 0 }
