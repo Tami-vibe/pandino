@@ -184,7 +184,7 @@
 .btn-line { background: transparent; color: var(--text); border: 1px solid color-mix(in srgb, var(--text) 16%, transparent); }
 .text-link { font-weight: 650; }
 
-.block { padding: 2.2rem 1.1rem; }
+.site:not(.kit) .block { padding: 2.2rem 1.1rem; }
 .wrap { width: min(72rem, 100%); margin: 0 auto; }
 .band { background: color-mix(in srgb, var(--text) 3%, var(--surface)); }
 .hero-grid, .split, .quote, .pair, .footer-grid { display: grid; gap: 2rem; }
@@ -315,7 +315,7 @@
   .menu li { grid-template-columns: auto 1fr auto; align-items: center; }
   .menu .price { grid-column: auto; text-align: right; }
   .topnav { padding-inline: 2rem; }
-  .block { padding: 3.25rem 2rem; }
+  .site:not(.kit) .block { padding: 3.25rem 2rem; }
 }
 
 @media (max-width: 63.99rem) {

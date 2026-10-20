@@ -22,9 +22,8 @@ function Social({ site, name, icon, label }: { site: Site; name: (typeof SOCIALS
   if (!href.startsWith("http")) return <li><span className="note">Add {label}</span></li>;
   return (
     <li>
-      <a href={href} aria-label={sample ? `${label} (sample)` : label}>
+      <a href={href} aria-label={sample ? `${label} (sample)` : label} title={sample ? `${label} (sample)` : label}>
         <span className="material-symbols-outlined" aria-hidden="true">{icon}</span>
-        {sample ? <small>sample</small> : null}
       </a>
     </li>
   );

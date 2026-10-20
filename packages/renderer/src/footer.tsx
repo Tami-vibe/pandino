@@ -14,10 +14,10 @@ export function SiteFooter({ site, links }: { site: Site; links: Mode }) {
       <div className="w-full max-w-7xl 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12 py-10 grid grid-cols-1 md:grid-cols-4 gap-8 text-[13px]">
         <div className="space-y-3">
           <div className="flex items-center gap-2"><span className="w-7 h-7 rounded-lg bg-primary text-primary-content flex items-center justify-center font-black text-xs">{site.business.name.trim().charAt(0) || "P"}</span><span className="brand-wordmark text-base font-bold text-white">{site.business.name}</span></div>
-          <p className="text-slate-400 text-[12px]">{blurb(site)}</p>
-          <p>{placeLine(site)}</p>
-          <p>{phoneLabel(site)}</p>
-          <p>{site.business.hours.trim() || "Add your opening hours"}</p>
+          <p className="text-slate-400 text-[12px] leading-relaxed">{blurb(site)}</p>
+          <p className="text-slate-400 text-[12px] leading-relaxed">{placeLine(site)}</p>
+          <p className="text-slate-400 text-[12px] leading-relaxed">{phoneLabel(site)}</p>
+          <p className="text-slate-400 text-[12px] leading-relaxed">{site.business.hours.trim() || "Add your opening hours"}</p>
           {site.business.market === "IT" ? <p className="text-[11px] font-mono text-slate-500">{vatLine(site)}</p> : null}
         </div>
         <LinkList title="Services" items={serviceLinks(site, links)} />
