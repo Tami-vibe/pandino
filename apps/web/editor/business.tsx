@@ -9,19 +9,16 @@ const LINES: [Key, string][] = [
   ["hours", "Opening hours"], ["googleReviewsUrl", "Google reviews URL"],
 ];
 
-export function BusinessInfo({ site, onBusiness, onTitle }: {
+export function BusinessInfo({ site, onBusiness }: {
   site: Site;
   onBusiness: (business: Business) => void;
-  onTitle: (title: string) => void;
 }) {
   const business = site.business;
-  const title = site.pages[0]?.title[site.locales.default] ?? "";
   function set<K extends keyof Business>(key: K, value: Business[K]) {
     onBusiness({ ...business, [key]: value });
   }
   return (
     <div className="edits">
-      <Field label="Page title" value={title} onChange={onTitle} />
       {LINES.map(([key, label]) => <Field key={key} label={label} value={business[key]} onChange={(value) => set(key, value)} />)}
       <Field label="Street address" value={business.address.street} onChange={(street) => set("address", { ...business.address, street })} />
       <Field label="City" value={business.address.city} onChange={(city) => set("address", { ...business.address, city })} />

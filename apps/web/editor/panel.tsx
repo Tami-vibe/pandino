@@ -11,7 +11,7 @@ type Fields = Site["pages"][number]["sections"][number]["fields"];
 
 type Style = Site["pages"][number]["sections"][number]["style"];
 
-export function Panel({ site, group, slug, note, hot, onFields, onBrand, onStyle, onTheme, onSite, onBusiness, onTitle, onSave, onPage, onSection }: {
+export function Panel({ site, group, slug, note, hot, onFields, onBrand, onStyle, onTheme, onSite, onBusiness, onSave, onPage, onSection }: {
   site: Site;
   group: RailId;
   slug: string;
@@ -23,7 +23,6 @@ export function Panel({ site, group, slug, note, hot, onFields, onBrand, onStyle
   onTheme: (patch: Partial<Site["theme"]>) => void;
   onSite: (next: Site) => void;
   onBusiness: (business: Site["business"]) => void;
-  onTitle: (title: string) => void;
   onSave: () => void;
   onPage: (slug: string) => void;
   onSection: (id: string, group: string) => void;
@@ -36,7 +35,7 @@ export function Panel({ site, group, slug, note, hot, onFields, onBrand, onStyle
       </header>
       <div className="panel-body">
         {group === "pages" ? <PageList site={site} slug={slug} hot={hot} onPage={onPage} onSection={onSection} onFields={onFields} onSite={onSite} /> : null}
-        {group === "pages" ? <BusinessInfo site={site} onBusiness={onBusiness} onTitle={onTitle} /> : null}
+        {group === "pages" ? <BusinessInfo site={site} onBusiness={onBusiness} /> : null}
         {group === "style" ? <StyleFields site={site} onBrand={onBrand} onTheme={onTheme} /> : null}
         {group !== "pages" && group !== "style" ? <Sections site={site} slug={slug} group={group} hot={hot} onFields={onFields} onStyle={onStyle} onSite={onSite} /> : null}
       </div>

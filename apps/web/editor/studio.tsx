@@ -5,7 +5,7 @@ import type { Site } from "@pandino/schema";
 import { autosaveSite, saveNow } from "../persistence/storage";
 import { Rail } from "./chrome";
 import { exportSite } from "./download";
-import { withBrand, withBusiness, withFields, withMeta, withStyle, withTheme } from "./draft";
+import { withBrand, withBusiness, withFields, withStyle, withTheme } from "./draft";
 import { focusSection, openStudioPage, sectionId } from "./focus";
 import { isGroup, type RailId } from "./groups";
 import { Panel } from "./panel";
@@ -19,7 +19,7 @@ export function Studio({ initial }: { initial: Site }) {
       <Panel
         site={model.site} group={model.group} slug={model.slug} note={model.note} hot={model.hot}
         onFields={model.onFields} onBrand={model.onBrand} onStyle={model.onStyle} onTheme={model.onTheme} onSite={model.onSite}
-        onBusiness={model.onBusiness} onTitle={model.onTitle} onSave={model.onSave}
+        onBusiness={model.onBusiness} onSave={model.onSave}
         onPage={model.openPage} onSection={model.openSection}
       />
       <Canvas site={model.site} hot={model.hot} jump={model.jump} slug={model.slug} onSelect={model.openSection} onPage={model.openPage} onDownload={model.onDownload} />
@@ -54,7 +54,6 @@ function useStudio(initial: Site) {
     onTheme: (patch: Partial<Site["theme"]>) => commit(withTheme(site, patch)),
     onSite: commit,
     onBusiness: (business: Site["business"]) => commit(withBusiness(site, business)),
-    onTitle: (title: string) => commit(withMeta(site, title, site.business.name)),
     onSave() { try { saveNow(site); setNote("Saved"); } catch { setNote("Add the missing text to save"); } },
     onDownload: (kind: "html" | "wordpress") => void exportSite(kind, site, setNote),
   };
