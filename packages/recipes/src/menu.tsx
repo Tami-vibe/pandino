@@ -7,7 +7,7 @@ const SHORT: Record<string, string> = { "Process & Warranty": "Repairs", "Galler
 export function SiteMenu({ site, links, slug }: { site: Site; links: "file" | "pretty"; slug: string }) {
   const locale = site.locales.default;
   const pages = site.pages.filter((page) => page.nav || page.parent);
-  const name = (page: Page) => SHORT[page.title[locale] ?? ""] ?? page.title[locale] ?? page.slug;
+  const name = (page: Page) => page.menu ?? SHORT[page.title[locale] ?? ""] ?? page.title[locale] ?? page.slug;
   const top = pages.filter((page) => !page.parent || !pages.some((item) => item.slug === page.parent && !item.parent));
   const list = (className: string) => <ul className={className} aria-label="Main Navigation">{top.map((page) => <Item key={page.id} page={page} pages={pages} slug={slug} links={links} name={name} />)}</ul>;
   return (

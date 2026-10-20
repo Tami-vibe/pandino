@@ -24,7 +24,7 @@ export function PageList({ site, slug, hot, onPage, onSection, onFields, onSite 
         {site.pages.map((item) => (
           <li key={item.id}>
             <button type="button" className={item.slug === page.slug ? "on" : ""} onClick={() => onPage(item.slug)}>
-              {item.title[locale] ?? item.slug}
+              {item.menu || item.title[locale] || item.slug}
             </button>
           </li>
         ))}
