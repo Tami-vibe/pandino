@@ -4,6 +4,7 @@ import { ReviewBadge } from "../facts";
 import { recipeFields } from "../fields";
 import { photo } from "../media";
 import { Cta, readFields, tx, type Block } from "../parts";
+import { HeroColumns } from "./hero-cols";
 
 function heroFields(section: Block["section"]) {
   return readFields(recipeFields["hero.split-photo"], section.fields);
@@ -14,10 +15,10 @@ type Fields = NonNullable<ReturnType<typeof heroFields>>;
 export function Hero({ site, section }: Block) {
   const fields = heroFields(section);
   if (!fields) return null;
+  const many = Number(fields.columns ?? "1") > 1;
   return (
-    <section id="hero" data-sid={section.id} data-group={section.group} data-label="Hero" data-icon="minor_crash" data-variant={section.variant} className="hero w-full relative overflow-hidden flex items-center justify-center" data-hero-tier="full" data-theme="dark" data-shade={fields.shade ?? "bottom"} style={heroVars(fields, section.style.overlay)}>
-      <HeroMedia site={site} fields={fields} />
-      <HeroCopy site={site} fields={fields} />
+    <section id="hero" data-sid={section.id} data-group={section.group} data-label="Hero" data-icon="minor_crash" data-variant={section.variant} className="hero w-full relative overflow-hidden flex items-center justify-center" data-hero-tier="full" data-theme="dark" data-align={fields.align ?? "center"} data-cols={fields.columns ?? "1"} data-shade={fields.shade ?? "bottom"} style={heroVars(fields, section.style.overlay)}>
+      {many ? <HeroColumns site={site} fields={fields} /> : <><HeroMedia site={site} fields={fields} /><HeroCopy site={site} fields={fields} /></>}
     </section>
   );
 }

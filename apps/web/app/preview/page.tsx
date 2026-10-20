@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { validateSite, type Site } from "@pandino/schema";
 import { SitePage } from "@pandino/renderer";
 import { loadSite } from "../../persistence/storage";
+import { watchInk } from "./ink";
 import { onPreviewClick, paintTags } from "./tags";
 
 export default function PreviewPage() {
@@ -26,11 +27,13 @@ export default function PreviewPage() {
   }, []);
   useEffect(() => {
     const node = root.current;
-    if (!node || window.parent === window) return;
+    const stop = node ? watchInk(node) : undefined;
+    if (!node || window.parent === window) return stop;
     node.classList.add("builder");
     paintTags(node);
     node.querySelectorAll(".is-hot").forEach((item) => item.classList.remove("is-hot"));
     if (spot.id) marked(spot.id)?.classList.add("is-hot");
+    return stop;
   }, [site, slug, spot.id]);
   useEffect(() => {
     if (!spot.id || window.parent === window) return;

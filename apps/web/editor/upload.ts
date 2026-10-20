@@ -3,18 +3,18 @@ import type { Site } from "@pandino/schema";
 type Bag = Record<string, unknown>;
 const MAX_VIDEO = 2_000_000;
 
-export async function addHeroMedia(file: File, site: Site, id: string): Promise<Site | string> {
+export async function addHeroMedia(file: File, site: Site, id: string, column?: number): Promise<Site | string> {
   const video = file.type.startsWith("video/") || /\.(mp4|webm|mov)$/i.test(file.name);
   if (video && file.size > MAX_VIDEO) return "Video must be under 2MB";
   try {
     const media = video ? await videoUrl(file) : await jpeg(file);
-    return place(site, id, media);
+    return place(site, id, media, column);
   } catch {
     return "Could not read that file";
   }
 }
 
-function place(site: Site, id: string, media: { type: "image" | "video"; src: string; width: number; height: number }) {
+function place(site: Site, id: string, media: { type: "image" | "video"; src: string; width: number; height: number }, column?: number) {
   const assetId = `upl_${Date.now().toString(36)}`;
   const next = structuredClone(site);
   next.assets[assetId] = {
@@ -28,10 +28,18 @@ function place(site: Site, id: string, media: { type: "image" | "video"; src: st
   const section = next.pages.flatMap((page) => page.sections).find((item) => item.id === id);
   if (!section) return next;
   const fields = section.fields as Bag;
+  if (typeof column === "number") return pin(next, fields, column, assetId);
   const image = fields.image as { assetId?: string } | undefined;
   const prior = Array.isArray(fields.slides) ? fields.slides as string[] : ["ast_before", "ast_after", image?.assetId].filter((item): item is string => Boolean(item));
   fields.slides = [...prior, assetId].slice(-6);
   return next;
+}
+
+function pin(site: Site, fields: Bag, column: number, assetId: string) {
+  const cols = Array.isArray(fields.cols) ? [...(fields.cols as Bag[])] : [];
+  cols[column] = { ...(cols[column] as Bag | undefined), assetId };
+  fields.cols = cols;
+  return site;
 }
 
 function readFile(file: File) {

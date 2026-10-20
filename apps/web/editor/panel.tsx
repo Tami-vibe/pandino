@@ -2,7 +2,7 @@ import type { Site } from "@pandino/schema";
 import { BusinessInfo } from "./business";
 import { SectionLook, StyleFields } from "./design";
 import { TextFields } from "./fields";
-import { HeroControls } from "./hero";
+import { HeroDock } from "./hero-dock";
 import { GROUPS, recipeLabel, type RailId } from "./groups";
 import { Icon } from "./chrome";
 import { PageList } from "./pages";
@@ -62,9 +62,8 @@ function Sections({ site, slug, group, hot, onFields, onStyle, onSite }: {
   return sections.map((section) => (
     <section className={section.id === hot ? "grp on" : "grp"} key={section.id}>
       <div className="grp-h"><h3>{recipeLabel(section.recipe)}</h3></div>
-      <SectionLook style={section.style} onStyle={(style) => onStyle(section.id, style)} />
-      {section.recipe === "hero.split-photo" ? <HeroControls site={site} section={section} onSite={onSite} /> : null}
-      <TextFields value={section.fields} locale={site.locales.default} onChange={(fields) => onFields(section.id, fields as Fields)} />
+      {section.recipe === "hero.split-photo" ? <HeroDock site={site} section={section} onSite={onSite} onStyle={(style) => onStyle(section.id, style)} onFields={(fields) => onFields(section.id, fields)} /> : <SectionLook style={section.style} onStyle={(style) => onStyle(section.id, style)} />}
+      {section.recipe === "hero.split-photo" ? null : <TextFields value={section.fields} locale={site.locales.default} onChange={(fields) => onFields(section.id, fields as Fields)} />}
     </section>
   ));
 }
