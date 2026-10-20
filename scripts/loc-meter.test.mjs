@@ -45,6 +45,7 @@ test("classification keeps product code apart from everything else", () => {
   assert.equal(classify("docs/PLAN.md"), "docs");
   assert.equal(classify("docs/design/sidebar-mockup/sidebar.js"), "mockup");
   assert.equal(classify("scripts/loc-meter.mjs"), "tooling");
+  assert.equal(classify("scripts/shots.mjs"), "scripts");
   assert.equal(classify("pnpm-lock.yaml"), "lockfiles");
   assert.equal(classify("AGENTS.md"), "docs");
 });

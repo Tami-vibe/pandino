@@ -1,0 +1,39 @@
+---
+description: Speed and time-box rules for every coding agent working on Pandino
+alwaysApply: true
+---
+
+# Work fast, don't stall
+
+## Time boxes
+- No single step may run more than 10 minutes without visible progress. If it does, kill it, switch to the simpler route, and note it in the PR.
+- Every shell command that can hang (servers, builds, browsers, capture scripts) runs with a timeout (`timeout 120 ...`) or in the background. Never wait on a command with no output for more than 2 minutes.
+- If the same fix fails twice, stop and write down the root cause before trying a third time.
+
+## Ship early
+- Push and open the PR (as a draft if needed) as soon as the first change works. Then push every meaningful fix, so the founder can see a Vercel preview early.
+- When a task is split into several PRs, open each one the moment it's done. Don't batch them.
+- Stop when the acceptance checks pass. Polish beyond the brief is a follow-up, not part of this PR.
+
+## Visual checks (the biggest time sink so far)
+- Use Playwright with a 30s timeout per action. Don't hand-write Chrome DevTools websocket scripts.
+- Never capture full-page screenshots of pages taller than 4,000px. Scroll each section into view (`scrollIntoView`) and take a viewport screenshot at 1440x900 and 390x844.
+- One capture script, written once, reused for every PR: `scripts/shots.mjs <url> <out-dir>`. Keep it out of the line budget (put it under scripts/).
+- Don't trust image descriptions of dark screenshots. Measure what matters with `getComputedStyle` (padding, margin, font, color, display) and report the numbers.
+- Click every tab or toggle before you screenshot it.
+
+## Builds
+- Use `next dev` for checks while iterating. Run a single production build right before pushing.
+- Kill old servers by port (`fuser -k 3000/tcp`) before starting new ones. Don't hunt for PIDs.
+- Run only the tests for the packages you touched while iterating. Run the full suite once before pushing.
+
+## Reuse, don't redo
+- Clone the Smiley repo once to `/tmp/smiley` and reuse it. Section extracts live in `/tmp/smiley-sections/`.
+- Read files once. Don't reread files you've already loaded in this run unless they changed.
+- Follow `docs/smiley-apply-guide.md` for design ports. Copy Smiley's markup and CSS, don't reinvent them.
+
+## Line budget
+- Check the meter (`node scripts/loc-meter.mjs`) before writing a file, not after. If a file would go over 80 lines, split it up front. Don't cram JSX onto fewer lines to cheat the meter.
+
+## Report
+- End every run with: the PR link, the preview link, the meter total, the measured numbers, the screenshots, and the list of what still differs. Keep it short.

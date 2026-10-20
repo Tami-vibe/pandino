@@ -6,7 +6,7 @@ import { basename, extname } from "node:path";
 const EXT = new Set([".ts", ".tsx", ".js", ".jsx", ".mjs", ".cjs", ".php"]);
 const ROOTS = ["apps/", "packages/", "jobs/", "wordpress/"];
 const FLOW = new Set(["if", "for", "while", "switch", "catch", "with"]);
-const CATS = ["tests", "config", "css", "recipe-data", "docs", "mockup", "lockfiles", "prototype", "other"];
+const CATS = ["tests", "config", "css", "recipe-data", "docs", "mockup", "lockfiles", "prototype", "scripts", "other"];
 const CONFIG = new Set([".gitignore", "package.json", "loc-budget.json", "turbo.json", "pnpm-workspace.yaml", "next-env.d.ts"]);
 
 export function statusFor(used, budget) {
@@ -36,7 +36,7 @@ export function classify(file) {
   if (base.includes(".config.") || /^tsconfig.*\.json$/.test(base) || path.startsWith(".github/") || CONFIG.has(base)) return "config";
   if (path.endsWith(".json") || (/\.(html|wxr)$/.test(path) && /^(packages|wordpress)\//.test(path))) return "recipe-data";
   if (ROOTS.some((root) => path.startsWith(root)) && EXT.has(extname(path))) return "product";
-  return path.startsWith("scripts/") ? "tooling" : "other";
+  return path === "scripts/loc-meter.mjs" ? "tooling" : path.startsWith("scripts/") ? "scripts" : "other";
 }
 
 export function analyze(source) {
