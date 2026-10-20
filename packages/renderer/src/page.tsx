@@ -6,14 +6,8 @@ import { SiteFooter } from "./footer";
 import { CookieBar, SiteHeader } from "./header";
 
 function vars(site: Site): CSSProperties {
-  return {
-    "--primary": site.theme.palette.primary,
-    "--on-primary": site.theme.palette.onPrimary,
-    "--light-surface": site.theme.palette.surface,
-    "--light-text": site.theme.palette.text,
-    "--type-scale": String(site.theme.typeScale),
-    ...rampVars(site.theme.brandColor),
-  } as CSSProperties;
+  const brand = site.theme.brandColor;
+  return { "--primary": brand, "--on-primary": site.theme.palette.onPrimary, "--radius-selector": "0.5rem", ...rampVars(brand) } as CSSProperties;
 }
 
 export function SitePage({ site, slug, links = "file" }: { site: Site; slug?: string; links?: "file" | "pretty" }) {

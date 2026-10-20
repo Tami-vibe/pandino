@@ -7,7 +7,7 @@ export function Quote({ site, section }: Block) {
   if (!fields) return null;
   const shot = section.variant === "split" ? photo(site, "ast_before") : undefined;
   return (
-    <section id={section.id} data-group={section.group} data-label="Quote" data-icon="request_quote" className="w-full py-16 md:py-24 bg-base-100">
+    <section id="quote" data-sid={section.id} data-group={section.group} data-label="Quote" data-icon="request_quote" className="w-full py-16 md:py-24 bg-base-100" data-theme="dark">
       <div className="w-full max-w-7xl 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-stretch">
           {shot ? <figure className="lg:col-span-5 relative rounded-3xl overflow-hidden min-h-[360px] border border-base-content/10 bg-base-200 m-0"><img src={shot.src} alt={tx(site, shot.alt)} className="absolute inset-0 w-full h-full object-cover" /><figcaption className="absolute bottom-6 left-6 right-6 p-4 rounded-2xl bg-base-100/70 backdrop-blur-md border border-white/10 text-xs">Sample dent photo. Not this shop.</figcaption></figure> : null}
@@ -24,7 +24,7 @@ export function Quote({ site, section }: Block) {
 
 function QuoteForm({ submit, sms }: { submit: string; sms: boolean }) {
   return (
-    <form className="space-y-4 mt-6">
+    <form className="form space-y-4 mt-6">
       <fieldset className="job-pick">
         <legend><Mark name="request_quote" />What do you need?</legend>
         <label><input type="radio" name="job" value="dent" defaultChecked /> Dent / body only</label>

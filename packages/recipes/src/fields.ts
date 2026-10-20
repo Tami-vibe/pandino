@@ -34,6 +34,7 @@ export const recipeFields = {
       priceLabel: text,
       duration: text,
     })).min(1),
+    perRow: z.enum(["2", "3", "4"]).optional(),
   }),
   "services.process-insurance": z.object({
     headline: text,

@@ -8,10 +8,10 @@ export function SiteHeader({ site, links }: { site: Site; links: Mode }) {
   const call = actionHref(liveAction(site, { type: "tel", value: site.business.phone }), site, links);
   const mark = site.business.name.trim().charAt(0) || "P";
   return (
-    <header className="site-header sticky top-0 z-50 w-full h-14 bg-base-100/80 backdrop-blur-xl border-b border-white/[0.08]" data-type="bar" data-surface="glass">
+    <header id="header" className="site-header sticky top-0 z-50 w-full h-14 bg-base-100/80 backdrop-blur-xl border-b border-white/[0.08] transition-all" data-type="bar" data-surface="transparent" data-theme="dark">
       <div className="w-full max-w-7xl 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12 h-full flex items-center justify-between">
         <a href={pageHref("/", links)} className="flex items-center gap-2.5 text-lg font-bold text-base-content no-underline">
-          <span className="w-8 h-8 rounded-xl bg-primary text-primary-content flex items-center justify-center text-sm font-extrabold">{mark}</span>
+          <span className="w-8 h-8 rounded-xl bg-primary text-primary-content flex items-center justify-center text-sm font-extrabold shadow-sm">{mark}</span>
           <span className="brand-name font-bold tracking-tight">{site.business.name}</span>
         </a>
         <nav aria-label="Main Navigation" className="hidden md:flex items-center gap-5 text-[13px] font-medium text-slate-300">
@@ -21,7 +21,7 @@ export function SiteHeader({ site, links }: { site: Site; links: Mode }) {
         </nav>
         <div className="flex items-center gap-3">
           <a className="btn btn-sm h-9 px-4 rounded-full bg-white/10 text-white border border-white/10" href={call}>Call</a>
-          <a className="btn btn-sm h-9 px-4 rounded-full btn-primary text-xs font-semibold border-none" href={pageHref("estimate", links)}>Get an estimate</a>
+          <a className="btn btn-sm h-9 px-4 rounded-full btn-primary text-xs font-semibold shadow-none border-none" href={pageHref("estimate", links)}>Get an estimate</a>
         </div>
       </div>
     </header>

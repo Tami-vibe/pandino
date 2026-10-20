@@ -32,9 +32,10 @@ export function onPreviewClick(event: MouseEvent, setSlug: (slug: string) => voi
   followLink(event, setSlug);
   if (window.parent === window) return;
   const node = (event.target as HTMLElement).closest<HTMLElement>("[data-group]");
-  if (!node?.id || !node.dataset.group) return;
-  setSpot((prev) => ({ id: node.id, tick: prev.tick + 1 }));
-  window.parent.postMessage({ type: "pandino-select", id: node.id, group: node.dataset.group }, location.origin);
+  const sid = node?.dataset.sid || node?.id;
+  if (!sid || !node?.dataset.group) return;
+  setSpot((prev) => ({ id: sid, tick: prev.tick + 1 }));
+  window.parent.postMessage({ type: "pandino-select", id: sid, group: node.dataset.group }, location.origin);
 }
 
 function followLink(event: MouseEvent, setSlug: (slug: string) => void) {

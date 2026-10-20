@@ -88,8 +88,17 @@
         "subhead": { "en-US": "Sample walkthrough. The owner replaces it with the real process." },
         "tabs": [
           { "title": { "en-US": "Before/after slider" }, "kind": "slider", "body": { "en-US": "Sample photos, not this shop." } },
-          { "title": { "en-US": "Insurance claims" }, "kind": "copy", "body": { "en-US": "We help with paperwork you ask us to handle. No insurer is named until you confirm it." } },
-          { "title": { "en-US": "How it works" }, "kind": "copy", "body": { "en-US": "Photos and a written estimate before any work. No surprise charges." } }
+          { "title": { "en-US": "Insurance claims" }, "kind": "cards", "body": { "en-US": "We help with paperwork you ask us to handle. No insurer is named until you confirm it." }, "cards": [
+            { "title": { "en-US": "Sample · paperwork" }, "body": { "en-US": "We help with the forms you ask us to handle." } },
+            { "title": { "en-US": "Sample · photos" }, "body": { "en-US": "Pictures of the damage, before anyone starts." } },
+            { "title": { "en-US": "Sample · handover" }, "body": { "en-US": "You collect the car when the work you agreed is done." } }
+          ] },
+          { "title": { "en-US": "How it works" }, "kind": "steps", "body": { "en-US": "Photos and a written estimate before any work. No surprise charges." }, "steps": [
+            { "title": { "en-US": "1. Photos" }, "body": { "en-US": "You send pictures of the damage." } },
+            { "title": { "en-US": "2. Estimate" }, "body": { "en-US": "A written estimate before work starts." } },
+            { "title": { "en-US": "3. Repair" }, "body": { "en-US": "The work you agreed to." } },
+            { "title": { "en-US": "4. Handover" }, "body": { "en-US": "You collect the car." } }
+          ] }
         ]
       },
       "style": { "background": "surface", "overlay": 0 }
@@ -140,7 +149,11 @@
       "variant": "banner",
       "fields": {
         "headline": { "en-US": "Owner offer" },
-        "subhead": { "en-US": "Sample offer. The owner has not set this. No price is shown." }
+        "subhead": { "en-US": "Sample offer. The owner has not set this. No price is shown." },
+        "offers": [
+          { "headline": { "en-US": "Owner offer" }, "subhead": { "en-US": "Sample offer. The owner has not set this. No price is shown." } },
+          { "headline": { "en-US": "Second sample offer" }, "subhead": { "en-US": "Sample. Another offer the owner can rewrite. No price is shown." } }
+        ]
       },
       "style": { "background": "none", "overlay": 0 }
     },

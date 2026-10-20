@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { htmlPages, loadSiteCss } from "@pandino/export-html";
+import { htmlPages, loadSiteCss, styleSheets } from "@pandino/export-html";
 import { wordpressTheme } from "@pandino/export-wp";
 import { zipStore } from "@pandino/export-wp/zip";
 import { validateSite } from "@pandino/schema";
@@ -9,7 +9,7 @@ export async function POST(request: Request) {
   const parsed = validateSite(await request.json().catch(() => null));
   if (!parsed.success) return NextResponse.json({ error: "Check the site before exporting." }, { status: 400 });
   try {
-    if (kind === "html") return file(Buffer.from(zipStore(htmlPages(parsed.data, loadSiteCss()))), "pandino-site.zip", "application/zip");
+    if (kind === "html") return file(Buffer.from(zipStore([...styleSheets(), ...htmlPages(parsed.data, loadSiteCss())])), "pandino-site.zip", "application/zip");
     if (kind === "wordpress") return file(Buffer.from(wordpressTheme(parsed.data)), "pandino-theme.zip", "application/zip");
   } catch {
     return NextResponse.json({ error: "Could not export." }, { status: 500 });

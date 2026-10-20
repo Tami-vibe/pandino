@@ -1,18 +1,22 @@
+/* Reset must be declared before Tailwind so the linked token reset cannot land after utilities. */
+@layer reset, theme, base, components, utilities;
 @import "tailwindcss";
-@plugin "daisyui";
+@plugin "daisyui" {
+  themes: false;
+}
 @plugin "@tailwindcss/typography";
 @source "../../../packages/recipes/src";
 @source "../../../packages/renderer/src";
 @import "./site.css";
 @import "./smiley.css";
 
-body {
+body:not(.scheme-dark) {
   margin: 0;
   background: #f7f7f5;
   color: #1f1f22;
   font-family: var(--font-inter), Inter, sans-serif;
 }
 
-button, input, textarea, select { font: inherit; color: inherit; }
+button, input, textarea, select { font: inherit; }
 
-a { color: inherit; }
+.stage a, .studio a { color: inherit; }

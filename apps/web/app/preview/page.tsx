@@ -12,6 +12,7 @@ export default function PreviewPage() {
   const [slug, setSlug] = useState("/");
   const [spot, setSpot] = useState({ id: "", tick: 0 });
   useEffect(() => {
+    document.body.classList.add("scheme-dark", "bg-base-100", "text-base-content", "antialiased");
     setSite(loadSite());
     applyTone();
     window.addEventListener("storage", applyTone);
@@ -29,11 +30,11 @@ export default function PreviewPage() {
     node.classList.add("builder");
     paintTags(node);
     node.querySelectorAll(".is-hot").forEach((item) => item.classList.remove("is-hot"));
-    if (spot.id) document.getElementById(spot.id)?.classList.add("is-hot");
+    if (spot.id) marked(spot.id)?.classList.add("is-hot");
   }, [site, slug, spot.id]);
   useEffect(() => {
     if (!spot.id || window.parent === window) return;
-    document.getElementById(spot.id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+    marked(spot.id)?.scrollIntoView({ behavior: "smooth", block: "start" });
   }, [spot.tick]);
   if (!site) return null;
   const page = site.pages.some((item) => item.slug === slug) ? slug : site.pages[0]?.slug;
@@ -58,4 +59,8 @@ function applyMessage(event: MessageEvent, setSite: (site: Site) => void, setSlu
   }
   if (data.type === "pandino-highlight") setSpot((prev) => ({ id: data.id ?? "", tick: prev.tick + 1 }));
   if (data.type === "pandino-page" && data.slug) setSlug(data.slug);
+}
+
+function marked(id: string) {
+  return document.getElementById(id) ?? document.querySelector<HTMLElement>(`[data-sid="${id}"]`);
 }
