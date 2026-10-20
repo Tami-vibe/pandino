@@ -5,7 +5,7 @@ import { TextFields } from "./fields";
 type Fields = Site["pages"][number]["sections"][number]["fields"];
 type Section = Site["pages"][number]["sections"][number];
 
-export function PageList({ site, slug, hot, onPage, onSection, onFields, onSite }: {
+export function PageList({ site, slug, hot, onPage, onSection, onFields, onSite, onPending }: {
   site: Site;
   slug: string;
   hot: string;
@@ -13,6 +13,7 @@ export function PageList({ site, slug, hot, onPage, onSection, onFields, onSite 
   onSection: (id: string, group: string) => void;
   onFields: (id: string, fields: Fields) => void;
   onSite: (next: Site) => void;
+  onPending: (next: Site | null, slug?: string) => void;
 }) {
   const page = site.pages.find((item) => item.slug === slug) ?? site.pages[0];
   if (!page) return null;
@@ -29,7 +30,7 @@ export function PageList({ site, slug, hot, onPage, onSection, onFields, onSite 
           </li>
         ))}
       </ul>
-      <PageTools site={site} page={page} onSite={onSite} onPage={onPage} />
+      <PageTools site={site} page={page} onSite={onSite} onPage={onPage} onPending={onPending} />
       <div className="section-pills">
         {page.sections.map((section) => (
           <button key={section.id} type="button" className={section.id === hot ? "on" : ""} onClick={() => onSection(section.id, section.group === "legal" ? "pages" : section.group)}>

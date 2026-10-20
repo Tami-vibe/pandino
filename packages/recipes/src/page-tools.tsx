@@ -6,12 +6,12 @@ import { MenuAdd } from "./menu-add";
 
 type Page = Site["pages"][number];
 
-export function PageTools({ site, page, onSite, onPage }: { site: Site; page: Page; onSite: (next: Site) => void; onPage: (slug: string) => void }) {
+export function PageTools({ site, page, onSite, onPage, onPending }: { site: Site; page: Page; onSite: (next: Site) => void; onPage: (slug: string) => void; onPending: (next: Site | null, slug?: string) => void }) {
   const locale = site.locales.default;
   return (
     <>
       <SeoName pageId={page.id} name={page.title[locale] ?? ""} onName={(name) => onSite(renamePage(site, page.id, name))} />
-      <MenuAdd site={site} onSite={onSite} onPage={onPage} />
+      <MenuAdd site={site} onSite={onSite} onPage={onPage} onPending={onPending} />
     </>
   );
 }

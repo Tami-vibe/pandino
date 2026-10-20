@@ -20,9 +20,9 @@ export function Studio({ initial }: { initial: Site }) {
         site={model.site} group={model.group} slug={model.slug} note={model.note} hot={model.hot}
         onFields={model.onFields} onBrand={model.onBrand} onStyle={model.onStyle} onTheme={model.onTheme} onSite={model.onSite}
         onBusiness={model.onBusiness} onSave={model.onSave}
-        onPage={model.openPage} onSection={model.openSection}
+        onPage={model.openPage} onSection={model.openSection} onPending={model.onPending}
       />
-      <Canvas site={model.site} hot={model.hot} jump={model.jump} slug={model.slug} onSelect={model.openSection} onPage={model.openPage} onDownload={model.onDownload} />
+      <Canvas site={model.pending?.site ?? model.site} hot={model.hot} jump={model.jump} slug={model.pending?.slug ?? model.slug} onSelect={model.openSection} onPage={model.openPage} onDownload={model.onDownload} />
     </div>
   );
 }
@@ -35,17 +35,19 @@ function useStudio(initial: Site) {
   const [jump, setJump] = useState(0);
   const [theme, setTheme] = useState<"light" | "dark">("dark");
   const [note, setNote] = useState("Saved");
+  const [pending, setPending] = useState<Pending>(null);
   useEffect(() => { rememberTheme(setTheme); }, []);
   function commit(next: Site) {
     const parsed = validateSite(next);
     if (!parsed.success) { setNote("Could not update the preview."); return; }
+    setPending(null);
     setSite(parsed.data);
     setNote("Saving…");
     autosaveSite(parsed.data, (ok) => setNote(ok ? "Saved" : "Add the missing text to save"));
   }
   const focus = (id: string) => focusSection(site, id, setHot, setSlug);
   return {
-    site, group, theme, note, hot, jump, slug,
+    site, group, theme, note, hot, jump, slug, pending,
     openGroup(id: RailId) { setGroup(id); focus(sectionId(site, id, slug)); setJump((n) => n + 1); },
     openSection(id: string, next: string) { if (isGroup(next)) setGroup(next); focus(id); },
     openPage(next: string) { openStudioPage(site, next, setSlug, setGroup, setHot, setJump); },
@@ -55,10 +57,20 @@ function useStudio(initial: Site) {
     onStyle: (id: string, style: Site["pages"][number]["sections"][number]["style"]) => commit(withStyle(site, id, style)),
     onTheme: (patch: Partial<Site["theme"]>) => commit(withTheme(site, patch)),
     onSite: commit,
+    onPending: (next: Site | null, slug?: string) => keepPending(next, slug ?? "", setPending, setNote),
     onBusiness: (business: Site["business"]) => commit(withBusiness(site, business)),
     onSave() { try { saveNow(site); setNote("Saved"); } catch { setNote("Add the missing text to save"); } },
     onDownload: (kind: "html" | "wordpress") => void exportSite(kind, site, setNote),
   };
+}
+
+type Pending = { site: Site; slug: string } | null;
+
+function keepPending(next: Site | null, slug: string, setPending: (value: Pending) => void, setNote: (value: string) => void) {
+  if (!next) { setPending(null); return; }
+  const parsed = validateSite(next);
+  if (!parsed.success) { setPending(null); setNote("Could not update the preview."); return; }
+  setPending({ site: parsed.data, slug });
 }
 
 function rememberTheme(setTheme: (theme: "light" | "dark") => void) {
