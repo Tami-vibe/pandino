@@ -1,13 +1,13 @@
 import type { CSSProperties } from "react";
 import type { Site } from "@pandino/schema";
 import { Recipe, StickyBar } from "@pandino/recipes";
+import { rampVars } from "@pandino/theme";
 import { SiteFooter } from "./footer";
 import { CookieBar, SiteHeader } from "./header";
 
 function vars(site: Site): CSSProperties {
   const brand = site.theme.brandColor;
-  const ink = site.theme.palette.onPrimary;
-  return { "--primary": brand, "--on-primary": ink, "--color-primary": brand, "--primary-color": brand, "--p": brand, "--primary-500": brand, "--active-500": brand } as CSSProperties;
+  return { "--primary": brand, "--on-primary": site.theme.palette.onPrimary, ...rampVars(brand) } as CSSProperties;
 }
 
 export function SitePage({ site, slug, links = "file" }: { site: Site; slug?: string; links?: "file" | "pretty" }) {

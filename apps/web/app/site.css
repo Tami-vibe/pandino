@@ -421,9 +421,9 @@ html { scroll-behavior: smooth; }
   box-shadow: none; background-image: none; text-shadow: none;
 }
 .site:not(.kit) .hero > * { grid-area: auto; }
-.site .menu { display: block; width: auto; padding: 0; font-size: inherit; }
-.site .steps { display: grid; width: auto; overflow: visible; grid-auto-flow: row; font-size: inherit; }
-.site .footer { display: block; width: auto; font-size: inherit; }
+.site:not(.kit) .menu { display: block; width: auto; padding: 0; font-size: inherit; }
+.site:not(.kit) .steps { display: grid; width: auto; overflow: visible; grid-auto-flow: row; font-size: inherit; }
+.site:not(.kit) .footer { display: block; width: auto; font-size: inherit; }
 .site:not(.kit) .card { width: auto; font-size: inherit; }
 .site .site-footer, .site .site-footer a { font-family: var(--body), var(--font-inter), Inter, sans-serif; font-size: var(--type-body); }
 .site-footer { padding: 2.6rem 1.1rem 5rem; border-top: 1px solid color-mix(in srgb, var(--text) 10%, transparent); background: color-mix(in srgb, var(--text) 4%, var(--surface)); }
@@ -453,7 +453,7 @@ html[data-cookie] .cookie-bar { display: none; }
   .foot-grid { grid-template-columns: 1.4fr 1fr 0.8fr 1fr; }
 }
 
-.site .block { padding: 4rem 1.5rem; }
+.site:not(.kit) .block { padding: 4rem 1.5rem; }
 .site:not(.kit) .card h3 { font-size: var(--type-h4); }
 .site .shot, .site .pain img, .site .ba img { border-radius: 1rem; }
 .glass { backdrop-filter: blur(18px); }
@@ -547,7 +547,7 @@ html[data-cookie] .cookie-bar { display: none; }
   .stat-row, .review-row { grid-template-columns: repeat(3, 1fr); }
 }
 @media (min-width: 64rem) {
-  .site .block { padding: 6rem 2rem; }
+  .site:not(.kit) .block { padding: 6rem 2rem; }
   .svc-grid { grid-template-columns: repeat(3, 1fr); }
   .pain-grid { grid-template-columns: repeat(3, 1fr); }
   .feature-split, .faq-split, .visit-grid, .quote-split { grid-template-columns: 0.9fr 1.1fr; align-items: center; }

@@ -1,3 +1,5 @@
+/* Reset must be declared before Tailwind so the linked token reset cannot land after utilities. */
+@layer reset, theme, base, components, utilities;
 @import "tailwindcss";
 @plugin "daisyui" {
   themes: false;
