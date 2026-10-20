@@ -11,7 +11,7 @@ type Fields = Site["pages"][number]["sections"][number]["fields"];
 
 type Style = Site["pages"][number]["sections"][number]["style"];
 
-export function Panel({ site, group, slug, note, hot, onFields, onBrand, onStyle, onTheme, onSite, onBusiness, onSave, onPage, onSection }: {
+export function Panel({ site, group, slug, note, hot, onFields, onBrand, onStyle, onTheme, onSite, onBusiness, onSave, onPage, onSection, onPending }: {
   site: Site;
   group: RailId;
   slug: string;
@@ -26,6 +26,7 @@ export function Panel({ site, group, slug, note, hot, onFields, onBrand, onStyle
   onSave: () => void;
   onPage: (slug: string) => void;
   onSection: (id: string, group: string) => void;
+  onPending: (next: Site | null, slug?: string) => void;
 }) {
   const meta = GROUPS.find((item) => item.id === group) ?? GROUPS[0];
   return (
@@ -34,7 +35,7 @@ export function Panel({ site, group, slug, note, hot, onFields, onBrand, onStyle
         <div className="ph-title"><Icon name={meta.icon} /><h1>{meta.title}</h1></div>
       </header>
       <div className="panel-body">
-        {group === "pages" ? <PageList site={site} slug={slug} hot={hot} onPage={onPage} onSection={onSection} onFields={onFields} onSite={onSite} /> : null}
+        {group === "pages" ? <PageList site={site} slug={slug} hot={hot} onPage={onPage} onSection={onSection} onFields={onFields} onSite={onSite} onPending={onPending} /> : null}
         {group === "pages" ? <BusinessInfo site={site} onBusiness={onBusiness} /> : null}
         {group === "style" ? <StyleFields site={site} onBrand={onBrand} onTheme={onTheme} /> : null}
         {group !== "pages" && group !== "style" ? <Sections site={site} slug={slug} group={group} hot={hot} onFields={onFields} onStyle={onStyle} onSite={onSite} /> : null}
