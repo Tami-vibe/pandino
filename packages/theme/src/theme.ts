@@ -86,6 +86,6 @@ export function themeFromBrand(brandColor: string) {
     spacing: "comfortable" as const,
     stickyHeader: true,
     typeScale: 1,
-    chrome: { header: "bar" as const, tone: "dark" as const, review: "dark" as const, ctas: 2 as const, place: "out" as const },
+    chrome: { header: "bar" as const, tone: "dark" as const, review: "dark" as const, ctas: 2 as const, place: "out" as const, size: 14 },
   };
 }

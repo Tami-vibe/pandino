@@ -3,12 +3,14 @@ import { actionHref, liveAction, pageHref } from "@pandino/recipes";
 
 type Mode = "file" | "pretty";
 
-export function SiteHeader({ site, links }: { site: Site; links: Mode }) {
+const SHORT: Record<string, string> = { "Process & Warranty": "Repairs", "Gallery & Reviews": "Gallery", "About & Contact": "Contact" };
+
+export function SiteHeader({ site, links, slug = "/" }: { site: Site; links: Mode; slug?: string }) {
   const locale = site.locales.default;
   const call = actionHref(liveAction(site, { type: "tel", value: site.business.phone }), site, links);
   const mark = site.business.name.trim().charAt(0) || "P";
   return (
-    <header id="header" className="site-header sticky top-0 z-50 w-full h-14 bg-base-100/80 backdrop-blur-xl border-b border-white/[0.08] transition-all" data-header={site.theme.chrome.header} data-tone={site.theme.chrome.tone} data-ctas={site.theme.chrome.ctas} data-cta-place={site.theme.chrome.place} data-theme="dark">
+    <header id="header" className="site-header sticky top-0 z-50 w-full h-14 bg-base-100/80 backdrop-blur-xl border-b border-white/[0.08] transition-all" data-header={site.theme.chrome.header} data-tone={site.theme.chrome.tone} data-ctas={site.theme.chrome.ctas} data-cta-place={site.theme.chrome.place} data-theme="dark" style={{ ["--hdr-size" as string]: `${site.theme.chrome.size}px` }}>
       <div className="w-full max-w-7xl 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12 h-full flex items-center justify-between">
         <div className="hdr-group">
           <a href={pageHref("/", links)} className="flex items-center gap-2.5 text-lg font-bold text-base-content no-underline">
@@ -17,7 +19,7 @@ export function SiteHeader({ site, links }: { site: Site; links: Mode }) {
           </a>
           <nav aria-label="Main Navigation" className="hidden md:flex items-center gap-5 text-[13px] font-medium text-slate-300">
             {site.pages.filter((page) => page.nav).map((page) => (
-              <a key={page.id} className="hover:text-white" href={pageHref(page.slug, links)}>{page.title[locale] ?? page.slug}</a>
+              <a key={page.id} className="hover:text-white" aria-current={page.slug === slug ? "page" : undefined} href={pageHref(page.slug, links)}>{SHORT[page.title[locale] ?? ""] ?? page.title[locale] ?? page.slug}</a>
             ))}
           </nav>
         </div>

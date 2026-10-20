@@ -13,9 +13,9 @@ export function spreadPages(site: Site): Site {
   const pages = [
     makePage("/", "Home", true, homeSections(pool), locale),
     makePage("services", "Services", true, menuSections(pool, next.business.vertical, locale), locale),
-    makePage("process", "Process & Warranty", true, copied(pool, "services.process-insurance"), locale),
-    makePage("gallery", "Gallery & Reviews", true, gallery(pool), locale),
-    makePage("contact", "About & Contact", true, copied(pool, "footer.contact-map"), locale),
+    makePage("process", "Repairs", true, copied(pool, "services.process-insurance"), locale),
+    makePage("gallery", "Gallery", true, gallery(pool), locale),
+    makePage("contact", "Contact", true, copied(pool, "footer.contact-map"), locale),
     makePage("estimate", "Get an estimate", false, copied(pool, "convert.quote-booking"), locale),
   ];
   for (const item of legalCopy[next.business.market]) pages.push(legalPage(item, locale));

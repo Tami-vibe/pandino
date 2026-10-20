@@ -6,10 +6,10 @@ import { addHeroMedia } from "./upload";
 
 type Section = Site["pages"][number]["sections"][number];
 type Bag = Record<string, unknown>;
-type Look = { tlh?: number; tw?: number; ttr?: number; slh?: number; sw?: number; str?: number };
+type Look = { tlh?: number; tw?: number; ttr?: number; slh?: number; sw?: number; str?: number; sz?: number };
 const ICONS = ["", "call", "calendar_month", "arrow_forward", "mail", "directions_car"];
 const NAMES: Record<string, string> = { "": "None", call: "Call", calendar_month: "Calendar", arrow_forward: "Arrow", mail: "Mail", directions_car: "Car" };
-const BASE: Look = { tlh: 1.05, tw: 800, ttr: -0.03, slh: 1.5, sw: 400, str: 0 };
+const BASE: Look = { tlh: 1.05, tw: 800, ttr: -0.03, slh: 1.5, sw: 400, str: 0, sz: 1 };
 
 export function HeroControls({ site, section, onSite }: { site: Site; section: Section; onSite: (next: Site) => void }) {
   const [msg, setMsg] = useState("");
@@ -17,6 +17,10 @@ export function HeroControls({ site, section, onSite }: { site: Site; section: S
   const look = { ...BASE, ...(fields.look as Look | undefined) };
   return (
     <div className="edits">
+      <label className="edit">
+        <span>Text size {Number(look.sz).toFixed(2)}</span>
+        <input className="range" type="range" min="0.85" max="1.45" step="0.01" aria-label="Hero text size" value={look.sz} onChange={(event) => onSite(withHero(site, section.id, { look: { ...look, sz: Number(event.target.value) } }))} />
+      </label>
       <TypeRow title="Title" look={look} keys={["tlh", "tw", "ttr"]} onLook={(next) => onSite(withHero(site, section.id, { look: next }))} />
       <TypeRow title="Subtitle" look={look} keys={["slh", "sw", "str"]} onLook={(next) => onSite(withHero(site, section.id, { look: next }))} />
       <IconRow name="primaryCta" label="Primary icon" fields={fields} onPatch={(patch) => onSite(withHero(site, section.id, patch))} />
@@ -45,7 +49,7 @@ function TypeRow({ title, look, keys, onLook }: { title: string; look: Look; key
       {keys.map((key) => (
         <label className="edit" key={key}>
           <span>{key.endsWith("w") ? "Weight" : key.endsWith("tr") ? "Spacing" : "Line height"} {key.endsWith("tr") ? Number(look[key]).toFixed(2) : look[key]}</span>
-          <input className="range" type="range" min={key.endsWith("w") ? 400 : key.endsWith("tr") ? -0.08 : 0.9} max={key.endsWith("w") ? 900 : key.endsWith("tr") ? 0.16 : key === "tlh" ? 1.4 : 2} step={key.endsWith("w") ? 100 : key.endsWith("tr") ? 0.01 : 0.05} aria-label={`${title} ${key.endsWith("w") ? "weight" : key.endsWith("tr") ? "spacing" : "line height"}`} value={look[key]} onChange={(event) => onLook({ ...look, [key]: Number(event.target.value) })} />
+          <input className="range" type="range" min={key.endsWith("w") ? 400 : key.endsWith("tr") ? -0.08 : 0.9} max={key.endsWith("w") ? 900 : key.endsWith("tr") ? 0.16 : key === "tlh" ? 1.4 : 2} step={key.endsWith("w") ? 10 : 0.01} aria-label={`${title} ${key.endsWith("w") ? "weight" : key.endsWith("tr") ? "spacing" : "line height"}`} value={look[key]} onChange={(event) => onLook({ ...look, [key]: Number(event.target.value) })} />
         </label>
       ))}
     </fieldset>
