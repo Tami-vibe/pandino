@@ -8,7 +8,7 @@ export const actionSchema = z.object({
   value: z.string().min(1).optional(),
 });
 
-const cta = z.object({ label: text, action: actionSchema });
+const cta = z.object({ label: text, action: actionSchema, icon: z.enum(["call", "calendar_month", "arrow_forward", "mail", "directions_car"]).optional() });
 const card = z.object({ title: text, body: text });
 
 export const recipeFields = {
@@ -19,6 +19,9 @@ export const recipeFields = {
     primaryCta: cta,
     secondaryCta: cta,
     image: z.object({ assetId: z.string().min(1) }),
+    look: z.object({ tlh: z.number(), tw: z.number(), ttr: z.number(), slh: z.number(), sw: z.number(), str: z.number() }).partial().optional(),
+    shade: z.enum(["soft", "bottom", "strong"]).optional(),
+    slides: z.array(z.string().min(1)).max(6).optional(),
   }),
   "pains.cards": z.object({
     headline: text,

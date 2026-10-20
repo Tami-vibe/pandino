@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import type { Site } from "@pandino/schema";
+import { HeaderStyle } from "./header-style";
 
 type Style = Site["pages"][number]["sections"][number]["style"];
-type ThemePatch = { stickyHeader?: boolean; typeScale?: number };
+type ThemePatch = Partial<Site["theme"]>;
 
 export function StyleFields({ site, onBrand, onTheme }: {
   site: Site;
@@ -33,6 +34,7 @@ export function StyleFields({ site, onBrand, onTheme }: {
         <span>Type scale {site.theme.typeScale.toFixed(2)}</span>
         <input className="range" type="range" min="0.85" max="1.25" step="0.05" value={site.theme.typeScale} aria-label="Type scale" onChange={(event) => onTheme({ typeScale: Number(event.target.value) })} />
       </label>
+      <HeaderStyle chrome={site.theme.chrome} onChrome={(chrome) => onTheme({ chrome })} />
       <p className="hint">{site.theme.fonts.heading} and {site.theme.fonts.body}. Eyebrow, heading, subhead, body, and small type follow this scale.</p>
     </div>
   );
