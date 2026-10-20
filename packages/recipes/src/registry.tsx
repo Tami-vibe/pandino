@@ -1,5 +1,6 @@
 import type { ComponentType } from "react";
-import { Hero, Menu, Pains } from "./lead";
+import { Menu, Pains } from "./lead";
+import { Hero } from "./sections/hero";
 import { Legal } from "./legal";
 import type { Block } from "./parts";
 import { Gallery, Reviews } from "./proof";

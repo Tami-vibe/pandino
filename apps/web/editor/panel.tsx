@@ -2,6 +2,7 @@ import type { Site } from "@pandino/schema";
 import { BusinessInfo } from "./business";
 import { SectionLook, StyleFields } from "./design";
 import { TextFields } from "./fields";
+import { HeroControls } from "./hero";
 import { GROUPS, recipeLabel, type RailId } from "./groups";
 import { Icon } from "./chrome";
 import { PageList } from "./pages";
@@ -10,7 +11,7 @@ type Fields = Site["pages"][number]["sections"][number]["fields"];
 
 type Style = Site["pages"][number]["sections"][number]["style"];
 
-export function Panel({ site, group, slug, note, hot, onFields, onBrand, onStyle, onTheme, onBusiness, onTitle, onSave, onPage, onSection }: {
+export function Panel({ site, group, slug, note, hot, onFields, onBrand, onStyle, onTheme, onSite, onBusiness, onTitle, onSave, onPage, onSection }: {
   site: Site;
   group: RailId;
   slug: string;
@@ -19,7 +20,8 @@ export function Panel({ site, group, slug, note, hot, onFields, onBrand, onStyle
   onFields: (id: string, fields: Fields) => void;
   onBrand: (color: string) => void;
   onStyle: (id: string, style: Style) => void;
-  onTheme: (patch: { stickyHeader?: boolean; typeScale?: number }) => void;
+  onTheme: (patch: Partial<Site["theme"]>) => void;
+  onSite: (next: Site) => void;
   onBusiness: (business: Site["business"]) => void;
   onTitle: (title: string) => void;
   onSave: () => void;
@@ -36,7 +38,7 @@ export function Panel({ site, group, slug, note, hot, onFields, onBrand, onStyle
         {group === "pages" ? <PageList site={site} slug={slug} hot={hot} onPage={onPage} onSection={onSection} onFields={onFields} /> : null}
         {group === "pages" ? <BusinessInfo site={site} onBusiness={onBusiness} onTitle={onTitle} /> : null}
         {group === "style" ? <StyleFields site={site} onBrand={onBrand} onTheme={onTheme} /> : null}
-        {group !== "pages" && group !== "style" ? <Sections site={site} slug={slug} group={group} hot={hot} onFields={onFields} onStyle={onStyle} /> : null}
+        {group !== "pages" && group !== "style" ? <Sections site={site} slug={slug} group={group} hot={hot} onFields={onFields} onStyle={onStyle} onSite={onSite} /> : null}
       </div>
       <footer className="panel-foot">
         <button type="button" className="save-btn" onClick={onSave}><Icon name="save" fill />Save</button>
@@ -46,13 +48,14 @@ export function Panel({ site, group, slug, note, hot, onFields, onBrand, onStyle
   );
 }
 
-function Sections({ site, slug, group, hot, onFields, onStyle }: {
+function Sections({ site, slug, group, hot, onFields, onStyle, onSite }: {
   site: Site;
   slug: string;
   group: RailId;
   hot: string;
   onFields: (id: string, fields: Fields) => void;
   onStyle: (id: string, style: Style) => void;
+  onSite: (next: Site) => void;
 }) {
   const sections = (site.pages.find((page) => page.slug === slug)?.sections ?? []).filter((section) => section.group === group);
   if (!sections.length) return <p className="hint">This page has no {group} section.</p>;
@@ -60,6 +63,7 @@ function Sections({ site, slug, group, hot, onFields, onStyle }: {
     <section className={section.id === hot ? "grp on" : "grp"} key={section.id}>
       <div className="grp-h"><h3>{recipeLabel(section.recipe)}</h3></div>
       <SectionLook style={section.style} onStyle={(style) => onStyle(section.id, style)} />
+      {section.recipe === "hero.split-photo" ? <HeroControls site={site} section={section} onSite={onSite} /> : null}
       <TextFields value={section.fields} locale={site.locales.default} onChange={(fields) => onFields(section.id, fields as Fields)} />
     </section>
   ));

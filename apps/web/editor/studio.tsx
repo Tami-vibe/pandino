@@ -18,7 +18,7 @@ export function Studio({ initial }: { initial: Site }) {
       <Rail site={model.site} slug={model.slug} group={model.group} theme={model.theme} onPick={model.openGroup} onTheme={model.chooseTheme} />
       <Panel
         site={model.site} group={model.group} slug={model.slug} note={model.note} hot={model.hot}
-        onFields={model.onFields} onBrand={model.onBrand} onStyle={model.onStyle} onTheme={model.onTheme}
+        onFields={model.onFields} onBrand={model.onBrand} onStyle={model.onStyle} onTheme={model.onTheme} onSite={model.onSite}
         onBusiness={model.onBusiness} onTitle={model.onTitle} onSave={model.onSave}
         onPage={model.openPage} onSection={model.openSection}
       />
@@ -55,7 +55,8 @@ function useStudio(initial: Site) {
     onFields: (id: string, fields: Site["pages"][number]["sections"][number]["fields"]) => commit(withFields(site, id, fields)),
     onBrand: (color: string) => commit(withBrand(site, color)),
     onStyle: (id: string, style: Site["pages"][number]["sections"][number]["style"]) => commit(withStyle(site, id, style)),
-    onTheme: (patch: { stickyHeader?: boolean; typeScale?: number }) => commit(withTheme(site, patch)),
+    onTheme: (patch: Partial<Site["theme"]>) => commit(withTheme(site, patch)),
+    onSite: commit,
     onBusiness: (business: Site["business"]) => commit(withBusiness(site, business)),
     onTitle: (title: string) => commit(withMeta(site, title, site.business.name)),
     onSave() { try { saveNow(site); setNote("Saved"); } catch { setNote("Add the missing text to save"); } },

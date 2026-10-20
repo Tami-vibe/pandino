@@ -12,10 +12,10 @@ export function withFields(site: Site, id: string, fields: Fields): Site {
 
 export function withBrand(site: Site, color: string): Site {
   const theme = themeFromBrand(color);
-  return { ...site, theme: { ...theme, stickyHeader: site.theme.stickyHeader, typeScale: site.theme.typeScale } };
+  return { ...site, theme: { ...theme, stickyHeader: site.theme.stickyHeader, typeScale: site.theme.typeScale, chrome: site.theme.chrome } };
 }
 
-export function withTheme(site: Site, patch: { stickyHeader?: boolean; typeScale?: number }): Site {
+export function withTheme(site: Site, patch: Partial<Site["theme"]>): Site {
   return { ...site, theme: { ...site.theme, ...patch } };
 }
 

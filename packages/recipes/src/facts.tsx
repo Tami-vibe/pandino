@@ -30,7 +30,7 @@ export function ReviewBadge({ site }: { site: Site }) {
   const sample = reviews.every((item) => item.source === "sample");
   const score = count ? Math.round(reviews.reduce((sum, item) => sum + item.rating, 0) / count) : 0;
   const label = count ? `${sample ? "Sample · " : ""}${score} · ${count} reviews` : "Sample · add your reviews";
-  return <a className="hero-reviews badge badge-neutral gap-2 py-3 px-4 border border-white/20 mb-4 inline-flex items-center" href="#reviews">{label}</a>;
+  return <a className="hero-reviews badge badge-neutral gap-2 py-3 px-4 rounded-full mb-4 inline-flex items-center" data-tone={site.theme.chrome.review} href="#reviews">{label}</a>;
 }
 
 export function MapboxMap({ query }: { query: string }) {

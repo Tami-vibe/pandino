@@ -10,7 +10,7 @@ const id = z.string().min(1);
 const text = z.record(locale, z.string().min(1));
 
 const asset = z.strictObject({
-  type: z.literal("image"),
+  type: z.enum(["image", "video"]),
   src: z.url(),
   alt: text,
   source: z.enum(["library", "owner", "placeholder", "sample"]),
@@ -52,6 +52,13 @@ export const siteSchema = z
       spacing: id,
       stickyHeader: z.boolean().default(true),
       typeScale: z.number().min(0.85).max(1.25).default(1),
+      chrome: z.strictObject({
+        header: z.enum(["bar", "pill"]).default("bar"),
+        tone: z.enum(["dark", "white"]).default("dark"),
+        review: z.enum(["dark", "white"]).default("dark"),
+        ctas: z.union([z.literal(0), z.literal(1), z.literal(2)]).default(2),
+        place: z.enum(["in", "out"]).default("out"),
+      }).default({ header: "bar", tone: "dark", review: "dark", ctas: 2, place: "out" }),
     }),
     pages: z.array(page).min(1),
     assets: z.record(id, asset),

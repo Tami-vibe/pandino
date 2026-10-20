@@ -26,13 +26,14 @@ export function liveAction(site: Site, action: Action): Action {
   return action;
 }
 
-export function Cta({ site, label, action, className }: {
+export function Cta({ site, label, action, className, icon }: {
   site: Site;
   label: Record<string, string>;
   action: Action;
   className: string;
+  icon?: string;
 }) {
-  return <a className={className} href={actionHref(liveAction(site, action), site)}>{tx(site, label)}</a>;
+  return <a className={className} href={actionHref(liveAction(site, action), site)}>{icon ? <Mark name={icon} /> : null}{tx(site, label)}</a>;
 }
 
 export function Heading({ title, body, icon }: { title: string; body?: string; icon?: string }) {

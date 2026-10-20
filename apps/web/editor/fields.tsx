@@ -1,6 +1,6 @@
 import { fieldLabel } from "./groups";
 
-const SKIP = new Set(["image", "before", "after", "action", "assetId", "formId", "placeholder"]);
+const SKIP = new Set(["image", "before", "after", "action", "assetId", "formId", "placeholder", "look", "shade", "slides"]);
 const LONG = /headline|subhead|body|quote|detail|note|caption|address|photo/;
 type Bag = Record<string, unknown>;
 
