@@ -29,11 +29,3 @@ export function withStyle(site: Site, id: string, style: Site["pages"][number]["
 export function withBusiness(site: Site, business: Site["business"]): Site {
   return { ...structuredClone(site), business };
 }
-
-export function withMeta(site: Site, title: string, name: string): Site {
-  const next = structuredClone(site);
-  const page = next.pages[0];
-  if (page) page.title = { ...page.title, [next.locales.default]: title };
-  next.business = { ...next.business, name };
-  return next;
-}

@@ -8,7 +8,7 @@ type Link = { href: string; label: string };
 export function SiteFooter({ site, links }: { site: Site; links: Mode }) {
   const locale = site.locales.default;
   const nav = site.pages.filter((page) => page.nav).map((page) => ({ href: pageHref(page.slug, links), label: page.title[locale] ?? page.slug }));
-  const legal = site.pages.filter((page) => !page.nav && page.slug !== "estimate").map((page) => ({ href: pageHref(page.slug, links), label: page.title[locale] ?? page.slug }));
+  const legal = site.pages.filter((page) => !page.nav && page.slug !== "estimate" && page.sections.every((section) => section.variant !== "page")).map((page) => ({ href: pageHref(page.slug, links), label: page.title[locale] ?? page.slug }));
   return (
     <footer id="footer" className="w-full bg-[#070A10] border-t border-white/[0.08] text-slate-300 antialiased" data-theme="dark">
       <div className="w-full max-w-7xl 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12 py-10 grid grid-cols-1 md:grid-cols-4 gap-8 text-[13px]">

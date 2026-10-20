@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { validateSite, type Site } from "@pandino/schema";
 import { SitePage } from "@pandino/renderer";
 import { loadSite } from "../../persistence/storage";
+import { seoTitle } from "../../../../packages/recipes/src/page-tools";
 import { watchInk } from "./ink";
 import { onPreviewClick, paintTags } from "./tags";
 
@@ -27,7 +28,7 @@ export default function PreviewPage() {
   }, []);
   useEffect(() => {
     const node = root.current;
-    const stop = node ? watchInk(node) : undefined;
+    if (site) document.title = seoTitle(site, slug); const stop = node ? watchInk(node) : undefined;
     if (!node || window.parent === window) return stop;
     node.classList.add("builder");
     paintTags(node);

@@ -1,4 +1,5 @@
 import type { Site } from "@pandino/schema";
+import { PageTools } from "../../../packages/recipes/src/page-tools";
 import { TextFields } from "./fields";
 
 type Fields = Site["pages"][number]["sections"][number]["fields"];
@@ -28,10 +29,10 @@ export function PageList({ site, slug, hot, onPage, onSection, onFields, onSite 
           </li>
         ))}
       </ul>
-      <label className="edit"><span>Submenu of</span><select className="studio-input" aria-label="Submenu of" value={page.parent ?? ""} onChange={(event) => onSite(setParent(site, page.id, event.target.value))}><option value="">None</option>{site.pages.filter((item) => item.nav && item.slug !== page.slug && !item.parent).map((item) => <option key={item.id} value={item.slug}>{item.title[locale] ?? item.slug}</option>)}</select></label>
+      <PageTools site={site} page={page} onSite={onSite} onPage={onPage} />
       <div className="section-pills">
         {page.sections.map((section) => (
-          <button key={section.id} type="button" className={section.id === hot ? "on" : ""} onClick={() => onSection(section.id, section.group)}>
+          <button key={section.id} type="button" className={section.id === hot ? "on" : ""} onClick={() => onSection(section.id, section.group === "legal" ? "pages" : section.group)}>
             {sectionName(section, locale)}
           </button>
         ))}
@@ -39,13 +40,6 @@ export function PageList({ site, slug, hot, onPage, onSection, onFields, onSite 
       {current ? <TextFields value={current.fields} locale={locale} onChange={(fields) => onFields(current.id, fields as Fields)} /> : null}
     </div>
   );
-}
-
-function setParent(site: Site, id: string, parent: string): Site {
-  const next = structuredClone(site);
-  const page = next.pages.find((item) => item.id === id);
-  if (page) { if (parent && parent !== page.slug) page.parent = parent; else delete page.parent; }
-  return next;
 }
 
 function sectionName(section: Section, locale: string) {

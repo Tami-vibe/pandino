@@ -11,7 +11,7 @@ const COOKIE = `<script>(function(){var k="pandino-cookie";try{var v=localStorag
 
 export function htmlDocument(site: Site, css: string, slug = site.pages[0]?.slug ?? "/") {
   const body = renderToStaticMarkup(<SitePage site={site} slug={slug} links="file" />);
-  const title = escapeHtml(site.business.name);
+  const title = escapeHtml([site.pages.find((item) => item.slug === slug)?.title[site.locales.default], site.business.name].filter((item, index, list) => item && list.indexOf(item) === index).join(" · "));
   return `<!DOCTYPE html><html lang="${site.locales.default}" data-theme="dark"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>${title}</title><link rel="stylesheet" href="${iconFontLink}"><link rel="stylesheet" href="css/tokens-base.css"><link rel="stylesheet" href="css/daisyui-components.css"><style>${FONTS}\n${css}</style></head><body class="bg-base-100 text-base-content antialiased scheme-dark">${body}${COOKIE}</body></html>`;
 }
 
