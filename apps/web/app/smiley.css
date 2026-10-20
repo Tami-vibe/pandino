@@ -106,6 +106,8 @@ footer .foot-bar[data-sticky="true"] { position: fixed; left: 0; right: 0; botto
 .site.kit header[data-header="square"] .menu :is(a, summary),
 .site.kit header[data-header="square"] .hdr-actions .btn,
 .site.kit header[data-header="square"] .hdr-fold > summary { border-radius: 0.85rem; }
+.site.kit header .menu details[open],
+.site.kit header .menu details[open]::details-content { overflow: visible; }
 .site.kit header .menu details > ul { position: absolute; top: calc(100% + 0.35rem); left: 0; z-index: 30; min-width: 11rem; padding: 0.4rem; border-radius: 1rem; background: #fff; color: #17191c; box-shadow: 0 16px 40px rgba(0, 0, 0, .18); }
 .site.kit header .menu details > ul :is(a, summary) { color: #17191c; height: auto; min-height: 2.25rem; border-radius: 0.7rem; }
 .site.kit header .hdr-fold > summary { list-style: none; cursor: pointer; min-height: 2.75rem; display: inline-flex; align-items: center; padding: 0 0.9rem; border-radius: 999px; font-weight: 600; background: color-mix(in srgb, #fff 12%, transparent); }
