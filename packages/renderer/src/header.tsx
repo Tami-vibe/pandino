@@ -1,12 +1,9 @@
 import type { Site } from "@pandino/schema";
-import { actionHref, liveAction, pageHref } from "@pandino/recipes";
+import { actionHref, liveAction, pageHref, SiteMenu } from "@pandino/recipes";
 
 type Mode = "file" | "pretty";
 
-const SHORT: Record<string, string> = { "Process & Warranty": "Repairs", "Gallery & Reviews": "Gallery", "About & Contact": "Contact" };
-
 export function SiteHeader({ site, links, slug = "/" }: { site: Site; links: Mode; slug?: string }) {
-  const locale = site.locales.default;
   const call = actionHref(liveAction(site, { type: "tel", value: site.business.phone }), site, links);
   const mark = site.business.name.trim().charAt(0) || "P";
   return (
@@ -17,11 +14,7 @@ export function SiteHeader({ site, links, slug = "/" }: { site: Site; links: Mod
             <span className="w-8 h-8 rounded-xl bg-primary text-primary-content flex items-center justify-center text-sm font-extrabold shadow-sm">{mark}</span>
             <span className="brand-name font-bold tracking-tight">{site.business.name}</span>
           </a>
-          <nav aria-label="Main Navigation" className="hidden md:flex items-center gap-5 text-[13px] font-medium text-slate-300">
-            {site.pages.filter((page) => page.nav).map((page) => (
-              <a key={page.id} className="hover:text-white" aria-current={page.slug === slug ? "page" : undefined} href={pageHref(page.slug, links)}>{SHORT[page.title[locale] ?? ""] ?? page.title[locale] ?? page.slug}</a>
-            ))}
-          </nav>
+          <SiteMenu site={site} links={links} slug={slug} />
         </div>
         <div className="hdr-actions flex items-center gap-3">
           <a className="hdr-call btn btn-sm h-9 px-4 rounded-full bg-white/10 text-white border border-white/10" href={call}>Call</a>

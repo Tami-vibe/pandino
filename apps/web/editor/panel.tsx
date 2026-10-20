@@ -35,7 +35,7 @@ export function Panel({ site, group, slug, note, hot, onFields, onBrand, onStyle
         <div className="ph-title"><Icon name={meta.icon} /><h1>{meta.title}</h1></div>
       </header>
       <div className="panel-body">
-        {group === "pages" ? <PageList site={site} slug={slug} hot={hot} onPage={onPage} onSection={onSection} onFields={onFields} /> : null}
+        {group === "pages" ? <PageList site={site} slug={slug} hot={hot} onPage={onPage} onSection={onSection} onFields={onFields} onSite={onSite} /> : null}
         {group === "pages" ? <BusinessInfo site={site} onBusiness={onBusiness} onTitle={onTitle} /> : null}
         {group === "style" ? <StyleFields site={site} onBrand={onBrand} onTheme={onTheme} /> : null}
         {group !== "pages" && group !== "style" ? <Sections site={site} slug={slug} group={group} hot={hot} onFields={onFields} onStyle={onStyle} onSite={onSite} /> : null}

@@ -3,6 +3,7 @@ import type { Block } from "./parts";
 import { VARIANTS } from "./registry";
 
 export { actionHref, liveAction, pageHref, tx } from "./parts";
+export { SiteMenu } from "./menu";
 export { placeLine, phoneLabel } from "./facts";
 export { StickyBar };
 

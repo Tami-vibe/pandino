@@ -47,11 +47,7 @@ function useStudio(initial: Site) {
     openGroup(id: RailId) { setGroup(id); focus(sectionId(site, id, slug)); setJump((n) => n + 1); },
     openSection(id: string, next: string) { if (isGroup(next)) setGroup(next); focus(id); },
     openPage(next: string) { openStudioPage(site, next, setSlug, setGroup, setHot, setJump); },
-    chooseTheme() {
-      const next = theme === "dark" ? "light" : "dark";
-      setTheme(next);
-      localStorage.setItem("pandino-theme", next);
-    },
+    chooseTheme() { const next = theme === "dark" ? "light" : "dark"; setTheme(next); localStorage.setItem("pandino-theme", next); },
     onFields: (id: string, fields: Site["pages"][number]["sections"][number]["fields"]) => commit(withFields(site, id, fields)),
     onBrand: (color: string) => commit(withBrand(site, color)),
     onStyle: (id: string, style: Site["pages"][number]["sections"][number]["style"]) => commit(withStyle(site, id, style)),
@@ -65,8 +61,7 @@ function useStudio(initial: Site) {
 }
 
 function rememberTheme(setTheme: (theme: "light" | "dark") => void) {
-  const saved = localStorage.getItem("pandino-theme");
-  const next = saved === "light" || saved === "dark" ? saved : "dark";
+  const next = localStorage.getItem("pandino-theme") === "light" ? "light" : "dark";
   setTheme(next);
   localStorage.setItem("pandino-theme", next);
 }
