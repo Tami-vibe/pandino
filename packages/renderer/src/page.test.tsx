@@ -37,7 +37,7 @@ describe("SitePage", () => {
     expect(html).toContain("Add your warranty or guarantee");
     expect(html).toContain("Sample · 5 · 3 reviews");
     expect(html).toContain("Learn more");
-    expect(html).toContain("Explore all services");
+    expect(html).toContain("See all services");
     expect(html).toContain("From damage to done, without the stress.");
     expect(html).toContain("Had an accident? We&#x27;ll take it from here.");
     expect(html).not.toContain("Google reviews");

@@ -53,6 +53,7 @@
       "fields": {
         "headline": { "en-US": "Master engineering and a clean facility" },
         "subhead": { "en-US": "Sample description. The owner writes what this shop actually does on the floor." },
+        "special": { "en-US": "Sample. What makes this shop different stays in the owner's words." },
         "specs": [
           { "label": { "en-US": "Facility" }, "value": { "en-US": "Sample · owner confirms" } },
           { "label": { "en-US": "Estimate" }, "value": { "en-US": "Written before work" } }
@@ -68,7 +69,7 @@
       "variant": "filters",
       "fields": {
         "headline": { "en-US": "Inside the shop" },
-        "subhead": { "en-US": "Sample photos, not this shop. Filter chips switch the frame." },
+        "subhead": { "en-US": "Sample photos, not this shop." },
         "filters": [
           { "name": { "en-US": "Floor" }, "assetId": "ast_hero" },
           { "name": { "en-US": "Body" }, "assetId": "ast_before" },

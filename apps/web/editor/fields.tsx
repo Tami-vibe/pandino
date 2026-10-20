@@ -13,6 +13,7 @@ export function TextFields({ value, locale, onChange }: { value: unknown; locale
 }
 
 function Field({ name, value, locale, onChange }: { name: string; value: unknown; locale: string; onChange: (next: unknown) => void }) {
+  if (name === "perRow" && typeof value === "string") return <RowPick value={value} onChange={onChange} />;
   if (SKIP.has(name) || value == null || typeof value === "boolean") return null;
   if (isCta(value, locale)) {
     const label = value.label;
@@ -35,6 +36,19 @@ function Field({ name, value, locale, onChange }: { name: string; value: unknown
   }
   if (typeof value === "string") return <Input name={name} text={value} long={LONG.test(name) || value.length > 72} onChange={onChange} />;
   return null;
+}
+
+function RowPick({ value, onChange }: { value: string; onChange: (next: string) => void }) {
+  return (
+    <label className="edit">
+      <span>Cards per row</span>
+      <select className="studio-input" aria-label="Cards per row" value={value} onChange={(event) => onChange(event.target.value)}>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+      </select>
+    </label>
+  );
 }
 
 function Input({ name, text, long, onChange }: { name: string; text: string; long: boolean; onChange: (next: string) => void }) {
