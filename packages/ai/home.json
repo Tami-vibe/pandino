@@ -161,7 +161,10 @@
       "variant": "banner",
       "fields": {
         "headline": { "en-US": "Owner offer" },
-        "subhead": { "en-US": "Sample offer. The owner has not set this. No price is shown." }
+        "subhead": { "en-US": "Sample offer. The owner has not set this. No price is shown." },
+        "offers": [
+          { "headline": { "en-US": "Second sample offer" }, "subhead": { "en-US": "Sample. Another offer the owner can rewrite. No price is shown." } }
+        ]
       },
       "style": { "background": "none", "overlay": 0 }
     },

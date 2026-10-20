@@ -34,7 +34,7 @@ export function buildSite(profile: Profile, brandColor: string, recipes: string[
     if (key in bank && safeCopy(value)) bank[key] = value.trim();
   }
   const site = fillShell(varsFor(profile, bank)) as Site;
-  site.theme = { ...themeFromBrand(brandColor), header: "bar", footer: "columns", border: 1 };
+  site.theme = { ...themeFromBrand(brandColor), header: "bar", footer: "columns", border: 1, social: "right", stickyFoot: false };
   site.pages[0]!.sections = site.pages[0]!.sections.filter((section) => recipes.includes(section.recipe));
   const parsed = validateSite(site);
   if (!parsed.success) throw new Error("Generated site failed validation");

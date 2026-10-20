@@ -22,11 +22,12 @@ export function SiteFooter({ site, links }: { site: Site; links: Mode }) {
         </div>
         <LinkList title="Services" items={serviceLinks(site, links)} />
         <LinkList title="Pages" items={nav} />
-        <div className="space-y-3">
-          <LinkList title="Legal" items={legal} />
-          <Socials site={site} />
-          <p className="text-[11px] text-slate-500">© {new Date().getFullYear()} {site.business.name}</p>
-        </div>
+        <LinkList title="Legal" items={legal} />
+      </div>
+      <div className="foot-bar" data-social={site.theme.social} data-sticky={site.theme.stickyFoot ? "true" : "false"}>
+        <p className="copy">© {new Date().getFullYear()} {site.business.name}</p>
+        <Socials site={site} />
+        <ul className="legal-links">{legal.map((item) => <li key={item.href}><a href={item.href}>{item.label}</a></li>)}</ul>
       </div>
     </footer>
   );

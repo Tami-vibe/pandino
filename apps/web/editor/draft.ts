@@ -13,7 +13,7 @@ export function withFields(site: Site, id: string, fields: Fields): Site {
 export function withBrand(site: Site, color: string): Site {
   const theme = themeFromBrand(color);
   const keep = site.theme;
-  return { ...site, theme: { ...theme, stickyHeader: keep.stickyHeader, typeScale: keep.typeScale, fonts: keep.fonts, radius: keep.radius, header: keep.header, footer: keep.footer, border: keep.border } };
+  return { ...site, theme: { ...theme, stickyHeader: keep.stickyHeader, typeScale: keep.typeScale, fonts: keep.fonts, radius: keep.radius, header: keep.header, footer: keep.footer, border: keep.border, social: keep.social, stickyFoot: keep.stickyFoot } };
 }
 
 export function withTheme(site: Site, patch: Partial<Site["theme"]>): Site {

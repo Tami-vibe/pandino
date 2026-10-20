@@ -55,6 +55,8 @@ export const siteSchema = z
       header: z.enum(["bar", "center"]).default("bar"),
       footer: z.enum(["columns", "stack"]).default("columns"),
       border: z.number().int().min(1).max(3).default(1),
+      social: z.enum(["left", "center", "right"]).default("right"),
+      stickyFoot: z.boolean().default(false),
     }),
     pages: z.array(page).min(1),
     assets: z.record(id, asset),

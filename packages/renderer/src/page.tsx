@@ -24,7 +24,7 @@ export function SitePage({ site, slug, links = "file" }: { site: Site; slug?: st
         className="site kit"
         id="top"
         data-theme="dark"
-        data-radius={site.theme.radius} data-header={site.theme.header} data-footer={site.theme.footer} data-border={site.theme.border}
+        data-radius={site.theme.radius} data-header={site.theme.header} data-footer={site.theme.footer} data-border={site.theme.border} data-social={site.theme.social} data-sticky-foot={site.theme.stickyFoot ? "true" : "false"}
         data-heading={site.theme.fonts.heading}
         data-body={site.theme.fonts.body}
         data-sticky={site.theme.stickyHeader ? "true" : "false"}
