@@ -1,6 +1,7 @@
 import type { Site } from "@pandino/schema";
 import { photo } from "../media";
 import { tx, type Block } from "../parts";
+import { Cards, Steps } from "./panels";
 import { line, rows } from "./text";
 
 export function Journey({ site, section }: Block) {
@@ -22,6 +23,8 @@ export function Journey({ site, section }: Block) {
 
 function Panel({ site, tab }: { site: Site; tab: Record<string, unknown> }) {
   if (tab.kind === "slider") return <Slider site={site} note={line(site, tab.body)} />;
+  if (tab.kind === "cards") return <Cards site={site} tab={tab} />;
+  if (tab.kind === "steps") return <Steps site={site} tab={tab} />;
   return <div className="tab-content p-6 bg-base-100 rounded-2xl border border-base-300 mt-2"><p>{line(site, tab.body)}</p></div>;
 }
 

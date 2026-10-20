@@ -9,6 +9,7 @@ export const RECIPES = [
   "trust.feature-split",
   "trust.facility-gallery",
   "trust.stats",
+  "trust.badge-bar",
   "convert.quote-booking",
   "convert.journey",
   "convert.faq",

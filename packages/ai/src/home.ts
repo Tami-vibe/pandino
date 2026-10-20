@@ -12,6 +12,7 @@ const ORDER: [string, string][] = [
   ["pains.cards", "photos"],
   ["convert.journey", "tabs"],
   ["trust.stats", "row"],
+  ["trust.badge-bar", "pills"],
   ["trust.reviews-certs", "cards"],
   ["convert.quote-booking", "split"],
   ["convert.faq", "split"],

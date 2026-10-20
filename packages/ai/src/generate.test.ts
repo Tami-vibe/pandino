@@ -39,7 +39,7 @@ describe("generateSite", () => {
     expect(hero?.recipe).toBe("hero.split-photo");
     expect(hero?.fields.primaryCta).toMatchObject({ action: { type: "tel" } });
     expect(site.pages[0]?.sections.map((section) => section.variant)).toEqual([
-      "fullscreen", "brands", "grid", "facility", "filters", "photos", "tabs", "row", "cards", "split", "split", "banner", "visit", "band",
+      "fullscreen", "brands", "grid", "facility", "filters", "photos", "tabs", "row", "pills", "cards", "split", "split", "banner", "visit", "band",
     ]);
   });
 

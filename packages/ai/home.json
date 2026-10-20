@@ -89,8 +89,17 @@
         "subhead": { "en-US": "Sample walkthrough. The owner replaces it with the real process." },
         "tabs": [
           { "title": { "en-US": "Before/after slider" }, "kind": "slider", "body": { "en-US": "Sample photos, not this shop." } },
-          { "title": { "en-US": "Insurance claims" }, "kind": "copy", "body": { "en-US": "We help with paperwork you ask us to handle. No insurer is named until you confirm it." } },
-          { "title": { "en-US": "How it works" }, "kind": "copy", "body": { "en-US": "Photos and a written estimate before any work. No surprise charges." } }
+          { "title": { "en-US": "Insurance claims" }, "kind": "cards", "body": { "en-US": "We help with paperwork you ask us to handle. No insurer is named until you confirm it." }, "cards": [
+            { "title": { "en-US": "Sample · the call" }, "body": { "en-US": "You tell us what happened. We do not name an insurer." } },
+            { "title": { "en-US": "Sample · the photos" }, "body": { "en-US": "Photos of the damage, before anyone orders parts." } },
+            { "title": { "en-US": "Sample · the paperwork" }, "body": { "en-US": "Only the forms you ask us to handle." } }
+          ] },
+          { "title": { "en-US": "How it works" }, "kind": "steps", "body": { "en-US": "Photos and a written estimate before any work. No surprise charges." }, "steps": [
+            { "title": { "en-US": "Photos" }, "body": { "en-US": "You send pictures of the damage." } },
+            { "title": { "en-US": "Estimate" }, "body": { "en-US": "A written estimate before work starts." } },
+            { "title": { "en-US": "Repair" }, "body": { "en-US": "The work you agreed to." } },
+            { "title": { "en-US": "Handover" }, "body": { "en-US": "You collect the car." } }
+          ] }
         ]
       },
       "style": { "background": "surface", "overlay": 0 }
@@ -108,7 +117,18 @@
           { "label": { "en-US": "Bays" }, "value": { "en-US": "Sample" } },
           { "label": { "en-US": "Estimates" }, "value": { "en-US": "Sample" } },
           { "label": { "en-US": "Follow-up" }, "value": { "en-US": "Sample" } }
-        ],
+        ]
+      },
+      "style": { "background": "none", "overlay": 0 }
+    },
+    {
+      "id": "tpl_badges",
+      "group": "trust",
+      "recipe": "trust.badge-bar",
+      "recipeVersion": 1,
+      "variant": "pills",
+      "fields": {
+        "headline": { "en-US": "Trust marks" },
         "badges": [
           { "en-US": "Sample · owner confirms" },
           { "en-US": "Sample · not published proof" }

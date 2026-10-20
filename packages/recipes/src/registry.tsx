@@ -13,6 +13,7 @@ import { Journey } from "./sections/journey";
 import { Logos } from "./sections/logos";
 import { Offer } from "./sections/offer";
 import { PainPhotos } from "./sections/pains";
+import { BadgeBar } from "./sections/badges";
 import { Stats } from "./sections/stats";
 import { Visit } from "./sections/visit";
 import { Footer, Process } from "./shop";
@@ -34,6 +35,7 @@ export const VARIANTS: Record<string, Record<string, View>> = {
   "trust.facility-gallery": { default: Facility, filters: Facility },
   "convert.journey": { default: Journey, tabs: Journey },
   "trust.stats": { default: Stats, row: Stats },
+  "trust.badge-bar": { default: BadgeBar, pills: BadgeBar },
   "convert.faq": { default: Faq, split: Faq },
   "convert.offer": { default: Offer, banner: Offer },
   "convert.cta-band": { default: CtaBand, band: CtaBand },

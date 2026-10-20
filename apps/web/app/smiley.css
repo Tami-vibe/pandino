@@ -325,3 +325,9 @@ html[data-tone="light"] .site.kit footer { background: #fff; color: #17191c; bor
   .site.kit .svc-grid[data-cols="4"] { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 }
 .site.kit .gal-img { height: 10rem; }
+.site.kit .tab-content:has(.steps) { position: relative; }
+.site.kit .tab-content .steps { display: flex; width: 100%; }
+.site.kit .step-line { position: absolute; top: 2.6rem; left: 12%; right: 12%; height: 2px; background: color-mix(in srgb, var(--color-base-content) 18%, transparent); overflow: hidden; }
+.site.kit .step-line::after { content: ""; display: block; height: 100%; background: var(--color-primary); transform-origin: left; animation: step-draw 1.4s ease forwards; }
+@keyframes step-draw { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+.site.kit .stars { color: var(--color-primary); letter-spacing: 0.12em; font-size: 0.95rem; }
