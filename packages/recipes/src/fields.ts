@@ -19,7 +19,7 @@ export const recipeFields = {
     primaryCta: cta,
     secondaryCta: cta,
     image: z.object({ assetId: z.string().min(1) }),
-    look: z.object({ tlh: z.number(), tw: z.number(), ttr: z.number(), slh: z.number(), sw: z.number(), str: z.number() }).partial().optional(),
+    look: z.object({ tlh: z.number(), tw: z.number(), ttr: z.number(), slh: z.number(), sw: z.number(), str: z.number(), sz: z.number() }).partial().optional(),
     shade: z.enum(["soft", "bottom", "strong"]).optional(),
     slides: z.array(z.string().min(1)).max(6).optional(),
   }),

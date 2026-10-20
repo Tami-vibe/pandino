@@ -16,6 +16,7 @@ export function isGroup(value: string): value is RailId {
 }
 
 const NAMES: Record<string, string> = {
+  "split-photo": "Hero",
   primaryCta: "Primary button", secondaryCta: "Secondary button", priceLabel: "Price",
   phoneDisplay: "Phone", phoneNote: "Phone note", mapLabel: "Map link", mapUrl: "Map URL",
   submitLabel: "Button", photoNote: "Photo note", certificationsNote: "Certifications", altContact: "Other contact",

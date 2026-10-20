@@ -24,7 +24,7 @@ export function SitePage({ site, slug, links = "file" }: { site: Site; slug?: st
         data-sticky={site.theme.stickyHeader ? "true" : "false"}
         style={vars(site)}
       >
-        <SiteHeader site={site} links={links} />
+        <SiteHeader site={site} links={links} slug={page.slug} />
         <main className="heroes-container w-full bg-base-100">
           {page.sections.map((section) => <Recipe key={section.id} site={site} section={section} />)}
           <SiteFooter site={site} links={links} />

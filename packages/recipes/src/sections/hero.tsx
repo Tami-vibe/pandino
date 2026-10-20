@@ -32,6 +32,7 @@ function heroVars(fields: Fields, overlay: number): CSSProperties {
     "--hero-slh": String(look.slh ?? 1.5),
     "--hero-sw": String(look.sw ?? 400),
     "--hero-str": `${look.str ?? 0}em`,
+    "--hero-sz": String(look.sz ?? 1),
   } as CSSProperties;
 }
 
