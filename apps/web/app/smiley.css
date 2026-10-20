@@ -331,3 +331,12 @@ html[data-tone="light"] .site.kit footer { background: #fff; color: #17191c; bor
 .site.kit .step-line::after { content: ""; display: block; height: 100%; background: var(--color-primary); transform-origin: left; animation: step-draw 1.4s ease forwards; }
 @keyframes step-draw { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 .site.kit .stars { color: var(--color-primary); letter-spacing: 0.12em; font-size: 0.95rem; }
+.site.kit .foot-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 0.8rem 1.2rem; padding: 0.8rem 1.5rem; border-top: 1px solid rgb(255 255 255 / 0.08); background: #070A10; }
+.site.kit .foot-bar .copy { margin: 0; margin-right: auto; }
+.site.kit .foot-bar .legal-links { display: flex; flex-wrap: wrap; gap: 0.75rem; margin: 0 0 0 auto; padding: 0; list-style: none; }
+.site.kit .foot-bar[data-social="center"] .socials { margin-inline: auto; }
+.site.kit .foot-bar[data-social="left"] .socials { order: -1; }
+.site.kit .foot-bar[data-sticky="true"] { position: fixed; left: 0; right: 0; bottom: 0; z-index: 40; }
+.site.kit:has(.foot-bar[data-sticky="true"]) { padding-bottom: 4rem; }
+.site.kit .socials a { font-size: 0; }
+.site.kit .socials .icon { font-size: 1.25rem; }

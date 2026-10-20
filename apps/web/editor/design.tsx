@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import type { Site } from "@pandino/schema";
 
 type Style = Site["pages"][number]["sections"][number]["style"];
-export type ThemePatch = Partial<Pick<Site["theme"], "stickyHeader" | "typeScale" | "fonts" | "radius" | "header" | "footer" | "border">>;
+export type ThemePatch = Partial<Pick<Site["theme"], "stickyHeader" | "typeScale" | "fonts" | "radius" | "header" | "footer" | "border" | "social" | "stickyFoot">>;
 
 const PAIRS = ["Syne/Manrope=Syne and Manrope", "Barlow Condensed/Inter=Barlow Condensed and Inter", "Montserrat/Inter=Montserrat and Inter", "Poppins/Poppins=Poppins", "DM Serif Display/Manrope=DM Serif Display and Manrope", "Playfair Display/Inter=Playfair Display and Inter"];
 
@@ -30,11 +30,16 @@ export function StyleFields({ site, onBrand, onTheme }: {
       <Pick label="Fonts" value={`${site.theme.fonts.heading}/${site.theme.fonts.body}`} options={PAIRS} onPick={(value) => onTheme({ fonts: { heading: value.split("/")[0] || "Syne", body: value.split("/")[1] || "Manrope" } })} />
       <Pick label="Header" value={site.theme.header} options={["bar=Bar", "center=Centered"]} onPick={(header) => onTheme({ header: header as Site["theme"]["header"] })} />
       <Pick label="Footer" value={site.theme.footer} options={["columns=Columns", "stack=Stacked"]} onPick={(footer) => onTheme({ footer: footer as Site["theme"]["footer"] })} />
+      <Pick label="Social icons" value={site.theme.social} options={["left=Left", "center=Center", "right=Right"]} onPick={(social) => onTheme({ social: social as Site["theme"]["social"] })} />
       <Pick label="Outline" value={String(site.theme.border)} options={["1=1 px", "2=2 px", "3=3 px"]} onPick={(border) => onTheme({ border: Number(border) })} />
       <Pick label="Radius" value={site.theme.radius} options={["sm=Small", "md=Medium", "lg=Large"]} onPick={(radius) => onTheme({ radius })} />
       <label className="check-row">
         <input type="checkbox" checked={site.theme.stickyHeader} onChange={(event) => onTheme({ stickyHeader: event.target.checked })} />
         Sticky header
+      </label>
+      <label className="check-row">
+        <input type="checkbox" checked={site.theme.stickyFoot} onChange={(event) => onTheme({ stickyFoot: event.target.checked })} />
+        Sticky footer bar
       </label>
       <label className="edit">
         <span>Type scale {site.theme.typeScale.toFixed(2)}</span>

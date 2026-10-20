@@ -18,13 +18,11 @@ export function Socials({ site }: { site: Site }) {
 
 function Social({ site, name, icon, label }: { site: Site; name: (typeof SOCIALS)[number][0]; icon: string; label: string }) {
   const href = site.business.socials[name];
-  const sample = href.includes("example.com");
-  if (!href.startsWith("http")) return <li><span className="note">Add {label}</span></li>;
+  const ready = href.startsWith("http");
   return (
     <li>
-      <a href={href} aria-label={sample ? `${label} (sample)` : label}>
+      <a href={ready ? href : "#footer"} aria-label={ready && !href.includes("example.com") ? label : `${label} (sample)`}>
         <span className="icon">{icon}</span>
-        {sample ? <small>sample</small> : null}
       </a>
     </li>
   );
