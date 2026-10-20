@@ -370,8 +370,10 @@ textarea.studio-input { resize: vertical; min-height: 72px; line-height: 1.4; }
 .save-btn, .save-note { font-size: 13px; }
 
 .page-list, .section-pills { display: flex; flex-direction: column; gap: 0.25rem; margin: 0 0 0.8rem; padding: 0; list-style: none; }
-.page-add { display: grid; grid-template-columns: 1fr 1fr; gap: 0.4rem; }
-.page-add .studio-input { cursor: pointer; font-weight: 600; }
+.menu-add { gap: 0.45rem; }
+.menu-add > summary { cursor: pointer; font-weight: 600; list-style: none; }
+.menu-add > summary::-webkit-details-marker { display: none; }
+.menu-add .studio-input { cursor: pointer; }
 .section-pills { flex-direction: row; flex-wrap: wrap; }
 .page-list button, .section-pills button {
   position: static; height: auto; width: auto; white-space: normal;

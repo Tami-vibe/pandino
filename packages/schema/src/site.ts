@@ -34,7 +34,7 @@ const section = z.strictObject({
   style: z.strictObject({ background: id, overlay: z.number().min(0).max(1) }),
 });
 
-const page = z.strictObject({ id, slug: id, title: text, nav: z.boolean().default(true), parent: z.string().min(1).optional(), sections: z.array(section) });
+const page = z.strictObject({ id, slug: id, title: text, menu: z.string().min(1).optional(), nav: z.boolean().default(true), parent: z.string().min(1).optional(), sections: z.array(section) });
 
 export const siteSchema = z
   .strictObject({
