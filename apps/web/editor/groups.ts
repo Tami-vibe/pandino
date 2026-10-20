@@ -43,6 +43,7 @@ const ICONS: Record<string, string> = {
   "trust.feature-split": "storefront",
   "trust.facility-gallery": "photo_camera",
   "trust.stats": "verified",
+  "trust.badge-bar": "check_circle",
   "convert.quote-booking": "request_quote",
   "convert.journey": "schedule",
   "convert.faq": "chat",
